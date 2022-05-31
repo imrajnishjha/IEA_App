@@ -1,5 +1,6 @@
 package com.example.ieaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -13,6 +14,9 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        AppCompatButton proceed_pay= findViewById(R.id.proceed_to_pay_btn);
+
+        proceed_pay.setOnClickListener(view -> startActivity(new Intent(Registration.this, payment.class)));
 
         dropdownInit();
 
