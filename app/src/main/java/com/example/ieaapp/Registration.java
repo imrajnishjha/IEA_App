@@ -9,6 +9,9 @@ import androidx.appcompat.widget.AppCompatButton;
 
 public class Registration extends AppCompatActivity {
 
+    AppCompatButton registrationBackButton;
+    AutoCompleteTextView autoCompleteTextViewDepartments;
+    AutoCompleteTextView autoCompleteTextViewPricing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,12 +19,9 @@ public class Registration extends AppCompatActivity {
 
         dropdownInit();
 
-        AppCompatButton registrationBackButton = findViewById(R.id.registration_back_button);
+        registrationBackButton = findViewById(R.id.registration_back_button);
 
-
-        registrationBackButton.setOnClickListener(view -> {
-            finish();
-        });
+        registrationBackButton.setOnClickListener(view -> finish());
     }
 
     @Override
@@ -33,12 +33,12 @@ public class Registration extends AppCompatActivity {
     public void dropdownInit() {
         String[] departments = getResources().getStringArray(R.array.department);
         ArrayAdapter<String> arrayAdapterDepartments = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, departments);
-        AutoCompleteTextView autoCompleteTextViewDepartments = findViewById(R.id.autocomplete_department_field);
+        autoCompleteTextViewDepartments = findViewById(R.id.autocomplete_department_field);
         autoCompleteTextViewDepartments.setAdapter(arrayAdapterDepartments);
 
         String[] pricing = getResources().getStringArray(R.array.pricing);
         ArrayAdapter<String> arrayAdapterPricing = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, pricing);
-        AutoCompleteTextView autoCompleteTextViewPricing = findViewById(R.id.autocomplete_pricing);
+        autoCompleteTextViewPricing = findViewById(R.id.autocomplete_pricing);
         autoCompleteTextViewPricing.setAdapter(arrayAdapterPricing);
     }
 }

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1053918944771",
+    "firebase_url": "https://iea-app-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "iea-app",
     "storage_bucket": "iea-app.appspot.com"
   },

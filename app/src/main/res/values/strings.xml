@@ -19,6 +19,11 @@
     <string name="sign_in">Sign In</string>
     <string name="core_team_member">Core Team Members</string>
     <string name="dummy_text_short">Ipsum Laura travel deuhq guanns jhasha uoptio araem</string>
+    <string name="technical_deparment_head">Technical Deparment Head</string>
+    <string name="dewansh_gangil">Dewansh Gangil</string>
+    <string name="log_out">Log out</string>
+    <string name="members_directory">Members Directory</string>
+    <string name="wormos_pvt_ltd">Wormos Pvt. Ltd</string>
 
     <string-array name="department">
         <item>Department1</item>
