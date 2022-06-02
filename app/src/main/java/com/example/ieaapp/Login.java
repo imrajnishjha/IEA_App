@@ -54,16 +54,21 @@ public class Login extends AppCompatActivity {
             loginPassword.requestFocus();
         } else {
             mAuth.signInWithEmailAndPassword(login_email, login_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+                public String replacePeriod(String login_email) {
+                    return login_email.replaceAll(".", "%7");
+                }
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(Login.this, "You are logged in!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Login.this, explore_menu.class));
+                        startActivity(new Intent(Login.this, explore_menu.class).putExtra("userEmail", replacePeriod(login_email)));
                     } else {
                         Toast.makeText(Login.this, "Login Error: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
+
     }
 }
