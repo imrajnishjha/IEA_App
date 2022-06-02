@@ -24,6 +24,19 @@
     <string name="log_out">Log out</string>
     <string name="members_directory">Members Directory</string>
     <string name="wormos_pvt_ltd">Wormos Pvt. Ltd</string>
+    <string name="payment">Payment</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="visontext1">this is vision text 1</string>
+    <string name="visontext2">this is vision text</string>
+    <string name="abouttext">this is about text</string>
+    <string name="missiontext">this is mission text</string>
+
+    <string-array name="paymethod">
+        <item>Online payment via UPI or Card,Netbanking </item>
+        <item>Manual Transfer via NEFT or BANK Transfer </item>
+        <item>Physical Method Via Cheque or Cash </item>
+    </string-array>
 
     <string-array name="department">
         <item>Department1</item>

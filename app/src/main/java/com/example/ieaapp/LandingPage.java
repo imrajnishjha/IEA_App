@@ -11,9 +11,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LandingPage extends AppCompatActivity {
 
-    AppCompatButton requestForRegistration;
-    AppCompatButton existingMember;
-    AppCompatButton exploreUs;
+    AppCompatButton requestForRegistration, existingMember;
     FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +20,12 @@ public class LandingPage extends AppCompatActivity {
 
         requestForRegistration = findViewById(R.id.request_for_membership_btn);
         existingMember = findViewById(R.id.existing_member_btn);
-        exploreUs = findViewById(R.id.explore_btn);
         mAuth = FirebaseAuth.getInstance();
 
 
         requestForRegistration.setOnClickListener(view -> startActivity(new Intent(LandingPage.this, Registration.class)));
 
         existingMember.setOnClickListener(view -> startActivity(new Intent(LandingPage.this, Login.class)));
-
-        exploreUs.setOnClickListener(view -> startActivity(new Intent(LandingPage.this, MembersDirectory.class)));
     }
 
     @Override
@@ -38,7 +33,7 @@ public class LandingPage extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            startActivity(new Intent(LandingPage.this, MembersDirectory.class));
+            startActivity(new Intent(LandingPage.this, explore_menu.class));
         }
     }
 }

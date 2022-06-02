@@ -1,5 +1,6 @@
 package com.example.ieaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -9,21 +10,22 @@ import androidx.appcompat.widget.AppCompatButton;
 
 public class Registration extends AppCompatActivity {
 
-    AppCompatButton registrationBackButton;
-    AutoCompleteTextView autoCompleteTextViewDepartments;
-    AutoCompleteTextView autoCompleteTextViewPricing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         AppCompatButton proceed_pay= findViewById(R.id.proceed_to_pay_btn);
 
+        proceed_pay.setOnClickListener(view -> startActivity(new Intent(Registration.this, payment.class)));
 
         dropdownInit();
 
-        registrationBackButton = findViewById(R.id.registration_back_button);
+        AppCompatButton registrationBackButton = findViewById(R.id.registration_back_button);
 
-        registrationBackButton.setOnClickListener(view -> finish());
+
+        registrationBackButton.setOnClickListener(view -> {
+            finish();
+        });
     }
 
     @Override
@@ -35,12 +37,12 @@ public class Registration extends AppCompatActivity {
     public void dropdownInit() {
         String[] departments = getResources().getStringArray(R.array.department);
         ArrayAdapter<String> arrayAdapterDepartments = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, departments);
-        autoCompleteTextViewDepartments = findViewById(R.id.autocomplete_department_field);
+        AutoCompleteTextView autoCompleteTextViewDepartments = findViewById(R.id.autocomplete_department_field);
         autoCompleteTextViewDepartments.setAdapter(arrayAdapterDepartments);
 
         String[] pricing = getResources().getStringArray(R.array.pricing);
         ArrayAdapter<String> arrayAdapterPricing = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, pricing);
-        autoCompleteTextViewPricing = findViewById(R.id.autocomplete_pricing);
+        AutoCompleteTextView autoCompleteTextViewPricing = findViewById(R.id.autocomplete_pricing);
         autoCompleteTextViewPricing.setAdapter(arrayAdapterPricing);
     }
 }
