@@ -15,32 +15,6 @@
         android:layout_height="match_parent"
         android:layout_margin="8dp">
 
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/core_member_profile_picture_card"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:elevation="0dp"
-            app:cardCornerRadius="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/core_member_profile_picture"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:importantForAccessibility="no"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars"/>
-        </androidx.cardview.widget.CardView>
-
         <TextView
             android:id="@+id/itemCompanyName"
             android:layout_width="wrap_content"
@@ -50,7 +24,7 @@
             android:text="@string/technical_deparment_head"
             android:textColor="#A4A4A4"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/core_member_profile_picture_card"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/itemCoreMemberNameText" />
 
         <TextView
@@ -58,12 +32,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="18dp"
             android:fontFamily="@font/poppins_semi_bold"
             android:text="@string/dewansh_gangil"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/core_member_profile_picture_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button

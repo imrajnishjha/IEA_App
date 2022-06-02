@@ -15,6 +15,7 @@ public class CoreTeamMembers extends AppCompatActivity {
     RecyclerView coreMemberRecyclerView;
     AppCompatButton coreTeamMemberBackButton;
     CoreMemberAdapter coreMemberAdapter;
+    FirebaseRecyclerOptions<CoreMemberModel> options;
 
 
     @Override
@@ -26,9 +27,8 @@ public class CoreTeamMembers extends AppCompatActivity {
         coreMemberRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         coreTeamMemberBackButton = findViewById(R.id.core_team_member_back_button);
 
-        FirebaseRecyclerOptions<CoreMemberModel> options =
-                new FirebaseRecyclerOptions.Builder<CoreMemberModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Core Team Members"), CoreMemberModel.class)
+        options = new FirebaseRecyclerOptions.Builder<CoreMemberModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Core Teams Member"), CoreMemberModel.class)
                         .build();
 
         coreMemberAdapter = new CoreMemberAdapter(options);
