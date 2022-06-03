@@ -19,7 +19,7 @@
     <string name="sign_in">Sign In</string>
     <string name="core_team_member">Core Team Members</string>
     <string name="dummy_text_short">Ipsum Laura travel deuhq guanns jhasha uoptio araem</string>
-    <string name="technical_deparment_head">Technical Deparment Head</string>
+    <string name="technical_deparment_head">Technical Department Head</string>
     <string name="dewansh_gangil">Dewansh Gangil</string>
     <string name="log_out">Log out</string>
     <string name="members_directory">Members Directory</string>
@@ -27,8 +27,21 @@
     <string name="payment">Payment</string>
     <string name="payment_method">Payment Method</string>
     <string name="pay_now">Pay Now</string>
-    <string name="visontext1">this is vision text 1</string>
-    <string name="visontext2">this is vision text</string>
+    <string name="visontext1">Global Presense of IEA Members</string>
+    <string name="visontext2">Members Growth along with Enviroment and Social Responsiblities</string>
+    <string name="visontext3">Effective Value addition in Businesses of Members</string>
+    <string name="visontext4">Close and Strong Coordiantion between Local /State /National Statutory bodies /Authorities and More than 40 Famous National Organizations</string>
+    <string name="visontext5">Empowering Youth through Academia-Industry Bridge</string>
+    <string name="benefit1">Easy Access to Govt. Schemes</string>
+    <string name="benefit2">Industrial Social Activities</string>
+    <string name="benefit3">Cultural Events within Industrial Fraternity</string>
+    <string name="benefit4">Global Industrial Relation</string>
+    <string name="benefit5">Virtual Expo</string>
+    <string name="benefit6">Connect to National/International Industry Associations</string>
+    <string name="benefit7">Instant Digital Catalog</string>
+    <string name="benefit8">Instant Publicity on Social Media</string>
+    <string name="benefit9">Discount on Health and Education Sector</string>
+    <string name="benefit10">Legal Advice and Support</string>
     <string name="abouttext">this is about text</string>
     <string name="missiontext">this is mission text</string>
 
@@ -45,9 +58,8 @@
         <item>Department4</item>
     </string-array>
     <string-array name="pricing">
-        <item>Rs. 9,999/Year *including gst* </item>
-        <item>Rs. 8,999/6 Months *including gst* </item>
-        <item>Rs. 7,999/5 Months *including gst* </item>
-        <item>Rs. 6,999/3 Months *including gst* </item>
+        <item>Rs. 3,658/Month *including gst* </item>
+        <item>Rs. 6,018/Month *including gst* </item>
+        <item>Rs. 12,980/Month *including gst* </item>
     </string-array>
 </resources>

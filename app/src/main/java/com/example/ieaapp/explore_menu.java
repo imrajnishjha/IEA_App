@@ -22,7 +22,7 @@ public class explore_menu extends AppCompatActivity {
     FirebaseAuth mAuth;
     TextView exploreUsername, descriptionUsername;
     ImageView logoutImg;
-    CardView coreMembersCard, memberDirectoryCard;
+    CardView coreMembersCard, memberDirectoryCard, grievanceCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class explore_menu extends AppCompatActivity {
         logoutImg = findViewById(R.id.logout_img);
         coreMembersCard = findViewById(R.id.core_mem);
         memberDirectoryCard = findViewById(R.id.member_directory);
+        grievanceCard = findViewById(R.id.grievance);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -71,6 +72,8 @@ public class explore_menu extends AppCompatActivity {
         coreMembersCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, CoreTeamMembers.class)));
 
         memberDirectoryCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MembersDirectory.class)));
+
+        grievanceCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Grievance.class)));
 
     }
 
