@@ -163,7 +163,7 @@
             app:layout_constraintTop_toBottomOf="@id/outbox_department_field" />
 
         <EditText
-            android:id="@+id/pricing"
+            android:id="@+id/fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -197,7 +197,7 @@
             app:layout_constraintTop_toBottomOf="@id/annual_turnover">
 
             <AutoCompleteTextView
-                android:id="@+id/autocomplete_pricing"
+                android:id="@+id/member_price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/black"

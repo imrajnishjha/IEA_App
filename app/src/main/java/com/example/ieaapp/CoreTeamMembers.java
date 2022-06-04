@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class CoreTeamMembers extends AppCompatActivity {
+public class CoreTeamMembers extends AppCompatActivity{
 
     RecyclerView coreMemberRecyclerView;
     AppCompatButton coreTeamMemberBackButton;
     CoreMemberAdapter coreMemberAdapter;
     FirebaseRecyclerOptions<CoreMemberModel> options;
+
+
 
 
     @Override
@@ -48,4 +50,5 @@ public class CoreTeamMembers extends AppCompatActivity {
         super.onStop();
         coreMemberAdapter.stopListening();
     }
+
 }

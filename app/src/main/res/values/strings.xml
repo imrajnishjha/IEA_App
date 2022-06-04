@@ -32,16 +32,16 @@
     <string name="visontext3">Effective Value addition in Businesses of Members</string>
     <string name="visontext4">Close and Strong Coordiantion between Local /State /National Statutory bodies /Authorities and More than 40 Famous National Organizations</string>
     <string name="visontext5">Empowering Youth through Academia-Industry Bridge</string>
-    <string name="benefit1">Easy Access to Govt. Schemes</string>
-    <string name="benefit2">Industrial Social Activities</string>
-    <string name="benefit3">Cultural Events within Industrial Fraternity</string>
-    <string name="benefit4">Global Industrial Relation</string>
-    <string name="benefit5">Virtual Expo</string>
-    <string name="benefit6">Connect to National/International Industry Associations</string>
-    <string name="benefit7">Instant Digital Catalog</string>
-    <string name="benefit8">Instant Publicity on Social Media</string>
-    <string name="benefit9">Discount on Health and Education Sector</string>
-    <string name="benefit10">Legal Advice and Support</string>
+    <string name="benefit1">&#8226; Easy Access to Govt. Schemes</string>
+    <string name="benefit2">&#8226; Industrial Social Activities</string>
+    <string name="benefit3">&#8226; Cultural Events within Industrial Fraternity</string>
+    <string name="benefit4">&#8226; Global Industrial Relation</string>
+    <string name="benefit5">&#8226; Virtual Expo</string>
+    <string name="benefit6">&#8226; Connect to National/International Industry Associations</string>
+    <string name="benefit7">&#8226; Instant Digital Catalog</string>
+    <string name="benefit8">&#8226; Instant Publicity on Social Media</string>
+    <string name="benefit9">&#8226; Discount on Health and Education Sector</string>
+    <string name="benefit10">&#8226; Legal Advice and Support</string>
     <string name="abouttext">this is about text</string>
     <string name="missiontext">this is mission text</string>
 
@@ -58,8 +58,8 @@
         <item>Department4</item>
     </string-array>
     <string-array name="pricing">
-        <item>Rs. 3,658/Month *including gst* </item>
-        <item>Rs. 6,018/Month *including gst* </item>
-        <item>Rs. 12,980/Month *including gst* </item>
+        <item>Rs. 3,658/Month *including gst*</item>
+        <item>Rs. 6,018/Month *including gst*</item>
+        <item>Rs. 12,980/Month *including gst*</item>
     </string-array>
 </resources>

@@ -35,9 +35,7 @@ public class Login extends AppCompatActivity {
 
         loginBackButton.setOnClickListener(view -> finish());
 
-        signInButton.setOnClickListener(view -> {
-            loginUser();
-        });
+        signInButton.setOnClickListener(view -> loginUser());
     }
 
     private void loginUser(){

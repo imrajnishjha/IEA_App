@@ -2,19 +2,20 @@ package com.example.ieaapp;
 
 public class CoreMemberModel {
 
-    String name, purl, company_name, company_address, phone_number;
+    String name, purl, company_name, company_address, phone_number, mail, designation;
 
-    CoreMemberModel()
-    {
+    CoreMemberModel() {
 
     }
 
-    public CoreMemberModel(String name, String purl, String company_name, String company_address, String phone_number) {
+    public CoreMemberModel(String name, String purl, String company_name, String company_address, String phone_number, String mail, String designation) {
         this.name = name;
         this.purl = purl;
         this.company_name = company_name;
         this.company_address = company_address;
         this.phone_number = phone_number;
+        this.mail = mail;
+        this.designation = designation;
     }
 
     public String getName() {
@@ -55,5 +56,21 @@ public class CoreMemberModel {
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 }
