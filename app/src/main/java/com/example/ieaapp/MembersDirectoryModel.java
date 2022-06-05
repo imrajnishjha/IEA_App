@@ -2,39 +2,48 @@ package com.example.ieaapp;
 
 public class MembersDirectoryModel {
 
-    String company, name2, purl2;
+    String companyName, fullname, purl, department;
 
     MembersDirectoryModel(){
 
     }
 
-    public MembersDirectoryModel(String company, String name2, String purl2) {
-        this.company = company;
-        this.name2 = name2;
-        this.purl2 = purl2;
+    public MembersDirectoryModel(String companyName, String fullname, String purl, String department) {
+        this.companyName = companyName;
+        this.fullname = fullname;
+        this.purl = purl;
+        this.department = department;
     }
 
-    public String getCompany() {
-        return company;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getName2() {
-        return name2;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setName2(String name2) {
-        this.name2 = name2;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
-    public String getPurl2() {
-        return purl2;
+    public String getPurl() {
+        return purl;
     }
 
-    public void setPurl2(String purl2) {
-        this.purl2 = purl2;
+    public void setPurl(String purl) {
+        this.purl = purl;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

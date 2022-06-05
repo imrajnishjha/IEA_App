@@ -27,11 +27,13 @@ public class MembersDirectoryAdapter extends FirebaseRecyclerAdapter<MembersDire
 
     @Override
     protected void onBindViewHolder(@NonNull MembersDirectoryViewHolder holder, int position, @NonNull MembersDirectoryModel model) {
-        holder.name2.setText(model.getName2());
-        holder.company.setText(model.getCompany());
+        holder.name2.setText(model.getFullname());
+        holder.company.setText(model.getCompanyName());
+        holder.departmentName.setText(model.getDepartment());
+
 
         Glide.with(holder.members_dir_img.getContext())
-                .load(model.getPurl2())
+                .load(model.getPurl())
                 .placeholder(R.drawable.iea_logo)
                 .circleCrop()
                 .error(R.drawable.iea_logo)
@@ -49,7 +51,7 @@ public class MembersDirectoryAdapter extends FirebaseRecyclerAdapter<MembersDire
     class MembersDirectoryViewHolder extends RecyclerView.ViewHolder{
 
         ImageView members_dir_img;
-        TextView name2, company;
+        TextView name2, company, departmentName;
 
         public MembersDirectoryViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,6 +59,7 @@ public class MembersDirectoryAdapter extends FirebaseRecyclerAdapter<MembersDire
             members_dir_img = (ImageView) itemView.findViewById(R.id.members_directory_profile_picture);
             name2 = (TextView) itemView.findViewById(R.id.members_directory_name);
             company = (TextView) itemView.findViewById(R.id.members_directory_company_name);
+            departmentName = (TextView) itemView.findViewById(R.id.members_directory_department_name);
         }
     }
 }

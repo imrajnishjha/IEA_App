@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class CoreMemberDetail extends AppCompatActivity {
 
-    TextView coreTeamMemberDetailDesignation, coreTeamMemberDetailName;
+    TextView coreTeamMemberDetailDesignation, coreTeamMemberDetailName, coreMemberDetailCompany, coreMemberDetailDepartment;
     ImageView coreTeamMemberDetailProfile;
     AppCompatButton coreTeamMemberContactButton, coreTeamMemberDetailBackButton;
     DatabaseReference databaseReference;
@@ -40,6 +40,8 @@ public class CoreMemberDetail extends AppCompatActivity {
         coreTeamMemberDetailProfile = findViewById(R.id.core_detail_profile_picture);
         coreTeamMemberContactButton = findViewById(R.id.core_detail_contact_button);
         coreTeamMemberDetailBackButton = findViewById(R.id.core_member_detail_back_button);
+        coreMemberDetailCompany = findViewById(R.id.core_detail_company);
+        coreMemberDetailDepartment = findViewById(R.id.core_detail_department);
 
 
         coreMemberContactDialog = new Dialog(this);
@@ -55,9 +57,11 @@ public class CoreMemberDetail extends AppCompatActivity {
                     String corePictureUrl = snapshot.child("purl").getValue().toString();
                     String corePhoneNumber = snapshot.child("phone_no").getValue().toString();
                     String coreEmail = snapshot.child("mail").getValue().toString();
+                    String coreCompany = snapshot.child("company_name").getValue().toString();
 
                     coreTeamMemberDetailName.setText(coreMemberName);
                     coreTeamMemberDetailDesignation.setText(coreMemberDesignation);
+                    coreMemberDetailCompany.setText(coreCompany);
 
                     Glide.with(coreTeamMemberDetailProfile.getContext())
                             .load(corePictureUrl)
