@@ -29,7 +29,8 @@
             <ImageView
                 android:id="@+id/core_team_member_profile_picture"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"/>
 
         </androidx.cardview.widget.CardView>
 
