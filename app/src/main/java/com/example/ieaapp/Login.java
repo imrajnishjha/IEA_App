@@ -54,7 +54,7 @@ public class Login extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(login_email, login_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
                 public String replacePeriod(String login_email) {
-                    return login_email.replaceAll(".", "%7");
+                    return login_email.replaceAll("\\.", "%7");
                 }
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

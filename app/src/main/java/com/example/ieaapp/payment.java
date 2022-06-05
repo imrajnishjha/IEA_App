@@ -2,7 +2,6 @@ package com.example.ieaapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -12,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -24,6 +25,12 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
     private String memberfees;
 
 
+    String fullname, email, phoneNo, companyName, Department, Turnover;
+
+    FirebaseDatabase memberDirectoryRoot;
+    DatabaseReference memberDirectoryRef;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +38,12 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         setContentView(R.layout.activity_payment);
 
         Intent intent = getIntent();
-        String fullname=intent.getStringExtra("name");
-        String email=intent.getStringExtra("email");
-        String phoneNo=intent.getStringExtra("phoneno");
-        String companyName=intent.getStringExtra("cname");
-        String Department=intent.getStringExtra("department");
-        String Turnover=intent.getStringExtra("annual_turn");
+        fullname=intent.getStringExtra("name");
+        email=intent.getStringExtra("email");
+        phoneNo=intent.getStringExtra("phoneno");
+        companyName=intent.getStringExtra("cname");
+        Department=intent.getStringExtra("department");
+        Turnover=intent.getStringExtra("annual_turn");
         memberfees=intent.getStringExtra("memberfee");
 
 
@@ -133,13 +140,23 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         return "0";
     }
 
-    @Override
-    public void onPaymentSuccess(String s) {
-        Toast.makeText(this,"Payment is sucessful",Toast.LENGTH_SHORT).show();
-    }
+
 
     @Override
     public void onPaymentError(int i, String s) {
         Toast.makeText(this,"Payment is unsucessful",Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+
+        Toast.makeText(this,"Payment is sucessful",Toast.LENGTH_SHORT).show();
+        memberDirectoryRoot = FirebaseDatabase.getInstance();
+        memberDirectoryRef = memberDirectoryRoot.getReference("Members Directory");
+
+        UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover);
+
+        memberDirectoryRef.child(email.replaceAll("\\.", "%7")).setValue(userRegistrationHelperClass);
+    }
+
 }

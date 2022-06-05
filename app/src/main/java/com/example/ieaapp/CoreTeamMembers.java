@@ -17,9 +17,6 @@ public class CoreTeamMembers extends AppCompatActivity{
     CoreMemberAdapter coreMemberAdapter;
     FirebaseRecyclerOptions<CoreMemberModel> options;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

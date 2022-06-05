@@ -136,9 +136,10 @@
                 android:fontFamily="@font/inriasans_regular"
                 android:inputType="none"
                 android:padding="12dp"
-                android:paddingTop="14dp"
                 android:text="@string/department_field"
+                android:paddingTop="14dp"
                 android:textColor="@color/black"
+                android:textColorHint="@color/grey"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -154,7 +155,7 @@
             android:fontFamily="@font/inriasans_regular"
             android:hint="@string/annual_turnover"
             android:importantForAutofill="no"
-            android:inputType="text"
+            android:inputType="number"
             android:padding="12dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
@@ -205,8 +206,8 @@
                 android:inputType="none"
                 android:padding="12dp"
                 android:paddingTop="14dp"
-                android:text="@string/rs_9_999_yearly_including_gst"
                 android:textColor="@color/black"
+                android:textColorHint="@color/grey"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
