@@ -40,7 +40,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#969696"
-            android:text="@string/dummy_text_short"
             android:fontFamily="@font/poppins_regular"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/core_team_member_text"

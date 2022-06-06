@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".explore_iea">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -39,45 +40,50 @@
             android:id="@+id/vision"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/inriasans_regular"
-            android:text="Our Vision"
             android:gravity="center"
+            android:text="Our Vision"
             android:textColor="@color/different_black"
             android:textSize="20sp"
-            android:layout_marginTop="15dp"
             app:layout_constraintTop_toBottomOf="@id/aboutiea" />
 
         <TextView
+            android:id="@+id/vision_text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/vision_text1"
-            android:textSize="12sp"
-            android:textColor="@color/different_black"
+            android:layout_margin="25dp"
+            android:fontFamily="@font/inriasans_regular"
             android:text="@string/visontext1"
             android:textAlignment="viewStart"
-            android:layout_margin="25dp"
-            app:layout_constraintTop_toBottomOf="@+id/vision"/>
+            android:textColor="@color/different_black"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/vision" />
+
         <TextView
             android:id="@+id/vision_text2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
+            android:fontFamily="@font/inriasans_regular"
             android:text="@string/visontext2"
             android:textAlignment="viewStart"
             android:textColor="@color/different_black"
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@+id/vision_text1"
             tools:layout_editor_absoluteX="25dp" />
+
         <TextView
+            android:id="@+id/vision_text3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/vision_text3"
-            android:textSize="12sp"
-            android:textColor="@color/different_black"
+            android:layout_margin="25dp"
+            android:fontFamily="@font/inriasans_regular"
             android:text="@string/visontext3"
             android:textAlignment="viewStart"
-            android:layout_margin="25dp"
-            app:layout_constraintTop_toBottomOf="@+id/vision_text2"/>
+            android:textColor="@color/different_black"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/vision_text2" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/aboutcard"
@@ -86,13 +92,13 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_alignParentStart="true"
-            app:layout_constraintTop_toBottomOf="@+id/vision_text3"
-            android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="10dp"
             app:cardBackgroundColor="@color/different_black"
             app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
+            app:cardElevation="6dp"
+            app:layout_constraintTop_toBottomOf="@+id/vision_text3">
 
 
             <LinearLayout
@@ -103,47 +109,47 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:fontFamily="@font/inriasans_regular"
-                    android:text="About Us"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inriasans_regular"
                     android:gravity="center"
+                    android:text="About Us"
                     android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/abouttext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="28dp"
                     android:fontFamily="@font/inriasans_regular"
                     android:text="@string/abouttext"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginTop="15dp"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="Our Mission"
-                    android:fontFamily="@font/inriasans_regular"
-                    android:textSize="20sp"
-                    android:gravity="center"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/white"/>
+                    android:fontFamily="@font/inriasans_regular"
+                    android:gravity="center"
+                    android:text="Our Mission"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/missiontext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="28dp"
+                    android:layout_marginBottom="28dp"
                     android:fontFamily="@font/inriasans_regular"
                     android:text="@string/missiontext"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="10dp"
                     android:textColor="@color/white"
-                    android:textSize="12sp"/>
-
+                    android:textSize="12sp" />
 
 
             </LinearLayout>
@@ -154,76 +160,77 @@
             android:id="@+id/vision2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/inriasans_regular"
-            android:text="Our Vision"
             android:gravity="center"
+            android:text="Our Vision"
             android:textColor="@color/different_black"
             android:textSize="20sp"
-            android:layout_marginTop="15dp"
             app:layout_constraintTop_toBottomOf="@id/aboutcard" />
 
         <TextView
+            android:id="@+id/vision_text4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/vision_text4"
-            android:textSize="12sp"
-            android:textColor="@color/different_black"
-            android:textAlignment="viewStart"
-            android:text="@string/visontext4"
             android:layout_margin="25dp"
-            app:layout_constraintTop_toBottomOf="@+id/vision2"/>
+            android:fontFamily="@font/inriasans_regular"
+            android:text="@string/visontext4"
+            android:textAlignment="viewStart"
+            android:textColor="@color/different_black"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/vision2" />
 
         <TextView
+            android:id="@+id/vision_text5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/vision_text5"
-            android:textSize="12sp"
-            android:textColor="@color/different_black"
-            android:textAlignment="viewStart"
-            android:text="@string/visontext5"
             android:layout_margin="25dp"
-            app:layout_constraintTop_toBottomOf="@+id/vision_text4"/>
-
+            android:fontFamily="@font/inriasans_regular"
+            android:text="@string/visontext5"
+            android:textAlignment="viewStart"
+            android:textColor="@color/different_black"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/vision_text4" />
 
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
             android:id="@+id/help"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="70dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="15dp"
-            app:cardCornerRadius="12dp"
             app:cardBackgroundColor="@color/different_black"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vision_text5">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Contact Support for Help"
-                android:fontFamily="@font/inriasans_regular"
-                android:textSize="16sp"
-                android:gravity="center"
                 android:layout_margin="5dp"
-                android:textColor="@color/white"/>
+                android:fontFamily="@font/inriasans_regular"
+                android:gravity="center"
+                android:text="Contact Support for Help"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
         </androidx.cardview.widget.CardView>
 
         <ImageView
+            android:id="@+id/help_btnr"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/help_btnr"
-            android:src="@drawable/help"
-            app:layout_constraintStart_toEndOf="@+id/help"
-            app:layout_constraintTop_toBottomOf="@+id/vision_text5"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/round_corner"
-            android:layout_marginEnd="20dp"/>
+            android:src="@drawable/help"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/help"
+            app:layout_constraintTop_toBottomOf="@+id/vision_text5" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
