@@ -16,6 +16,7 @@ public class LandingPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_landing_page);
 
         requestForRegistration = findViewById(R.id.request_for_membership_btn);

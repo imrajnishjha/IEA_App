@@ -160,8 +160,9 @@
                     android:layout_marginEnd="28dp"
                     android:fontFamily="@font/inriasans_regular"
                     android:text="@string/abouttext"
+                    android:textAlignment="center"
                     android:textColor="@color/grey"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -183,8 +184,9 @@
                     android:layout_marginBottom="28dp"
                     android:fontFamily="@font/inriasans_regular"
                     android:text="@string/missiontext"
+                    android:textAlignment="center"
                     android:textColor="@color/grey"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
 
             </LinearLayout>
@@ -228,15 +230,16 @@
                     android:id="@+id/review"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginEnd="28dp"
                     android:fontFamily="@font/poppins_regular"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginEnd="28dp"
                     android:text="@string/overview"
-                    android:gravity="left"
+                    android:textAlignment="center"
                     android:textColor="@color/grey"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/overview" />
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@+id/overview"
+                    tools:layout_editor_absoluteX="28dp" />
 
                 <TextView
                     android:id="@+id/benefit"
@@ -255,17 +258,14 @@
                     android:id="@+id/benefit_text5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:text="@string/benefits"
                     android:textAlignment="viewStart"
                     android:textColor="@color/grey"
-                    android:textSize="12sp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginEnd="28dp"
-                    android:layout_marginBottom="16dp"
+                    android:textSize="14sp"
                     app:layout_constraintTop_toBottomOf="@id/benefit"
-                    tools:layout_editor_absoluteX="15dp"
-                    tools:layout_editor_absoluteY="436dp" />
+                    android:layout_marginStart="28dp"
+                    tools:layout_editor_absoluteX="15dp" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"

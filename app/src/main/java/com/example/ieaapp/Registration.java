@@ -83,19 +83,20 @@ public class Registration extends AppCompatActivity {
 
         Thread t = new Thread() {
 
-            long annualturnover;
+            long annualturnover= -1;
 
             @Override
             public void run() {
                 while (!isInterrupted()) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (!Annual_turn.getText().toString().isEmpty()) {
                                     long annualturnover = Long.valueOf(Annual_turn.getText().toString());
                                     Log.d("turnover", "onCreate: " + annualturnover);
+
 
                                     if (annualturnover < 50000000) {
                                         member_fee.setHint("(Recommended) Rs. 3,658/Month *including gst*");
@@ -110,6 +111,9 @@ public class Registration extends AppCompatActivity {
                                         dropdownmembershipfee();
 
                                     }
+                                }
+                                else{
+                                    member_fee.setHint("Membership Fees");
                                 }
                             }
                         });

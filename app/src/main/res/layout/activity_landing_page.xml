@@ -4,26 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="#FCFFFFFF"
+    android:scrollbars="horizontal"
     tools:context=".LandingPage"
-    android:scrollbars="horizontal">
-
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="48dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/splash_logo"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="75dp"
             android:importantForAccessibility="no"
             android:src="@drawable/iea_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/landing_page_text"/>
 
         <TextView
             android:id="@+id/landing_page_text"
@@ -39,17 +39,18 @@
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/home_background_img"
             app:layout_constraintTop_toBottomOf="@id/splash_logo" />
 
-        <ImageView
+        <pl.droidsonroids.gif.GifImageView
             android:id="@+id/home_background_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:alpha="0.2"
+            app:layout_constraintBottom_toTopOf="@id/explore_btn"
             android:importantForAccessibility="no"
             android:scaleType="fitStart"
-            android:src="@drawable/home_background_img"
+            android:src="@drawable/handshake"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/landing_page_text" />
@@ -68,41 +69,44 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_background_img" />
+            android:layout_marginBottom="28dp"
+            app:layout_constraintBottom_toTopOf="@id/request_for_membership_btn"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/request_for_membership_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/button_style_black_smaller"
             android:fontFamily="@font/inter_semi_bold"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/request_for_membership"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/explore_btn"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/existing_member_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/button_style_white_smaller"
             android:fontFamily="@font/inter_semi_bold"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/existing_member"
             android:textAllCaps="false"
             android:textColor="#151515"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/explore_btn"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="24dp"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -47,9 +47,8 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         memberfees=intent.getStringExtra("memberfee");
 
 
-        String[] pricing = getResources().getStringArray(R.array.pricing);
-        ArrayAdapter<String> arrayAdapterPricing = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, pricing);
-        TextView autoCompleteTextViewPricing = findViewById(R.id.member_price);
+
+
 
         String[] payment = getResources().getStringArray(R.array.paymethod);
         ArrayAdapter<String> arrayAdapterPaymethod = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, payment);
@@ -58,10 +57,8 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
 
         AppCompatButton registrationBackButton = findViewById(R.id.payment_back_button);
 
-
         registrationBackButton.setOnClickListener(view -> {
             finish();
-
         });
 
 
@@ -157,6 +154,16 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover);
 
         memberDirectoryRef.child(email.replaceAll("\\.", "%7")).setValue(userRegistrationHelperClass);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String[] payment = getResources().getStringArray(R.array.paymethod);
+        ArrayAdapter<String> arrayAdapterPaymethod = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, payment);
+        AutoCompleteTextView autoCompleteTextViewPayment = findViewById(R.id.autocomplete_payment);
+        autoCompleteTextViewPayment.setAdapter(arrayAdapterPaymethod);
+
     }
 
 }
