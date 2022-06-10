@@ -96,4 +96,11 @@
         <item>Rs. 6,018/Month *including gst*</item>
         <item>Rs. 12,980/Month *including gst*</item>
     </string-array>
+
+    <string-array name="company_turnover">
+        <item>Below 5cr</item>
+        <item>Between 5cr and 10cr</item>
+        <item>Above 10cr</item>
+    </string-array>
+
 </resources>

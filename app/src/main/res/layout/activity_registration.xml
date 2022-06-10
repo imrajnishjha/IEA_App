@@ -148,24 +148,40 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/annual_turnover"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outbox_Annual_turnover"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/edittext_style_white_smaller"
-            android:fontFamily="@font/inriasans_regular"
-            android:hint="@string/annual_turnover"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:padding="12dp"
-            android:textColor="@color/black"
+            android:background="#F5F5F5"
             android:textColorHint="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/outbox_department_field" />
+            app:hintTextColor="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="2.5dp"
+            app:endIconDrawable="@drawable/ic_down_arrow"
+            app:endIconTint="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/outbox_department_field">
+
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete_annual_turnover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F5F5F5"
+                android:fontFamily="@font/inriasans_regular"
+                android:inputType="none"
+                android:padding="12dp"
+                android:paddingTop="14dp"
+                android:hint="Annual Turnover"
+                android:textColorHint="@color/black"
+                app:hintTextColor="@color/black"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:ignore="LabelFor,TextContrastCheck"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <EditText
             android:id="@+id/fullname"
@@ -186,41 +202,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/register_text" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outbox_pricing"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        <TextView
+            android:id="@+id/member_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:background="#F5F5F5"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="2.5dp"
-            app:endIconDrawable="@drawable/ic_down_arrow"
-            app:endIconTint="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/annual_turnover">
+            android:background="@drawable/edittext_style_white_smaller"
+            android:fontFamily="@font/inriasans_regular"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/outbox_Annual_turnover"/>
 
-            <AutoCompleteTextView
-                android:id="@+id/member_price"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/black"
-                android:fontFamily="@font/inriasans_regular"
-                android:inputType="none"
-                android:padding="12dp"
-                android:paddingTop="14dp"
-                android:textColorHint="@color/grey"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/registration_null_textview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/outbox_pricing"
+            app:layout_constraintTop_toBottomOf="@id/reg_refer_code"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/proceed_to_pay_btn"/>
@@ -257,6 +261,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reg_refer_code"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edittext_style_white_smaller"
+            android:fontFamily="@font/inriasans_regular"
+            android:hint="Refer Code"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/member_price"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

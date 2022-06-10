@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,10 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
+        EditText amount_payingnow = findViewById(R.id.amount_paynow);
+        TextView amount_payinglater = findViewById(R.id.amount_paylater);
+
+
         Intent intent = getIntent();
         fullname=intent.getStringExtra("name");
         email=intent.getStringExtra("email");
@@ -67,6 +72,35 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         paynow = findViewById(R.id.paynow_btn);
         String finalAmount = feeConverter(memberfees);
 
+        Thread amount_calculation = new Thread(){
+
+            @Override
+            public void run() {
+                while(!isInterrupted()){
+
+                    try {
+                        Thread.sleep(100);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(!amount_payingnow.getText().toString().isEmpty()){
+                                    Long paying_now = Long.parseLong(amount_payingnow.getText().toString());
+                                    Long final_amount_integer = Long.parseLong(finalAmount);
+                                    Long paying_later_integer = final_amount_integer-paying_now;
+                                    amount_payinglater.setText(paying_later_integer.toString());
+                                }
+                            }
+                        });
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        };
+        amount_calculation.start();
+
 
 
         //Payment
@@ -76,7 +110,7 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
             public void onClick(View v) {
                 // on below line we are getting
                 // amount that is entered by user.
-                String samount=finalAmount;
+                String samount="100";
 
                 // rounding off the amount.
                 int amounts = Math.round(Float.parseFloat(samount) * 100);
@@ -125,19 +159,17 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
     }
 
     public String feeConverter(String s){
-        if(s.equals("Rs. 3,658/Month *including gst*")){
+        if(s.equals("Rs. 3,658/Yearly *including gst*")){
             return "3658";
         }
-        if(s.equals("Rs. 6,018/Month *including gst*")){
+        if(s.equals("Rs. 6,018/Yearly *including gst*")){
             return "6018";
         }
-        if(s.equals("Rs. 12,980/Month *including gst*")){
+        if(s.equals("Rs. 12,980/Yearly *including gst*")){
             return "12980";
         }
         return "0";
     }
-
-
 
     @Override
     public void onPaymentError(int i, String s) {

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -19,8 +20,9 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         AppCompatButton proceed_pay = findViewById(R.id.proceed_to_pay_btn);
-        EditText Annual_turn = findViewById(R.id.annual_turnover);
-        AutoCompleteTextView member_fee = findViewById(R.id.member_price);
+        AutoCompleteTextView Annual_turn = findViewById(R.id.autocomplete_annual_turnover);
+        TextView member_fee = findViewById(R.id.member_price);
+        EditText referal_code = findViewById(R.id.reg_refer_code);
 
 
         proceed_pay.setOnClickListener(new View.OnClickListener() {
@@ -33,8 +35,8 @@ public class Registration extends AppCompatActivity {
                 EditText phoneNo = findViewById(R.id.number);
                 EditText Comapany_name = findViewById(R.id.company_name);
                 AutoCompleteTextView Department = findViewById(R.id.autocomplete_department_field);
-                EditText Annual_turn = findViewById(R.id.annual_turnover);
-                AutoCompleteTextView member_fee = findViewById(R.id.member_price);
+                AutoCompleteTextView Annual_turn = findViewById(R.id.autocomplete_annual_turnover);
+                TextView member_fee = findViewById(R.id.member_price);
 
                 intent.putExtra("name", fullname.getText().toString());
                 intent.putExtra("email", email.getText().toString());
@@ -73,6 +75,8 @@ public class Registration extends AppCompatActivity {
         });
 
         dropdownInit();
+        dropdownannualturnover();
+
 
         AppCompatButton registrationBackButton = findViewById(R.id.registration_back_button);
 
@@ -81,9 +85,11 @@ public class Registration extends AppCompatActivity {
             finish();
         });
 
+
+
+
         Thread t = new Thread() {
 
-            long annualturnover= -1;
 
             @Override
             public void run() {
@@ -94,21 +100,18 @@ public class Registration extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (!Annual_turn.getText().toString().isEmpty()) {
-                                    long annualturnover = Long.valueOf(Annual_turn.getText().toString());
-                                    Log.d("turnover", "onCreate: " + annualturnover);
+
+                                    if (Annual_turn.getText().toString().equals("Below 5cr")) {
+                                        member_fee.setText("Rs. 3,658/Yearly *including gst*");
 
 
-                                    if (annualturnover < 50000000) {
-                                        member_fee.setHint("(Recommended) Rs. 3,658/Month *including gst*");
-                                        dropdownmembershipfee();
+                                    } else if (Annual_turn.getText().toString().equals("Between 5cr and 10cr")) {
+                                        member_fee.setText("Rs. 6,018/Yearly *including gst*");
 
-                                    } else if (annualturnover < 100000000) {
-                                        member_fee.setHint("(Recommended) Rs. 6,018/Month *including gst*");
-                                        dropdownmembershipfee();
 
-                                    } else if (annualturnover >= 100000000) {
-                                        member_fee.setHint("(Recommended) Rs. 12,980/Month *including gst*");
-                                        dropdownmembershipfee();
+                                    } else if (Annual_turn.getText().toString().equals("Above 10cr")) {
+                                        member_fee.setText("Rs. 12,980/Yearly *including gst*");
+
 
                                     }
                                 }
@@ -136,6 +139,7 @@ public class Registration extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         dropdownInit();
+        dropdownannualturnover();
     }
 
     public void dropdownInit() {
@@ -146,11 +150,11 @@ public class Registration extends AppCompatActivity {
 
     }
 
-    public void dropdownmembershipfee() {
 
-        String[] pricing = getResources().getStringArray(R.array.pricing);
-        ArrayAdapter<String> arrayAdapterPricing = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, pricing);
-        AutoCompleteTextView autoCompleteTextViewPricing = findViewById(R.id.member_price);
-        autoCompleteTextViewPricing.setAdapter(arrayAdapterPricing);
+    public void dropdownannualturnover(){
+        String[] turnover = getResources().getStringArray(R.array.company_turnover);
+        ArrayAdapter<String> arrayAdapterTurnover = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, turnover);
+        AutoCompleteTextView Annual_turns = findViewById(R.id.autocomplete_annual_turnover);
+        Annual_turns.setAdapter(arrayAdapterTurnover);
     }
 }

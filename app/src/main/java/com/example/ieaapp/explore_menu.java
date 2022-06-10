@@ -1,5 +1,6 @@
 package com.example.ieaapp;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,9 +11,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +29,7 @@ public class explore_menu extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     TextView exploreUsername, descriptionUsername;
-    ImageView logoutImg;
+    ImageView logoutImg, userImage;
     CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer;
     Dialog exploreIeaContactDialog;
     DatabaseReference databaseReference;
@@ -45,33 +48,42 @@ public class explore_menu extends AppCompatActivity {
         contactUs = findViewById(R.id.explore_menu_contact_us_cardView);
         refer = findViewById(R.id.refer);
         exploreIeaContactDialog = new Dialog(this);
+        userImage = findViewById(R.id.user_img);
 
         mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Registered Users");
 
-        String userEmail = mAuth.getCurrentUser().getEmail();
+        String userEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
 
+        assert userEmail != null;
         String userEmailConverted = userEmail.replaceAll("\\.", "%7");
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Registered Users/"+userEmailConverted);
+        DatabaseReference ref = database.getReference("Registered Users/" + userEmailConverted);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String userNameDatabase = Objects.requireNonNull(dataSnapshot.child("name").getValue().toString());
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String userNameDatabase = Objects.requireNonNull(Objects.requireNonNull(dataSnapshot.child("name").getValue()).toString());
                 exploreUsername.setText(userNameDatabase);
                 descriptionUsername.setText(userNameDatabase);
+                String corePictureUrl = Objects.requireNonNull(dataSnapshot.child("purl").getValue()).toString();
+
+                Glide.with(userImage.getContext())
+                        .load(corePictureUrl)
+                        .placeholder(R.drawable.iea_logo)
+                        .circleCrop()
+                        .error(R.drawable.iea_logo)
+                        .into(userImage);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
 
-
-
-        CardView explore=(CardView) findViewById(R.id.explore);
+        CardView explore = (CardView) findViewById(R.id.explore);
         explore.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, explore_iea.class)));
 
         logoutImg.setOnClickListener(view -> {
@@ -88,12 +100,12 @@ public class explore_menu extends AppCompatActivity {
         refer.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Refer.class)));
 
         contactUs.setOnClickListener(view -> {
-                LayoutInflater inflater = getLayoutInflater();
-                View exploreUsView = inflater.inflate(R.layout.support_contact_popup, null);
+            LayoutInflater inflater = getLayoutInflater();
+            @SuppressLint("InflateParams") View exploreUsView = inflater.inflate(R.layout.support_contact_popup, null);
 
-                exploreIeaContactDialog.setContentView(exploreUsView);
-                exploreIeaContactDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                exploreIeaContactDialog.show();
+            exploreIeaContactDialog.setContentView(exploreUsView);
+            exploreIeaContactDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            exploreIeaContactDialog.show();
         });
 
     }

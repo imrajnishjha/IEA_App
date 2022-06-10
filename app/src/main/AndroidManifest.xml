@@ -16,6 +16,9 @@
         android:theme="@style/Theme.IEAApp"
         tools:targetApi="28">
         <activity
+            android:name=".UserProfile"
+            android:exported="false" />
+        <activity
             android:name=".Refer"
             android:exported="false" />
         <activity

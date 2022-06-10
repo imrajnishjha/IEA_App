@@ -67,7 +67,6 @@ public class CoreMemberAdapter extends FirebaseRecyclerAdapter<CoreMemberModel, 
         ImageView img;
         TextView name, companyName;
         Button detailButton;
-//        View coreMemberView;
 
         public CoreMemberViewHolder(@NonNull View itemView) {
             super(itemView);

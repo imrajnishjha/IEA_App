@@ -42,7 +42,7 @@
             app:layout_constraintBottom_toTopOf="@id/home_background_img"
             app:layout_constraintTop_toBottomOf="@id/splash_logo" />
 
-        <pl.droidsonroids.gif.GifImageView
+        <ImageView
             android:id="@+id/home_background_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             app:layout_constraintBottom_toTopOf="@id/explore_btn"
             android:importantForAccessibility="no"
             android:scaleType="fitStart"
-            android:src="@drawable/handshake"
+            android:src="@drawable/home_background_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/landing_page_text" />
@@ -109,7 +109,6 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </ScrollView>
