@@ -16,6 +16,9 @@
         android:theme="@style/Theme.IEAApp"
         tools:targetApi="28">
         <activity
+            android:name=".Refer"
+            android:exported="false" />
+        <activity
             android:name=".CoreMemberDetail"
             android:exported="false" />
         <activity
@@ -51,8 +54,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -297,7 +297,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/help"
+            android:id="@+id/explore_us_contact_us_card"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
@@ -315,7 +315,7 @@
                 android:layout_margin="5dp"
                 android:fontFamily="@font/inriasans_regular"
                 android:gravity="center"
-                android:text="Contact Support for Help"
+                android:text="Contact Us"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -333,7 +333,7 @@
             android:importantForAccessibility="no"
             android:src="@drawable/help"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/help"
+            app:layout_constraintStart_toEndOf="@+id/explore_us_contact_us_card"
             app:layout_constraintTop_toBottomOf="@+id/overviewcard" />
 
 

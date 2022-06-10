@@ -1,7 +1,12 @@
 package com.example.ieaapp;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +27,9 @@ public class explore_menu extends AppCompatActivity {
     FirebaseAuth mAuth;
     TextView exploreUsername, descriptionUsername;
     ImageView logoutImg;
-    CardView coreMembersCard, memberDirectoryCard, grievanceCard;
+    CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer;
+    Dialog exploreIeaContactDialog;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,9 @@ public class explore_menu extends AppCompatActivity {
         coreMembersCard = findViewById(R.id.core_mem);
         memberDirectoryCard = findViewById(R.id.member_directory);
         grievanceCard = findViewById(R.id.grievance);
+        contactUs = findViewById(R.id.explore_menu_contact_us_cardView);
+        refer = findViewById(R.id.refer);
+        exploreIeaContactDialog = new Dialog(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -74,6 +84,17 @@ public class explore_menu extends AppCompatActivity {
         memberDirectoryCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MembersDirectory.class)));
 
         grievanceCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Grievance.class)));
+
+        refer.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Refer.class)));
+
+        contactUs.setOnClickListener(view -> {
+                LayoutInflater inflater = getLayoutInflater();
+                View exploreUsView = inflater.inflate(R.layout.support_contact_popup, null);
+
+                exploreIeaContactDialog.setContentView(exploreUsView);
+                exploreIeaContactDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                exploreIeaContactDialog.show();
+        });
 
     }
 
