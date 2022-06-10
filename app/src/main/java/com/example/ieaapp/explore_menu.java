@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 
@@ -33,6 +37,7 @@ public class explore_menu extends AppCompatActivity {
     CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer;
     Dialog exploreIeaContactDialog;
     DatabaseReference databaseReference;
+    StorageReference storageProfilePicReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class explore_menu extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Registered Users");
+        storageProfilePicReference = FirebaseStorage.getInstance().getReference();
 
         String userEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
 
@@ -61,20 +67,25 @@ public class explore_menu extends AppCompatActivity {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Registered Users/" + userEmailConverted);
 
+        StorageReference fileRef = storageProfilePicReference.child("User Profile Pictures/" + mAuth.getCurrentUser().getEmail().toString()+"ProfilePicture");
+        fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(userImage.getContext())
+                        .load(uri)
+                        .placeholder(R.drawable.iea_logo)
+                        .circleCrop()
+                        .error(R.drawable.iea_logo)
+                        .into(userImage);
+            }
+        });
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String userNameDatabase = Objects.requireNonNull(Objects.requireNonNull(dataSnapshot.child("name").getValue()).toString());
                 exploreUsername.setText(userNameDatabase);
                 descriptionUsername.setText(userNameDatabase);
-                String corePictureUrl = Objects.requireNonNull(dataSnapshot.child("purl").getValue()).toString();
-
-                Glide.with(userImage.getContext())
-                        .load(corePictureUrl)
-                        .placeholder(R.drawable.iea_logo)
-                        .circleCrop()
-                        .error(R.drawable.iea_logo)
-                        .into(userImage);
             }
 
             @Override
@@ -108,6 +119,16 @@ public class explore_menu extends AppCompatActivity {
             exploreIeaContactDialog.show();
         });
 
+        userImage.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, UserProfile.class)));
+
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 
 }

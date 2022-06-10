@@ -1,21 +1,29 @@
 package com.example.ieaapp;
 
 public class UserRegistrationHelperClass {
-    String fullname, email, phoneNo, companyName, Department, Turnover;
+    String fullname, email, phoneNo, companyName, Department, Turnover,imageUrl;
 
     public  UserRegistrationHelperClass(){
 
     }
 
-    public UserRegistrationHelperClass(String fullname, String email, String phoneNo, String companyName, String department, String turnover) {
+    public UserRegistrationHelperClass(String fullname, String email, String phoneNo, String companyName, String department, String turnover, String imageUrl) {
         this.fullname = fullname;
         this.email = email;
         this.phoneNo = phoneNo;
         this.companyName = companyName;
         Department = department;
         Turnover = turnover;
+        this.imageUrl = imageUrl;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getFullname() {
         return fullname;

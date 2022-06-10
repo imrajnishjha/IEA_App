@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Contact the Core Member"
+            android:text="Contact the Functional Member"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold"

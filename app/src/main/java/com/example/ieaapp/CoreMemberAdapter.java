@@ -32,7 +32,6 @@ public class CoreMemberAdapter extends FirebaseRecyclerAdapter<CoreMemberModel, 
     @Override
     protected void onBindViewHolder(@NonNull CoreMemberViewHolder holder, int position, @NonNull CoreMemberModel model) {
         holder.name.setText(model.getName());
-        holder.companyName.setText(model.getCompany_name());
 
         Glide.with(holder.img.getContext())
                 .load(model.getPurl())
@@ -65,7 +64,7 @@ public class CoreMemberAdapter extends FirebaseRecyclerAdapter<CoreMemberModel, 
 
         View coreMemberView;
         ImageView img;
-        TextView name, companyName;
+        TextView name;
         Button detailButton;
 
         public CoreMemberViewHolder(@NonNull View itemView) {
@@ -73,7 +72,6 @@ public class CoreMemberAdapter extends FirebaseRecyclerAdapter<CoreMemberModel, 
 
             img = (ImageView) itemView.findViewById(R.id.core_team_member_profile_picture);
             name = (TextView) itemView.findViewById(R.id.itemCoreMemberNameText);
-            companyName = (TextView) itemView.findViewById(R.id.itemCompanyName);
             coreMemberView = itemView;
             detailButton = (Button) itemView.findViewById(R.id.core_team_member_detail_button);
         }

@@ -279,7 +279,7 @@
                     android:layout_gravity="start"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="60dp"
-                    android:text="Core Team Members"
+                    android:text="Functional Team"
                     android:textColor="#000"
                     android:textSize="13sp"
                     android:textStyle="bold" />

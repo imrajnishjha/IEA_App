@@ -14,11 +14,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class payment extends AppCompatActivity implements PaymentResultListener {
 
@@ -88,7 +84,11 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
                                     Long final_amount_integer = Long.parseLong(finalAmount);
                                     Long paying_later_integer = final_amount_integer-paying_now;
                                     amount_payinglater.setText(paying_later_integer.toString());
+                                } else {
+                                    amount_payinglater.setText("0");
                                 }
+
+
                             }
                         });
 
@@ -102,59 +102,72 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         amount_calculation.start();
 
 
-
-        //Payment
-
         paynow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // on below line we are getting
-                // amount that is entered by user.
-                String samount="100";
-
-                // rounding off the amount.
-                int amounts = Math.round(Float.parseFloat(samount) * 100);
-
-                // initialize Razorpay account.
-                Checkout checkout = new Checkout();
-
-                // set your id as below
-                checkout.setKeyID("rzp_test_USimbGClz1VOxE");
-
-                // set image
-                checkout.setImage(R.drawable.members);
-
-                // initialize json object
-                JSONObject object = new JSONObject();
-                try {
-                    // to put name
-                    object.put("name", "IEA");
-
-                    // put description
-                    object.put("description", "Membership fees");
-
-                    // to set theme color
-                    object.put("theme.color", "");
-
-                    // put the currency
-                    object.put("currency", "INR");
-
-                    // put amount
-                    object.put("amount", amounts);
-
-                    // put mobile number
-                    object.put("prefill.contact", "9284064503");
-
-                    // put email
-                    object.put("prefill.email", "chaitanyamunje@gmail.com");
-
-                    // open razorpay to checkout activity
-                    checkout.open(payment.this, object);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                Intent intent = new Intent(payment.this,payment_proof.class);
+                intent.putExtra("name", fullname);
+                intent.putExtra("email", email);
+                intent.putExtra("phoneno", phoneNo);
+                intent.putExtra("cname", companyName);
+                intent.putExtra("department", Department);
+                intent.putExtra("annual_term", Turnover);
+                intent.putExtra("memberfee", memberfees);
+                startActivity(intent);
             }
         });
+        //Payment
+
+//        paynow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // on below line we are getting
+//                // amount that is entered by user.
+//                String samount="100";
+//
+//                // rounding off the amount.
+//                int amounts = Math.round(Float.parseFloat(samount) * 100);
+//
+//                // initialize Razorpay account.
+//                Checkout checkout = new Checkout();
+//
+//                // set your id as below
+//                checkout.setKeyID("rzp_test_USimbGClz1VOxE");
+//
+//                // set image
+//                checkout.setImage(R.drawable.members);
+//
+//                // initialize json object
+//                JSONObject object = new JSONObject();
+//                try {
+//                    // to put name
+//                    object.put("name", "IEA");
+//
+//                    // put description
+//                    object.put("description", "Membership fees");
+//
+//                    // to set theme color
+//                    object.put("theme.color", "");
+//
+//                    // put the currency
+//                    object.put("currency", "INR");
+//
+//                    // put amount
+//                    object.put("amount", amounts);
+//
+//                    // put mobile number
+//                    object.put("prefill.contact", "9284064503");
+//
+//                    // put email
+//                    object.put("prefill.email", "chaitanyamunje@gmail.com");
+//
+//                    // open razorpay to checkout activity
+//                    checkout.open(payment.this, object);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
     }
 
@@ -171,6 +184,8 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         return "0";
     }
 
+
+
     @Override
     public void onPaymentError(int i, String s) {
         Toast.makeText(this,"Payment is unsucessful",Toast.LENGTH_SHORT).show();
@@ -183,7 +198,7 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         memberDirectoryRoot = FirebaseDatabase.getInstance();
         memberDirectoryRef = memberDirectoryRoot.getReference("Members Directory");
 
-        UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover);
+        UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass();
 
         memberDirectoryRef.child(email.replaceAll("\\.", "%7")).setValue(userRegistrationHelperClass);
     }
