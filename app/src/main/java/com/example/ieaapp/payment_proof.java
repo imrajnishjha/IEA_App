@@ -1,5 +1,11 @@
 package com.example.ieaapp;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -9,15 +15,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
@@ -34,16 +36,18 @@ public class payment_proof extends AppCompatActivity {
 
     ImageView proof_img;
     AppCompatButton insert_btn,payment_proofbackbtn,upload_btn;
-    String fullname,email,companyName,Department,phoneNo,Turnover,memberfees;
+    String fullname,email,companyName,Department,phoneNo,Turnover,memberfees,amountleft;
     FirebaseDatabase memberDirectoryRoot;
     DatabaseReference memberDirectoryRef;
-    StorageReference memberstorageRef;
+    private StorageReference memberstorageRef;
     Bitmap imageBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_proof);
+
+        memberstorageRef = FirebaseStorage.getInstance().getReference();
 
         proof_img = findViewById(R.id.proof_img);
         insert_btn = findViewById(R.id.insert_proof_img_btn);
@@ -58,6 +62,7 @@ public class payment_proof extends AppCompatActivity {
         Department=intent.getStringExtra("department");
         Turnover=intent.getStringExtra("annual_turn");
         memberfees=intent.getStringExtra("memberfee");
+        amountleft=intent.getStringExtra("costleft");
 
         payment_proofbackbtn.setOnClickListener(view -> {
             finish();
@@ -93,26 +98,29 @@ public class payment_proof extends AppCompatActivity {
             public void onClick(View v) {
                 memberDirectoryRoot = FirebaseDatabase.getInstance();
                 memberDirectoryRef = memberDirectoryRoot.getReference("Temp Registry");
-                memberstorageRef = FirebaseStorage.getInstance().getReference();
+
 
 
 
 
                 if(imageBitmap!=null){
 
-                    Uri u =getimageUri(payment_proof.this,imageBitmap);
+                    Uri proofimg_uri =getimageUri(payment_proof.this,imageBitmap);
+                    Log.d("imguri", "onClick: "+proofimg_uri.toString());
 
 
-                    memberstorageRef.child(UUID.randomUUID().toString()).putFile(u).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    StorageReference urirefence =memberstorageRef.child("paymentproof/"+UUID.randomUUID().toString());
+                    urirefence.putFile(proofimg_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            memberstorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            Toast.makeText(payment_proof.this,"Upload Sucessfull", Toast.LENGTH_SHORT).show();
+                            urirefence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover,uri.toString());
+                                    UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover,uri.toString(),amountleft);
                                     memberDirectoryRef.child(email.replaceAll("\\.", "%7")).setValue(userRegistrationHelperClass);
 
-                                    Toast.makeText(payment_proof.this,"Upload Sucessfull", Toast.LENGTH_SHORT).show();
+
                                 }
                             });
 
@@ -122,6 +130,7 @@ public class payment_proof extends AppCompatActivity {
 
 
                 } else{
+
                     Toast.makeText(payment_proof.this,"Please Upload Image", Toast.LENGTH_SHORT).show();
                 }
 
@@ -165,10 +174,10 @@ public class payment_proof extends AppCompatActivity {
         return res1 && res2;
     }
 
-    public Uri getimageUri(Context context,Bitmap bitmap){
+    public Uri getimageUri(Context context,Bitmap bitimage){
         ByteArrayOutputStream bytes =new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(),bitmap,"Title",null);
+        bitimage.compress(Bitmap.CompressFormat.JPEG,90,bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(),bitimage,"Title",null);
         return Uri.parse(path);
     }
 
@@ -182,6 +191,10 @@ public class payment_proof extends AppCompatActivity {
                     Bundle extras=data.getExtras();
                     imageBitmap=(Bitmap) extras.get("data");
                     proof_img.setImageBitmap(imageBitmap);
+
+
+
+
                 }
                 break;
 
@@ -193,4 +206,8 @@ public class payment_proof extends AppCompatActivity {
                 break;
         }
     }
+
+
+
+
 }

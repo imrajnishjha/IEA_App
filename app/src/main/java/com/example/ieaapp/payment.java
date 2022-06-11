@@ -2,6 +2,7 @@ package com.example.ieaapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -106,6 +107,9 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(payment.this,payment_proof.class);
+
+                TextView amountleft= findViewById(R.id.amount_paylater);
+
                 intent.putExtra("name", fullname);
                 intent.putExtra("email", email);
                 intent.putExtra("phoneno", phoneNo);
@@ -113,7 +117,14 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
                 intent.putExtra("department", Department);
                 intent.putExtra("annual_term", Turnover);
                 intent.putExtra("memberfee", memberfees);
-                startActivity(intent);
+                intent.putExtra("costleft",amountleft.getText().toString());
+
+                if(TextUtils.isEmpty(amount_payingnow.getText().toString())) {
+                    amount_payingnow.setError("Name cannot be empty!");
+                    amount_payingnow.requestFocus();
+                }else{
+                    startActivity(intent);
+                }
             }
         });
         //Payment

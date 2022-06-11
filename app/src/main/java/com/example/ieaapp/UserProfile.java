@@ -3,6 +3,7 @@ package com.example.ieaapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -75,7 +76,7 @@ public class UserProfile extends AppCompatActivity {
 
         storageProfilePicReference = FirebaseStorage.getInstance().getReference();
 
-        StorageReference fileRef = storageProfilePicReference.child("User Profile Pictures/" + mAuth.getCurrentUser().getEmail().toString()+"ProfilePicture");
+        StorageReference fileRef = storageProfilePicReference.child("User Profile Pictures/" + mAuth.getCurrentUser().getEmail().toString() + "ProfilePicture");
         fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -107,6 +108,7 @@ public class UserProfile extends AppCompatActivity {
                 if (dataSnapshot.child("date_of_birth").getValue().toString().equals("")) {
                     userDateOfBirthEdtTxt.setText(userDOBStr);
                 } else {
+                    userDateOfBirthEdtTxt.setText(userDOBStr);
                     userDateOfBirthEdtTxt.setFocusable(false);
                     userDateOfBirthEdtTxt.setTextColor(getResources().getColor(R.color.grey));
                 }
@@ -135,7 +137,6 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
-
         saveProfileBtn.setOnClickListener(view -> {
             String userContactNumberStr = userContactNumberEdtTxt.getText().toString();
             String userDOBStr = userDateOfBirthEdtTxt.getText().toString();
@@ -143,6 +144,10 @@ public class UserProfile extends AppCompatActivity {
             String userAddressStr = userAddressEdtTxt.getText().toString();
 
             updateData(userContactNumberStr, userDOBStr, userCompanyNameStr, userAddressStr);
+
+            if(resultUri != null){
+                uploadImageToFirebase(resultUri);
+            }
         });
 
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
@@ -180,7 +185,7 @@ public class UserProfile extends AppCompatActivity {
                 Toast.makeText(UserProfile.this, "Failed to Update Data", Toast.LENGTH_SHORT).show();
             }
         });
-        uploadImageToFirebase(resultUri);
+//        uploadImageToFirebase(resultUri);
 
     }
 
@@ -203,7 +208,6 @@ public class UserProfile extends AppCompatActivity {
         fileRef.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(UserProfile.this, "Profile Picture Updated", Toast.LENGTH_SHORT).show();
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -213,8 +217,29 @@ public class UserProfile extends AppCompatActivity {
                                 .circleCrop()
                                 .error(R.drawable.iea_logo)
                                 .into(userProfileImage);
+
+                        HashMap UserData = new HashMap();
+                        UserData.put("purl", uri.toString());
+
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users/" + userEmailConverted);
+                        databaseReference.updateChildren(UserData).addOnSuccessListener(new OnSuccessListener() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                Toast.makeText(UserProfile.this, "Data Updated Successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(UserProfile.this, "Failed to Update Data", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        Toast.makeText(UserProfile.this, "Profile Picture Updated", Toast.LENGTH_SHORT).show();
                     }
+
                 });
+                String fileReference = String.valueOf(fileRef.getDownloadUrl());
+                Log.d("downloadUrl", fileReference);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

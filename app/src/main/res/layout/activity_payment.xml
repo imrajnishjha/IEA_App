@@ -127,6 +127,7 @@
             android:textColorHint="@color/black"
             android:hint="Enter Amount to be paid now"
             android:textSize="16dp"
+            android:inputType="phone"
             android:padding="12dp"
             app:layout_constraintTop_toBottomOf="@id/member_price"
             />

@@ -1,8 +1,9 @@
 package com.example.ieaapp;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -10,16 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MembersDirectory extends AppCompatActivity {
+public class MembersDirectory extends AppCompatActivity{
 
     RecyclerView memberDirectoryRecyclerView;
-    MembersDirectoryAdapter membersDirectoryAdapter;
-    AppCompatButton membersDirectoryBackButton, membersDirectoryLogoutButton;
-    FirebaseAuth mAuth;
-    TextView membersDirectoryLogoutText;
+    AppCompatButton memberDirectoryBackButton;
+    MembersDirectoryAdapter memberDirectoryAdapter;
+    FirebaseRecyclerOptions<MembersDirectoryModel> options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,43 +26,51 @@ public class MembersDirectory extends AppCompatActivity {
         setContentView(R.layout.activity_members_directory);
 
         memberDirectoryRecyclerView = (RecyclerView) findViewById(R.id.members_directory_recycler_view);
-        memberDirectoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        membersDirectoryBackButton = findViewById(R.id.members_directory_back_button);
-        membersDirectoryLogoutButton = findViewById(R.id.members_directory_logout_button);
-        membersDirectoryLogoutText = findViewById(R.id.members_directory_logout_text);
-        mAuth = FirebaseAuth.getInstance();
+        memberDirectoryRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this));
+        memberDirectoryBackButton = findViewById(R.id.members_directory_back_button);
 
+        options = new FirebaseRecyclerOptions.Builder<MembersDirectoryModel>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Registered Users"), MembersDirectoryModel.class)
+                .build();
 
-        FirebaseRecyclerOptions<MembersDirectoryModel> options =
-                new FirebaseRecyclerOptions.Builder<MembersDirectoryModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Members Directory"), MembersDirectoryModel.class)
-                        .build();
+        memberDirectoryAdapter = new MembersDirectoryAdapter(options);
+        memberDirectoryRecyclerView.setAdapter(memberDirectoryAdapter);
+        memberDirectoryBackButton.setOnClickListener(view -> finish());
+    }
 
-        membersDirectoryAdapter = new MembersDirectoryAdapter(options);
-        memberDirectoryRecyclerView.setAdapter(membersDirectoryAdapter);
+    public class WrapContentLinearLayoutManager extends LinearLayoutManager {
+        public WrapContentLinearLayoutManager(Context context) {
+            super(context);
+        }
 
-        membersDirectoryBackButton.setOnClickListener(view -> finish());
+        public WrapContentLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
+            super(context, orientation, reverseLayout);
+        }
 
-        membersDirectoryLogoutText.setOnClickListener(view -> {
-            mAuth.signOut();
-            startActivity(new Intent(MembersDirectory.this, LandingPage.class));
-        });
+        public WrapContentLinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+            super(context, attrs, defStyleAttr, defStyleRes);
+        }
 
-        membersDirectoryLogoutButton.setOnClickListener(view -> {
-            mAuth.signOut();
-            startActivity(new Intent(MembersDirectory.this, LandingPage.class));
-        });
+        @Override
+        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            try {
+                super.onLayoutChildren(recycler, state);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("TAG", "meet a IOOBE in RecyclerView");
+            }
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        membersDirectoryAdapter.startListening();
+        memberDirectoryAdapter.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        membersDirectoryAdapter.stopListening();
+        memberDirectoryAdapter.stopListening();
     }
+
 }

@@ -37,7 +37,6 @@
     <string name="overview">Creating a social platform for entrepreneurs to connect and to grow their businesses.\nCreating a network of local entrepreneurs.\nBuilding capacity by curating and sharing knowledge.\nEmpowering Youth, Innovation and Startups\nCreating an industry-enterprise ecosystem that is both positive and supportive.</string>
 
     <string-array name="paymethod">
-        <item>Online payment via UPI or Card,Netbanking </item>
         <item>Manual Transfer via NEFT or BANK Transfer </item>
         <item>Physical Method Via Cheque or Cash </item>
     </string-array>
@@ -95,6 +94,32 @@
         <item>Rs. 3,658/Month *including gst*</item>
         <item>Rs. 6,018/Month *including gst*</item>
         <item>Rs. 12,980/Month *including gst*</item>
+    </string-array>
+
+    <string-array name="grievance_department">
+        <item>UPSIDA</item>
+        <item>GNIDA</item>
+        <item>NOIDA AUTHORITY</item>
+        <item>NPCL</item>
+        <item>UPPCB</item>
+        <item>UPPCL</item>
+        <item>LABOUR OFFICE</item>
+        <item>DIRECTOR FACTORIES</item>
+        <item>POLICE</item>
+        <item>DISTRICT INDUSTRIES CENTRE</item>
+        <item>DM</item>
+        <item>FOREST DEPARTMENT</item>
+        <item>MEDICAL CENTRE</item>
+        <item>ROADWAYS</item>
+        <item>RAILWAYS</item>
+        <item>CENTRAL MSME</item>
+        <item>BANK</item>
+        <item>YEIDA</item>
+        <item>FIRE</item>
+        <item>GST</item>
+        <item>ESI</item>
+        <item>PF</item>
+        <item>Gov department</item>
     </string-array>
 
     <string-array name="company_turnover">

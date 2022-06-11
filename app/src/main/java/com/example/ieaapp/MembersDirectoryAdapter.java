@@ -1,5 +1,6 @@
 package com.example.ieaapp;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class MembersDirectoryAdapter extends FirebaseRecyclerAdapter<MembersDirectoryModel, MembersDirectoryAdapter.MembersDirectoryViewHolder> {
+public class MembersDirectoryAdapter extends FirebaseRecyclerAdapter<MembersDirectoryModel, MembersDirectoryAdapter.MemberDirectoryViewHolder> {
+
+
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -26,40 +29,44 @@ public class MembersDirectoryAdapter extends FirebaseRecyclerAdapter<MembersDire
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull MembersDirectoryViewHolder holder, int position, @NonNull MembersDirectoryModel model) {
-        holder.name2.setText(model.getFullname());
-        holder.company.setText(model.getCompanyName());
-        holder.departmentName.setText(model.getDepartment());
+    protected void onBindViewHolder(@NonNull MemberDirectoryViewHolder holder, int position, @NonNull MembersDirectoryModel model) {
+        holder.memberDirectoryName.setText(model.getName());
+        holder.memberDirectoryCompanyName.setText(model.getCompany_name());
 
+        holder.memberDirectoryView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), MemberDirectoryDetail.class);
+            intent.putExtra("MemberItemKey", getRef(position).getKey());
+            view.getContext().startActivity(intent);
+        });
 
-        Glide.with(holder.members_dir_img.getContext())
+        Glide.with(holder.memberDirectoryProfileImg.getContext())
                 .load(model.getPurl())
                 .placeholder(R.drawable.iea_logo)
                 .circleCrop()
                 .error(R.drawable.iea_logo)
-                .into(holder.members_dir_img);
+                .into(holder.memberDirectoryProfileImg);
     }
 
     @NonNull
     @Override
-    public MembersDirectoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.members_directory_item,parent,false);
-        return new MembersDirectoryViewHolder(view2);
+    public MemberDirectoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.members_directory_item,parent,false);
+        return new MemberDirectoryViewHolder(view);
     }
 
-    class MembersDirectoryViewHolder extends RecyclerView.ViewHolder{
+    class MemberDirectoryViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView members_dir_img;
-        TextView name2, company, departmentName;
+        View memberDirectoryView;
+        ImageView memberDirectoryProfileImg;
+        TextView memberDirectoryName, memberDirectoryCompanyName;
 
-        public MembersDirectoryViewHolder(@NonNull View itemView) {
+        public MemberDirectoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            members_dir_img = (ImageView) itemView.findViewById(R.id.members_directory_profile_picture);
-            name2 = (TextView) itemView.findViewById(R.id.members_directory_name);
-            company = (TextView) itemView.findViewById(R.id.members_directory_company_name);
-            departmentName = (TextView) itemView.findViewById(R.id.members_directory_department_name);
+            memberDirectoryProfileImg = (ImageView) itemView.findViewById(R.id.members_directory_profile_picture);
+            memberDirectoryName = (TextView) itemView.findViewById(R.id.members_directory_name);
+            memberDirectoryCompanyName = (TextView) itemView.findViewById(R.id.members_directory_company_name);
+            memberDirectoryView = itemView;
         }
     }
 }

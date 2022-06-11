@@ -49,7 +49,6 @@ public class Grievance extends AppCompatActivity {
                 grievancereference.push().setValue(Grievancehelperclass);
                 issue.setText("");
                 Toast.makeText(Grievance.this, "We have received your complaint", Toast.LENGTH_LONG).show();
-
             }
         });
 
@@ -62,8 +61,8 @@ public class Grievance extends AppCompatActivity {
     }
 
     public void dropdownInit() {
-        String[] departments = getResources().getStringArray(R.array.department);
-        ArrayAdapter<String> arrayAdapterDepartments = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, departments);
+        String[] grievance_departments = getResources().getStringArray(R.array.grievance_department);
+        ArrayAdapter<String> arrayAdapterDepartments = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, grievance_departments);
         AutoCompleteTextView autoCompleteTextViewDepartments = findViewById(R.id.autocomplete_department_field);
         autoCompleteTextViewDepartments.setAdapter(arrayAdapterDepartments);
     }

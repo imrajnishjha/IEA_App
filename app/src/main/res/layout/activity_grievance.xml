@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/inriasans_regular"
-                android:hint="Industry Type"
+                android:hint="Department"
                 android:padding="12dp"
                 android:paddingTop="14dp"
                 android:textColor="@color/black"
