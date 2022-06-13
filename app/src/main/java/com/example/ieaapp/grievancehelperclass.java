@@ -5,13 +5,15 @@ public class grievancehelperclass {
     private String email;
     private String department;
     private String complain;
+    private String status;
 
     public grievancehelperclass(){}
 
-    public grievancehelperclass(String email, String department, String complain) {
+    public grievancehelperclass(String email, String department, String complain, String status) {
         this.email = email;
         this.department = department;
         this.complain = complain;
+        this.status = status;
     }
 
     public String getEmail() {
@@ -36,5 +38,13 @@ public class grievancehelperclass {
 
     public void setComplain(String complain) {
         this.complain = complain;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

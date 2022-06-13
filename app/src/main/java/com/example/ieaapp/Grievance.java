@@ -1,11 +1,13 @@
 package com.example.ieaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -17,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Grievance extends AppCompatActivity {
 
     AppCompatButton grievance_back_button;
-    AppCompatButton grievance_submit;
+    AppCompatButton grievance_submit, myGrievancesBtn;
     FirebaseDatabase grievancedb;
     DatabaseReference grievancereference;
     TextInputEditText issue;
@@ -29,6 +31,7 @@ public class Grievance extends AppCompatActivity {
         setContentView(R.layout.activity_grievance);
 
         grievance_back_button = findViewById(R.id.grievance_back_button);
+        myGrievancesBtn = findViewById(R.id.my_grievances_btn);
 
         dropdownInit();
 
@@ -39,19 +42,25 @@ public class Grievance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 grievancedb = FirebaseDatabase.getInstance();
-                grievancereference=grievancedb.getReference("Grievances");
+                grievancereference=grievancedb.getReference("Unsolved Grievances");
                 issue=findViewById(R.id.issue_input_edttxt);
                 dept=findViewById(R.id.autocomplete_department_field);
                 String complain=issue.getText().toString();
                 String departments=dept.getText().toString();
-                String compainerEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                grievancehelperclass Grievancehelperclass = new grievancehelperclass(compainerEmail,departments,complain);
+                String complainerEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                grievancehelperclass Grievancehelperclass = new grievancehelperclass(complainerEmail,departments,complain,"Unsolved");
                 grievancereference.push().setValue(Grievancehelperclass);
+                String grievanceKey = grievancereference.push().getKey();
+                new AlertDialog.Builder(Grievance.this)
+                        .setTitle("Grievance ID")
+                        .setMessage("Your Grievance ID is: "+grievanceKey).show();
+
                 issue.setText("");
                 Toast.makeText(Grievance.this, "We have received your complaint", Toast.LENGTH_LONG).show();
             }
         });
 
+        myGrievancesBtn.setOnClickListener(view -> startActivity(new Intent(Grievance.this, MyGrievances.class)));
     }
 
     @Override

@@ -45,6 +45,7 @@ public class MembersDirectoryAdapter extends FirebaseRecyclerAdapter<MembersDire
                 .circleCrop()
                 .error(R.drawable.iea_logo)
                 .into(holder.memberDirectoryProfileImg);
+
     }
 
     @NonNull

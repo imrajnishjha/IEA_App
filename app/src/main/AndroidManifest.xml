@@ -19,6 +19,9 @@
         android:theme="@style/Theme.IEAApp"
         tools:targetApi="28">
         <activity
+            android:name=".MyGrievances"
+            android:exported="false" />
+        <activity
             android:name=".MemberDirectoryDetail"
             android:exported="false" />
         <activity
