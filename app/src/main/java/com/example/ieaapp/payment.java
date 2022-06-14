@@ -29,8 +29,6 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
     DatabaseReference memberDirectoryRef;
     String paymentReceiverName;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

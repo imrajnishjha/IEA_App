@@ -72,7 +72,7 @@ public class Grievance extends AppCompatActivity {
     public void dropdownInit() {
         String[] grievance_departments = getResources().getStringArray(R.array.grievance_department);
         ArrayAdapter<String> arrayAdapterDepartments = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, grievance_departments);
-        AutoCompleteTextView autoCompleteTextViewDepartments = findViewById(R.id.autocomplete_department_field);
+        AutoCompleteTextView autoCompleteTextViewDepartments = findViewById(R.id.grievance_department_field);
         autoCompleteTextViewDepartments.setAdapter(arrayAdapterDepartments);
     }
 }
