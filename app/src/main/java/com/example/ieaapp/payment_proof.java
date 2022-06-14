@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -35,11 +37,13 @@ public class payment_proof extends AppCompatActivity {
 
     ImageView proof_img;
     AppCompatButton insert_btn,payment_proofbackbtn,upload_btn;
-    String fullname,email,companyName,Department,phoneNo,Turnover,memberfees,amountleft,paymentReceiver;
+    String fullname,email,companyName,Department,phoneNo,Turnover,memberfees,amountleft, paymentMethod, nameOfReceiver = "";
     FirebaseDatabase memberDirectoryRoot;
     DatabaseReference memberDirectoryRef;
     private StorageReference memberstorageRef;
     Bitmap imageBitmap;
+    EditText paymentReceiverName;
+    TextView paymentReceiverHeading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,9 @@ public class payment_proof extends AppCompatActivity {
         insert_btn = findViewById(R.id.insert_proof_img_btn);
         payment_proofbackbtn = findViewById(R.id.paymentproof_back_button);
         upload_btn = findViewById(R.id.proofupload_btn);
+        paymentReceiverName = findViewById(R.id.receiver_name_editxt);
+        paymentReceiverHeading = findViewById(R.id.name_of_receiver_text);
+
 
         Intent intent = getIntent();
         fullname=intent.getStringExtra("name");
@@ -62,7 +69,13 @@ public class payment_proof extends AppCompatActivity {
         Turnover=intent.getStringExtra("annual_turn");
         memberfees=intent.getStringExtra("memberfee");
         amountleft=intent.getStringExtra("costleft");
-        paymentReceiver= intent.getStringExtra("paymentReceiver");
+        paymentMethod= intent.getStringExtra("paymentMethod");
+
+
+        if (paymentMethod.equals("Physical Method Via Cash")){
+            paymentReceiverName.setVisibility(View.VISIBLE);
+            paymentReceiverHeading.setVisibility(View.VISIBLE);
+        }
 
         payment_proofbackbtn.setOnClickListener(view -> {
             finish();
@@ -100,8 +113,13 @@ public class payment_proof extends AppCompatActivity {
                 memberDirectoryRef = memberDirectoryRoot.getReference("Temp Registry");
 
 
-
-
+                if (!paymentReceiverName.getText().toString().isEmpty()){
+                    nameOfReceiver = paymentReceiverName.getText().toString();
+                }
+                if (paymentMethod.equals("Physical Method Via Cash")){
+                    paymentReceiverName.setError("Enter receiver name");
+                    paymentReceiverName.requestFocus();
+                }
 
                 if(imageBitmap!=null){
 
@@ -117,7 +135,7 @@ public class payment_proof extends AppCompatActivity {
                             urirefence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover,uri.toString(),amountleft,memberfees,paymentReceiver);
+                                    UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover,uri.toString(),amountleft,memberfees,nameOfReceiver);
                                     memberDirectoryRef.child(email.replaceAll("\\.", "%7")).setValue(userRegistrationHelperClass);
 
 

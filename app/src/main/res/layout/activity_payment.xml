@@ -67,7 +67,7 @@
             app:boxStrokeWidth="2.5dp"
             app:endIconDrawable="@drawable/ic_down_arrow"
             app:endIconTint="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/amountRecieverName">
+            app:layout_constraintTop_toBottomOf="@id/amount_paylater">
 
             <AutoCompleteTextView
                 android:id="@+id/autocomplete_payment"
@@ -169,36 +169,6 @@
             android:textSize="11sp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="24dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/amountReciever"
-            app:layout_constraintTop_toBottomOf="@+id/amount_paylater"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Person Receiving the Payment"
-            android:textColor="@color/black"
-            android:textSize="11sp"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="24dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/amountRecieverName"
-            android:textSize="16dp"
-            android:textColorHint="@color/grey"
-            android:textColor="@color/black"
-            android:padding="12dp"
-            android:hint="If Submitting via cash"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edittext_style_white_smaller"
-            app:layout_constraintTop_toBottomOf="@id/amountReciever"/>
-
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

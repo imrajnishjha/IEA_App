@@ -29,6 +29,7 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
     DatabaseReference memberDirectoryRef;
     String paymentReceiverName;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,26 +38,14 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         EditText amount_payingnow = findViewById(R.id.amount_paynow);
         TextView amount_payinglater = findViewById(R.id.amount_paylater);
 
-        EditText paymentreciever = findViewById(R.id.amountRecieverName);
-        if(amount_payingnow.getText().toString().isEmpty()){
-            paymentReceiverName="Paid via cheque";
-        } else {
-            paymentReceiverName = amount_payingnow.getText().toString();
-        }
-
-
         Intent intent = getIntent();
-        fullname=intent.getStringExtra("name");
-        email=intent.getStringExtra("email");
-        phoneNo=intent.getStringExtra("phoneno");
-        companyName=intent.getStringExtra("cname");
-        Department=intent.getStringExtra("department");
-        Turnover=intent.getStringExtra("annual_turn");
-        memberfees=intent.getStringExtra("memberfee");
-
-
-
-
+        fullname = intent.getStringExtra("name");
+        email = intent.getStringExtra("email");
+        phoneNo = intent.getStringExtra("phoneno");
+        companyName = intent.getStringExtra("cname");
+        Department = intent.getStringExtra("department");
+        Turnover = intent.getStringExtra("annual_turn");
+        memberfees = intent.getStringExtra("memberfee");
 
         String[] payment = getResources().getStringArray(R.array.paymethod);
         ArrayAdapter<String> arrayAdapterPaymethod = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, payment);
@@ -64,32 +53,33 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         autoCompleteTextViewPayment.setAdapter(arrayAdapterPaymethod);
 
         AppCompatButton registrationBackButton = findViewById(R.id.payment_back_button);
+        AutoCompleteTextView autoCompletePayment = findViewById(R.id.autocomplete_payment);
 
         registrationBackButton.setOnClickListener(view -> {
             finish();
         });
 
 
-        TextView memberprice= findViewById(R.id.member_price);
+        TextView memberprice = findViewById(R.id.member_price);
         memberprice.setText(memberfees);
         paynow = findViewById(R.id.paynow_btn);
         String finalAmount = feeConverter(memberfees);
 
-        Thread amount_calculation = new Thread(){
+        Thread amount_calculation = new Thread() {
 
             @Override
             public void run() {
-                while(!isInterrupted()){
+                while (!isInterrupted()) {
 
                     try {
                         Thread.sleep(100);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(!amount_payingnow.getText().toString().isEmpty()){
+                                if (!amount_payingnow.getText().toString().isEmpty()) {
                                     Long paying_now = Long.parseLong(amount_payingnow.getText().toString());
                                     Long final_amount_integer = Long.parseLong(finalAmount);
-                                    Long paying_later_integer = final_amount_integer-paying_now;
+                                    Long paying_later_integer = final_amount_integer - paying_now;
                                     amount_payinglater.setText(paying_later_integer.toString());
                                 } else {
                                     amount_payinglater.setText("0");
@@ -108,13 +98,12 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         };
         amount_calculation.start();
 
-
         paynow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(payment.this,payment_proof.class);
+                Intent intent = new Intent(payment.this, payment_proof.class);
 
-                TextView amountleft= findViewById(R.id.amount_paylater);
+                TextView amountleft = findViewById(R.id.amount_paylater);
 
                 intent.putExtra("name", fullname);
                 intent.putExtra("email", email);
@@ -123,16 +112,19 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
                 intent.putExtra("department", Department);
                 intent.putExtra("annual_turn", Turnover);
                 intent.putExtra("memberfee", memberfees);
-                intent.putExtra("costleft",amountleft.getText().toString());
-                intent.putExtra("paymentReceiver",paymentReceiverName);
+                intent.putExtra("costleft", amountleft.getText().toString());
+                intent.putExtra("paymentMethod", autoCompletePayment.getText().toString());
 
-                if(TextUtils.isEmpty(amount_payingnow.getText().toString())) {
+                if (TextUtils.isEmpty(amount_payingnow.getText().toString())) {
                     amount_payingnow.setError("Amount cannot be empty!");
                     amount_payingnow.requestFocus();
-                }else if (Long.parseLong(amount_payingnow.getText().toString())<=3500){
+                } else if (Long.parseLong(amount_payingnow.getText().toString()) <= 3500) {
                     amount_payingnow.setError("Enter More Than 3500");
                     amount_payingnow.requestFocus();
-                }else{
+                } else if(autoCompletePayment.getText().toString().equals("Payment Method")) {
+                        autoCompletePayment.setError("Select a payment method");
+                        autoCompletePayment.requestFocus();
+                    } else{
                     startActivity(intent);
                 }
             }
@@ -192,30 +184,29 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
 
     }
 
-    public String feeConverter(String s){
-        if(s.equals("Rs. 3,658/Yearly *including gst*")){
+    public String feeConverter(String s) {
+        if (s.equals("Rs. 3,658/Yearly *including gst*")) {
             return "3658";
         }
-        if(s.equals("Rs. 6,018/Yearly *including gst*")){
+        if (s.equals("Rs. 6,018/Yearly *including gst*")) {
             return "6018";
         }
-        if(s.equals("Rs. 12,980/Yearly *including gst*")){
+        if (s.equals("Rs. 12,980/Yearly *including gst*")) {
             return "12980";
         }
         return "0";
     }
 
 
-
     @Override
     public void onPaymentError(int i, String s) {
-        Toast.makeText(this,"Payment is unsucessful",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Payment is unsucessful", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPaymentSuccess(String s) {
 
-        Toast.makeText(this,"Payment is sucessful",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Payment is sucessful", Toast.LENGTH_SHORT).show();
         memberDirectoryRoot = FirebaseDatabase.getInstance();
         memberDirectoryRef = memberDirectoryRoot.getReference("Members Directory");
 

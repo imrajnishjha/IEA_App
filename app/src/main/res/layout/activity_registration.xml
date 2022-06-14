@@ -179,7 +179,7 @@
                 app:hintTextColor="@color/black"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                tools:ignore="LabelFor,TextContrastCheck"/>
+                tools:ignore="HardcodedText,LabelFor,TextContrastCheck"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -271,14 +271,15 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/edittext_style_white_smaller"
             android:fontFamily="@font/inriasans_regular"
-            android:hint="Refer Code"
+            android:hint="Refer Code (Optional)"
             android:importantForAutofill="no"
             android:inputType="text"
             android:padding="12dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@+id/member_price"/>
+            app:layout_constraintTop_toBottomOf="@+id/member_price"
+            tools:ignore="HardcodedText" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

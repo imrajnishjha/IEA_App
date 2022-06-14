@@ -37,8 +37,8 @@
     <string name="overview">Creating a social platform for entrepreneurs to connect and to grow their businesses.\nCreating a network of local entrepreneurs.\nBuilding capacity by curating and sharing knowledge.\nEmpowering Youth, Innovation and Startups\nCreating an industry-enterprise ecosystem that is both positive and supportive.</string>
 
     <string-array name="paymethod">
-        <item>Manual Transfer via NEFT or BANK Transfer </item>
-        <item>Physical Method Via Cheque or Cash </item>
+        <item>Manual Transfer Via Cheque</item>
+        <item>Physical Method Via Cash</item>
     </string-array>
 
     <string-array name="department">
