@@ -17,7 +17,7 @@
             android:id="@+id/splash_logo"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="25dp"
             android:importantForAccessibility="no"
             android:src="@drawable/iea_logo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
             android:id="@+id/landing_page_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/inter_medium"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
@@ -39,7 +39,6 @@
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/home_background_img"
             app:layout_constraintTop_toBottomOf="@id/splash_logo" />
 
         <ImageView
@@ -47,13 +46,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            app:layout_constraintBottom_toTopOf="@id/explore_btn"
             android:importantForAccessibility="no"
             android:scaleType="fitStart"
             android:src="@drawable/home_background_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/landing_page_text" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sliderCoreMemberRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/home_background_img"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/explore_btn"
@@ -69,7 +74,8 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintTop_toBottomOf="@id/sliderCoreMemberRecyclerview"
             app:layout_constraintBottom_toTopOf="@id/request_for_membership_btn"/>
 
         <androidx.appcompat.widget.AppCompatButton

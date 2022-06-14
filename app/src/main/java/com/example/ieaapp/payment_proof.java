@@ -1,11 +1,5 @@
 package com.example.ieaapp;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +14,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,7 +27,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
@@ -36,7 +35,7 @@ public class payment_proof extends AppCompatActivity {
 
     ImageView proof_img;
     AppCompatButton insert_btn,payment_proofbackbtn,upload_btn;
-    String fullname,email,companyName,Department,phoneNo,Turnover,memberfees,amountleft;
+    String fullname,email,companyName,Department,phoneNo,Turnover,memberfees,amountleft,paymentReceiver;
     FirebaseDatabase memberDirectoryRoot;
     DatabaseReference memberDirectoryRef;
     private StorageReference memberstorageRef;
@@ -63,6 +62,7 @@ public class payment_proof extends AppCompatActivity {
         Turnover=intent.getStringExtra("annual_turn");
         memberfees=intent.getStringExtra("memberfee");
         amountleft=intent.getStringExtra("costleft");
+        paymentReceiver= intent.getStringExtra("paymentReceiver");
 
         payment_proofbackbtn.setOnClickListener(view -> {
             finish();
@@ -117,7 +117,7 @@ public class payment_proof extends AppCompatActivity {
                             urirefence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover,uri.toString(),amountleft);
+                                    UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover,uri.toString(),amountleft,memberfees,paymentReceiver);
                                     memberDirectoryRef.child(email.replaceAll("\\.", "%7")).setValue(userRegistrationHelperClass);
 
 

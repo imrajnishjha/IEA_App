@@ -22,28 +22,6 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="42dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/members_directory_logout_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_logout"
-            app:layout_constraintEnd_toStartOf="@id/members_directory_logout_text"
-            app:layout_constraintTop_toTopOf="@id/members_directory_logout_text"
-            android:layout_marginEnd="6dp"/>
-
-        <TextView
-            android:id="@+id/members_directory_logout_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/log_out"
-            android:textColor="#0373F3"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="42dp"/>
-
         <TextView
             android:id="@+id/members_directory_text"
             android:layout_width="wrap_content"
@@ -52,10 +30,57 @@
             android:text="@string/members_directory"
             android:fontFamily="@font/poppins_semi_bold"
             android:textColor="#000000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/members_directory_back_button"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"/>
+            app:layout_constraintStart_toEndOf="@id/members_directory_back_button"
+            app:layout_constraintBottom_toBottomOf="@id/members_directory_back_button"
+            app:layout_constraintTop_toTopOf="@id/members_directory_back_button"
+            android:layout_marginStart="16dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/member_seach_outbox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="45dp"
+            android:background="#F5F5F5"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="@color/black"
+            app:hintTextColor="@color/black"
+            app:boxStrokeWidth="2.5dp"
+            app:endIconDrawable="@drawable/ic_down_arrow"
+            app:endIconTint="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/member_search_icon"
+            app:layout_constraintTop_toBottomOf="@id/members_directory_text">
+
+            <AutoCompleteTextView
+                android:id="@+id/member_search_autocomplete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/inriasans_regular"
+                android:hint="Industry Type"
+                android:padding="12dp"
+                android:paddingTop="14dp"
+                android:textColor="@color/black"
+                android:cursorVisible="true"
+                android:textCursorDrawable="@color/black"
+                android:textSize="16sp"
+                android:textColorHint="@color/black"
+                app:hintTextColor="@color/black"
+                tools:ignore="HardcodedText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/member_search_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_search"
+            android:layout_marginStart="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="@id/member_seach_outbox"
+            app:layout_constraintBottom_toBottomOf="@id/member_seach_outbox"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/members_directory_recycler_view"
@@ -63,13 +88,11 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/members_directory_text"
+            app:layout_constraintTop_toBottomOf="@id/member_seach_outbox"
             android:layout_marginTop="18dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </ScrollView>

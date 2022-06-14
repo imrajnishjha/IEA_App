@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -32,12 +35,13 @@ import java.util.Objects;
 public class explore_menu extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    TextView exploreUsername, descriptionUsername;
+    TextView exploreUsername, descriptionUsername, activeValue, solvedValue;
     ImageView logoutImg, userImage;
     CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer;
     Dialog exploreIeaContactDialog;
     DatabaseReference databaseReference;
     StorageReference storageProfilePicReference;
+    AppCompatButton exploreMenuLogoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,10 @@ public class explore_menu extends AppCompatActivity {
         contactUs = findViewById(R.id.explore_menu_contact_us_cardView);
         refer = findViewById(R.id.refer);
         exploreIeaContactDialog = new Dialog(this);
+        exploreMenuLogoutBtn = findViewById(R.id.logout_text);
         userImage = findViewById(R.id.user_img);
+        activeValue = findViewById(R.id.active_value);
+        solvedValue = findViewById(R.id.solved_value);
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Registered Users");
@@ -66,6 +73,44 @@ public class explore_menu extends AppCompatActivity {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Registered Users/" + userEmailConverted);
+
+        final int[] solvedGrievances = {0};
+        final int[] activeGrievances = {0};
+
+        DatabaseReference grievanceReference = FirebaseDatabase.getInstance().getReference().child("Unsolved Grievances");
+
+        grievanceReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Query grievanceQuery = grievanceReference.orderByChild("email").equalTo(mAuth.getCurrentUser().getEmail());
+                grievanceQuery.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        solvedGrievances[0] = (int) snapshot.getChildrenCount();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+        Log.d("grievance value", String.valueOf(activeGrievances[0]));
+        Log.d("grievance value", String.valueOf(solvedGrievances[0]));
+
+
+//        activeValue.setText(activeGrievances[0]);
+//        solvedValue.setText(solvedGrievances[0]);
 
         StorageReference fileRef = storageProfilePicReference.child("User Profile Pictures/" + mAuth.getCurrentUser().getEmail().toString()+"ProfilePicture");
         fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -98,6 +143,10 @@ public class explore_menu extends AppCompatActivity {
         explore.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, explore_iea.class)));
 
         logoutImg.setOnClickListener(view -> {
+            mAuth.signOut();
+            finish();
+        });
+        exploreMenuLogoutBtn.setOnClickListener(view -> {
             mAuth.signOut();
             finish();
         });

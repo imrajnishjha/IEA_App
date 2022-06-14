@@ -27,6 +27,7 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
 
     FirebaseDatabase memberDirectoryRoot;
     DatabaseReference memberDirectoryRef;
+    String paymentReceiverName;
 
 
 
@@ -37,6 +38,13 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
 
         EditText amount_payingnow = findViewById(R.id.amount_paynow);
         TextView amount_payinglater = findViewById(R.id.amount_paylater);
+
+        EditText paymentreciever = findViewById(R.id.amountRecieverName);
+        if(amount_payingnow.getText().toString().isEmpty()){
+            paymentReceiverName="Paid via cheque";
+        } else {
+            paymentReceiverName = amount_payingnow.getText().toString();
+        }
 
 
         Intent intent = getIntent();
@@ -115,12 +123,16 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
                 intent.putExtra("phoneno", phoneNo);
                 intent.putExtra("cname", companyName);
                 intent.putExtra("department", Department);
-                intent.putExtra("annual_term", Turnover);
+                intent.putExtra("annual_turn", Turnover);
                 intent.putExtra("memberfee", memberfees);
                 intent.putExtra("costleft",amountleft.getText().toString());
+                intent.putExtra("paymentReceiver",paymentReceiverName);
 
                 if(TextUtils.isEmpty(amount_payingnow.getText().toString())) {
-                    amount_payingnow.setError("Name cannot be empty!");
+                    amount_payingnow.setError("Amount cannot be empty!");
+                    amount_payingnow.requestFocus();
+                }else if (Long.parseLong(amount_payingnow.getText().toString())<=3500){
+                    amount_payingnow.setError("Enter More Than 3500");
                     amount_payingnow.requestFocus();
                 }else{
                     startActivity(intent);

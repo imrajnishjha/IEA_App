@@ -1,37 +1,23 @@
 package com.example.ieaapp;
 
 public class UserRegistrationHelperClass {
-    String fullname, email, phoneNo, companyName, Department, Turnover,imageUrl,amounutLeft;
+    String fullname, email, phoneNo, companyName, department, turnover,imageUrl,amountLeft,memberfee,paymentReceiverName;
 
     public  UserRegistrationHelperClass(){
 
     }
 
-    public UserRegistrationHelperClass(String fullname, String email, String phoneNo, String companyName, String department, String turnover, String imageUrl, String amounutLeft) {
+    public UserRegistrationHelperClass(String fullname, String email, String phoneNo, String companyName, String department, String turnover, String imageUrl, String amountLeft, String memberfee, String paymentReceiverName) {
         this.fullname = fullname;
         this.email = email;
         this.phoneNo = phoneNo;
         this.companyName = companyName;
-        Department = department;
-        Turnover = turnover;
+        this.department = department;
+        this.turnover = turnover;
         this.imageUrl = imageUrl;
-        this.amounutLeft = amounutLeft;
-    }
-
-    public String getAmounutLeft() {
-        return amounutLeft;
-    }
-
-    public void setAmounutLeft(String amounutLeft) {
-        this.amounutLeft = amounutLeft;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.amountLeft = amountLeft;
+        this.memberfee = memberfee;
+        this.paymentReceiverName = paymentReceiverName;
     }
 
     public String getFullname() {
@@ -67,18 +53,50 @@ public class UserRegistrationHelperClass {
     }
 
     public String getDepartment() {
-        return Department;
+        return department;
     }
 
     public void setDepartment(String department) {
-        Department = department;
+        this.department = department;
     }
 
     public String getTurnover() {
-        return Turnover;
+        return turnover;
     }
 
     public void setTurnover(String turnover) {
-        Turnover = turnover;
+        this.turnover = turnover;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getAmountLeft() {
+        return amountLeft;
+    }
+
+    public void setAmountLeft(String amountLeft) {
+        this.amountLeft = amountLeft;
+    }
+
+    public String getMemberfee() {
+        return memberfee;
+    }
+
+    public void setMemberfee(String memberfee) {
+        this.memberfee = memberfee;
+    }
+
+    public String getPaymentReceiverName() {
+        return paymentReceiverName;
+    }
+
+    public void setPaymentReceiverName(String paymentReceiverName) {
+        this.paymentReceiverName = paymentReceiverName;
     }
 }

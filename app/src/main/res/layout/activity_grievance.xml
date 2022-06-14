@@ -80,9 +80,8 @@
             app:endIconTint="@color/black"
             app:layout_constraintTop_toBottomOf="@id/grievance_instruction_text">
 
-
             <AutoCompleteTextView
-                android:id="@+id/autocomplete_department_field"
+                android:id="@+id/grievance_department_field"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/inriasans_regular"

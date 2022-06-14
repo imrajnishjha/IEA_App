@@ -33,7 +33,7 @@
             android:fontFamily="@font/inriasans_regular"
             android:text="@string/payment"
             android:textColor="@color/black"
-            android:textSize="48sp"
+            android:textSize="36sp"
             app:layout_constraintStart_toEndOf="@id/payment_back_button"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,7 +67,7 @@
             app:boxStrokeWidth="2.5dp"
             app:endIconDrawable="@drawable/ic_down_arrow"
             app:endIconTint="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/amount_paylater">
+            app:layout_constraintTop_toBottomOf="@id/amountRecieverName">
 
             <AutoCompleteTextView
                 android:id="@+id/autocomplete_payment"
@@ -115,21 +115,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="28dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/amount_paynowText"
+            app:layout_constraintTop_toBottomOf="@+id/member_price"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Amount Paying Now"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"/>
+
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/amount_paynow"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/edittext_style_white_smaller"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:hint="Enter Amount to be paid now"
             android:textSize="16dp"
             android:inputType="phone"
             android:padding="12dp"
-            app:layout_constraintTop_toBottomOf="@id/member_price"
+            app:layout_constraintTop_toBottomOf="@id/amount_paynowText"
             />
 
         <TextView
@@ -137,15 +149,55 @@
             android:layout_height="wrap_content"
             android:id="@+id/amount_paylater"
             android:textSize="16dp"
-            android:hint="Amount left to be paid"
             android:textColorHint="@color/black"
             android:textColor="@color/black"
             android:padding="12dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/edittext_style_white_smaller"
-            app:layout_constraintTop_toBottomOf="@id/amount_paynow"/>
+            app:layout_constraintTop_toBottomOf="@id/amount_paylaterText"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/amount_paylaterText"
+            app:layout_constraintTop_toBottomOf="@+id/amount_paynow"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Amount Remaining"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/amountReciever"
+            app:layout_constraintTop_toBottomOf="@+id/amount_paylater"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Person Receiving the Payment"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/amountRecieverName"
+            android:textSize="16dp"
+            android:textColorHint="@color/grey"
+            android:textColor="@color/black"
+            android:padding="12dp"
+            android:hint="If Submitting via cash"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_style_white_smaller"
+            app:layout_constraintTop_toBottomOf="@id/amountReciever"/>
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

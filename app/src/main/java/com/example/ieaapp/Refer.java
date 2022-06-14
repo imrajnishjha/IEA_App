@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -32,7 +34,24 @@ public class Refer extends AppCompatActivity {
 
         referBackButton.setOnClickListener(view -> finish());
 
-        referButton.setOnClickListener(view -> sendEmail());
+        referButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(nameEdtTxt.getText().toString())) {
+                    nameEdtTxt.setError("Name cannot be empty!");
+                    nameEdtTxt.requestFocus();
+                } else if (TextUtils.isEmpty(company_nameEdtTxt.getText().toString())) {
+                    company_nameEdtTxt.setError("Company name cannot be empty!");
+                    company_nameEdtTxt.requestFocus();
+                } else if (TextUtils.isEmpty(contact_numberEdtTxt.getText().toString())) {
+                    contact_numberEdtTxt.setError("Contact number cannot be empty!");
+                    contact_numberEdtTxt.requestFocus();
+                } else {
+                    sendEmail();
+
+                }
+            }
+        });
 
     }
 
@@ -55,7 +74,6 @@ public class Refer extends AppCompatActivity {
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(Refer.this,
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();

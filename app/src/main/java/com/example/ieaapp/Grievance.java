@@ -44,7 +44,7 @@ public class Grievance extends AppCompatActivity {
                 grievancedb = FirebaseDatabase.getInstance();
                 grievancereference=grievancedb.getReference("Unsolved Grievances");
                 issue=findViewById(R.id.issue_input_edttxt);
-                dept=findViewById(R.id.autocomplete_department_field);
+                dept=findViewById(R.id.grievance_department_field);
                 String complain=issue.getText().toString();
                 String departments=dept.getText().toString();
                 String complainerEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();

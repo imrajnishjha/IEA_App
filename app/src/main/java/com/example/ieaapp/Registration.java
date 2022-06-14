@@ -43,7 +43,7 @@ public class Registration extends AppCompatActivity {
                 intent.putExtra("phoneno", phoneNo.getText().toString());
                 intent.putExtra("cname", Comapany_name.getText().toString());
                 intent.putExtra("department", Department.getText().toString());
-                intent.putExtra("annual_term", Annual_turn.getText().toString());
+                intent.putExtra("annual_turn", Annual_turn.getText().toString());
                 intent.putExtra("memberfee", member_fee.getText().toString());
 
                 if (TextUtils.isEmpty(fullname.getText().toString())) {
