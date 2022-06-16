@@ -37,6 +37,7 @@ public class MyGrievances extends AppCompatActivity {
 
         myGrievancesAdapter = new MyGrievancesAdapter(options);
         myGrievancesRecyclerView.setAdapter(myGrievancesAdapter);
+        myGrievancesBackButton.setOnClickListener(view -> finish());
     }
     public class WrapContentLinearLayoutManager extends LinearLayoutManager {
         public WrapContentLinearLayoutManager(Context context) {

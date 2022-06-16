@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,7 @@ public class explore_menu extends AppCompatActivity {
     StorageReference storageProfilePicReference;
     AppCompatButton exploreMenuLogoutBtn;
     long allsolvedValue,allProblemValue, allRejectedValue;
+    RelativeLayout activeBar, activeVal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,8 @@ public class explore_menu extends AppCompatActivity {
         userImage = findViewById(R.id.user_img);
         activeValue = findViewById(R.id.active_value);
         solvedValue = findViewById(R.id.solved_value);
+        activeBar = findViewById(R.id.activebar);
+        activeVal = findViewById(R.id.activeval);
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Registered Users");
@@ -181,7 +185,6 @@ public class explore_menu extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String userNameDatabase = Objects.requireNonNull(Objects.requireNonNull(dataSnapshot.child("name").getValue()).toString());
                 exploreUsername.setText(userNameDatabase);
-                descriptionUsername.setText(userNameDatabase);
             }
 
             @Override
@@ -220,6 +223,9 @@ public class explore_menu extends AppCompatActivity {
         });
 
         userImage.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, UserProfile.class)));
+
+        activeBar.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MyGrievances.class)));
+        activeVal.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MyGrievances.class)));
 
     }
     @Override
