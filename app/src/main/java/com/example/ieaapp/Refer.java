@@ -63,14 +63,20 @@ public class Refer extends AppCompatActivity {
         email_address = email_addressEdtTxt.getText().toString();
         Log.i("Send email", "");
 
-        String[] TO = {"abhishekdeupa@gmail.com"};
+        String[] TO = {email_address};
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.setType("text/plain");
 
         emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "IEA Member Referral");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "New Member Referral\n\nName: " + name + "\nCompany Name: " + company_name + "\nContact Number: " + contact_number + "\nEmail Address: " + email_address);
+        if(email_address.isEmpty()){
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "New Member Referral\n\nName: " + name + "\nCompany Name: " + company_name + "\nContact Number: " + contact_number);
+        } else {
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "New Member Referral\n\nName: " + name + "\nCompany Name: " + company_name + "\nContact Number: " + contact_number + "\nEmail Address: " + email_address);
+        }
+
+
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));

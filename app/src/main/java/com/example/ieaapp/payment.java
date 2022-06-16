@@ -118,7 +118,7 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
                 if (TextUtils.isEmpty(amount_payingnow.getText().toString())) {
                     amount_payingnow.setError("Amount cannot be empty!");
                     amount_payingnow.requestFocus();
-                } else if (Long.parseLong(amount_payingnow.getText().toString()) <= 3500) {
+                } else if (Long.parseLong(amount_payingnow.getText().toString()) < 3500) {
                     amount_payingnow.setError("Enter More Than 3500");
                     amount_payingnow.requestFocus();
                 } else if(autoCompletePayment.getText().toString().equals("Payment Method")) {

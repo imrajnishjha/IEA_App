@@ -32,7 +32,7 @@ public class MyGrievances extends AppCompatActivity {
         myGrievancesBackButton = findViewById(R.id.my_grievances_back_button);
 
         options = new FirebaseRecyclerOptions.Builder<MyGrievanceModel>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Unsolved Grievances").orderByChild("email").equalTo(mAuth.getCurrentUser().getEmail()), MyGrievanceModel.class)
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Unresolved Grievances").child(mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7")), MyGrievanceModel.class)
                 .build();
 
         myGrievancesAdapter = new MyGrievancesAdapter(options);

@@ -146,11 +146,11 @@ public class UserProfile extends AppCompatActivity {
         saveProfileBtn.setOnClickListener(view -> {
             String userContactNumberStr = userContactNumberEdtTxt.getText().toString();
             String userDOBStr = userDateOfBirthEdtTxt.getText().toString();
-            String userCompanyNameStr = userCompanyNameEdtTxt.getText().toString();
+          //  String userCompanyNameStr = userCompanyNameEdtTxt.getText().toString();
             String userAddressStr = userAddressEdtTxt.getText().toString();
             String userBioStr = userBioEditText.getText().toString();
 
-            updateData(userContactNumberStr, userDOBStr, userCompanyNameStr, userAddressStr, userBioStr);
+            updateData(userContactNumberStr, userDOBStr, userAddressStr, userBioStr);
 
             if(resultUri != null){
                 uploadImageToFirebase(resultUri);
@@ -173,11 +173,11 @@ public class UserProfile extends AppCompatActivity {
 
     }
 
-    private void updateData(String userContactNumberStr, String userDOBStr, String userCompanyNameStr, String userAddressStr, String userBioStr) {
+    private void updateData(String userContactNumberStr, String userDOBStr, String userAddressStr, String userBioStr) {
         HashMap UserData = new HashMap();
         UserData.put("phone_number", userContactNumberStr);
         UserData.put("date_of_birth", userDOBStr);
-        UserData.put("company_name", userCompanyNameStr);
+       // UserData.put("company_name", userCompanyNameStr);
         UserData.put("address", userAddressStr);
         UserData.put("description", userBioStr);
 

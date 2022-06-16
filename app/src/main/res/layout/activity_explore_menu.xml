@@ -152,7 +152,7 @@
                 android:layout_marginBottom="13dp"
                 android:background="@drawable/round_corner"
                 android:gravity="center"
-                android:text="2"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -166,10 +166,9 @@
                 android:layout_marginBottom="20dp"
                 android:background="#03C1BEBE"
                 android:gravity="center"
-                android:text="12"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
-
 
         </RelativeLayout>
 

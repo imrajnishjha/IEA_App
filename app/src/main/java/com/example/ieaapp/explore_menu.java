@@ -39,9 +39,10 @@ public class explore_menu extends AppCompatActivity {
     ImageView logoutImg, userImage;
     CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer;
     Dialog exploreIeaContactDialog;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference,solvedReference, unResolvedReference, rejectedReference;
     StorageReference storageProfilePicReference;
     AppCompatButton exploreMenuLogoutBtn;
+    long allsolvedValue,allProblemValue, allRejectedValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,57 @@ public class explore_menu extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Registered Users");
+
+        unResolvedReference = FirebaseDatabase.getInstance().getReference().child("Registered Users");
         storageProfilePicReference = FirebaseStorage.getInstance().getReference();
+
+        rejectedReference = FirebaseDatabase.getInstance().getReference().child("Rejected Grievance").child(mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7"));
+        rejectedReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                allRejectedValue=snapshot.getChildrenCount();
+                Log.d("Problems", "Rejected Grievances "+snapshot.getChildrenCount());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        solvedReference = FirebaseDatabase.getInstance().getReference().child("Solved Grievance").child(mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7"));
+        solvedReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                allsolvedValue=snapshot.getChildrenCount();
+                solvedValue.setText(String.valueOf(allsolvedValue));
+                Log.d("Problems", "Solved Grievances "+snapshot.getChildrenCount());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        unResolvedReference = FirebaseDatabase.getInstance().getReference().child("Unresolved Grievances").child(mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7"));
+        unResolvedReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                allProblemValue=snapshot.getChildrenCount();
+                activeValue.setText(String.valueOf(allProblemValue-allsolvedValue-allRejectedValue));
+                Log.d("Problems", "All Count: "+snapshot.getChildrenCount());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
 
         String userEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
 

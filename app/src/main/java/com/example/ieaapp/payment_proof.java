@@ -109,48 +109,24 @@ public class payment_proof extends AppCompatActivity {
         upload_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                memberDirectoryRoot = FirebaseDatabase.getInstance();
-                memberDirectoryRef = memberDirectoryRoot.getReference("Temp Registry");
+
 
 
                 if (!paymentReceiverName.getText().toString().isEmpty()){
                     nameOfReceiver = paymentReceiverName.getText().toString();
                 }
                 if (paymentMethod.equals("Physical Method Via Cash")){
-                    paymentReceiverName.setError("Enter receiver name");
-                    paymentReceiverName.requestFocus();
+                    if(paymentReceiverName.getText().toString().isEmpty()) {
+                        paymentReceiverName.setError("Enter receiver name");
+                        paymentReceiverName.requestFocus();
+                    } else {
+                        imguploader(imageBitmap);
+                    }
+                } else {
+                    imguploader(imageBitmap);
                 }
 
-                if(imageBitmap!=null){
 
-                    Uri proofimg_uri =getimageUri(payment_proof.this,imageBitmap);
-                    Log.d("imguri", "onClick: "+proofimg_uri.toString());
-
-
-                    StorageReference urirefence =memberstorageRef.child("paymentproof/"+UUID.randomUUID().toString());
-                    urirefence.putFile(proofimg_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(payment_proof.this,"Upload Sucessfull", Toast.LENGTH_SHORT).show();
-                            urirefence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover,uri.toString(),amountleft,memberfees,nameOfReceiver);
-                                    memberDirectoryRef.child(email.replaceAll("\\.", "%7")).setValue(userRegistrationHelperClass);
-
-
-                                }
-                            });
-
-                        }
-                    });
-
-
-
-                } else{
-
-                    Toast.makeText(payment_proof.this,"Please Upload Image", Toast.LENGTH_SHORT).show();
-                }
 
             }
         });
@@ -223,6 +199,44 @@ public class payment_proof extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    public void imguploader(Bitmap imageBitmap){
+
+        memberDirectoryRoot = FirebaseDatabase.getInstance();
+        memberDirectoryRef = memberDirectoryRoot.getReference("Temp Registry");
+
+        if(imageBitmap!=null){
+
+            Uri proofimg_uri =getimageUri(payment_proof.this,imageBitmap);
+            Log.d("imguri", "onClick: "+proofimg_uri.toString());
+
+
+            StorageReference urirefence =memberstorageRef.child("paymentproof/"+UUID.randomUUID().toString());
+            urirefence.putFile(proofimg_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(payment_proof.this,"Upload Sucessfull", Toast.LENGTH_SHORT).show();
+                    urirefence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover,uri.toString(),amountleft,memberfees,nameOfReceiver);
+                            memberDirectoryRef.child(email.replaceAll("\\.", "%7")).setValue(userRegistrationHelperClass);
+
+
+                        }
+                    });
+
+                }
+            });
+
+
+
+        } else{
+
+            Toast.makeText(payment_proof.this,"Please Upload Image", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
