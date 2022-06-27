@@ -52,10 +52,10 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
         AutoCompleteTextView autoCompleteTextViewPayment = findViewById(R.id.autocomplete_payment);
         autoCompleteTextViewPayment.setAdapter(arrayAdapterPaymethod);
 
-        AppCompatButton registrationBackButton = findViewById(R.id.payment_back_button);
+        AppCompatButton PaymentBackButton = findViewById(R.id.payment_back_button);
         AutoCompleteTextView autoCompletePayment = findViewById(R.id.autocomplete_payment);
 
-        registrationBackButton.setOnClickListener(view -> {
+        PaymentBackButton.setOnClickListener(view -> {
             finish();
         });
 
@@ -122,9 +122,9 @@ public class payment extends AppCompatActivity implements PaymentResultListener 
                     amount_payingnow.setError("Enter More Than 3500");
                     amount_payingnow.requestFocus();
                 } else if(autoCompletePayment.getText().toString().equals("Payment Method")) {
-                        autoCompletePayment.setError("Select a payment method");
-                        autoCompletePayment.requestFocus();
-                    } else{
+                    autoCompletePayment.setError("Select a payment method");
+                    autoCompletePayment.requestFocus();
+                } else{
                     startActivity(intent);
                 }
             }

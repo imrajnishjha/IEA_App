@@ -46,32 +46,36 @@ public class Grievance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 grievancedb = FirebaseDatabase.getInstance();
-                String complainerEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-
                 issue=findViewById(R.id.issue_input_edttxt);
                 dept=findViewById(R.id.grievance_department_field);
-                String complain=issue.getText().toString();
-                String departments=dept.getText().toString();
-                grievancereference=grievancedb.getReference("Unsolved Grievances");
-                grievancehelperclass Grievancehelperclass = new grievancehelperclass(complainerEmail,departments,complain,"Unsolved");
-                grievancehelperclass Grievancehelperclass2 = new grievancehelperclass(complainerEmail,departments,complain,"Unsolved");
+                if(issue.getText().toString().isEmpty() ||  dept.getText().toString().isEmpty()){
+                    Toast.makeText(Grievance.this, "Complain and Department can't be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    String complainerEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String complain=issue.getText().toString();
+                    String departments=dept.getText().toString();
+                    grievancereference=grievancedb.getReference("Unsolved Grievances");
+                    grievancehelperclass Grievancehelperclass = new grievancehelperclass(complainerEmail,departments,complain,"Unsolved");
+                    grievancehelperclass Grievancehelperclass2 = new grievancehelperclass(complainerEmail,departments,complain,"Unsolved");
 //                grievancereference.push().setValue(Grievancehelperclass);
 //                grievancereference2.push().setValue(Grievancehelperclass);
-                String grievanceKey = grievancereference.push().getKey();
+                    String grievanceKey = grievancereference.push().getKey();
 
 
-                grievancereference2=grievancedb.getReference("Unresolved Grievances").child(complainerEmail.replaceAll("\\.", "%7")).child(grievanceKey);
-                GrievanceModel solvedmodel = new GrievanceModel(complain,departments,complainerEmail,"Unsolved");
-                grievancereference2.setValue(solvedmodel);
-                grievancereference.child(grievanceKey).setValue(solvedmodel);
+                    grievancereference2=grievancedb.getReference("Unresolved Grievances").child(complainerEmail.replaceAll("\\.", "%7")).child(grievanceKey);
+                    GrievanceModel solvedmodel = new GrievanceModel(complain,departments,complainerEmail,"Unsolved");
+                    grievancereference2.setValue(solvedmodel);
+                    grievancereference.child(grievanceKey).setValue(solvedmodel);
 
-                new AlertDialog.Builder(Grievance.this)
-                        .setTitle("Grievance ID")
-                        .setMessage("Your Grievance ID is: "+grievanceKey).show();
+                    new AlertDialog.Builder(Grievance.this)
+                            .setTitle("Grievance ID")
+                            .setMessage("Your Grievance ID is: "+grievanceKey).show();
 
-                issue.setText("");
-                Toast.makeText(Grievance.this, "We have received your complaint", Toast.LENGTH_LONG).show();
+                    issue.setText("");
+                    Toast.makeText(Grievance.this, "We have received your complaint", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

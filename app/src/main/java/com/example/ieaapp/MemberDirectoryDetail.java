@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -14,9 +15,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class MemberDirectoryDetail extends AppCompatActivity {
     ImageView memberProfileImage;
-    TextView memberProfileName, memberMembershipId, memberMembershipDate, memberContactNumber, memberDateOfBirth, memberEmailTxtView, memberCompanyName, memberAddress, memberBio;
+    TextView memberProfileName, memberMembershipId, memberMembershipDate, memberContactNumber, memberDateOfBirth, memberEmailTxtView,
+            memberCompanyName, memberAddress, memberBio,memberMembershipExpiryDate;
+    AppCompatButton memberProfileBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,12 @@ public class MemberDirectoryDetail extends AppCompatActivity {
         memberCompanyName = findViewById(R.id.member_company_name);
         memberAddress = findViewById(R.id.member_address);
         memberBio = findViewById(R.id.member_bio);
+        memberMembershipExpiryDate=findViewById(R.id.memberExpiryDateId);
+        memberProfileBackBtn=findViewById(R.id.memberDetail_back_button);
+
+        memberProfileBackBtn.setOnClickListener(view -> {
+            finish();
+        });
 
         String coreItemKey = getIntent().getStringExtra("MemberItemKey");
 
@@ -52,6 +65,7 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                     String memberNameStr = snapshot.child("name").getValue().toString();
                     String memberPictureUrl = snapshot.child("purl").getValue().toString();
                     String memberBioStr = snapshot.child("description").getValue().toString();
+                    String memberMembershipExpiryDateStr = yearincrementer(memberMembershipDateStr);
 
                     memberMembershipId.setText(memberMembershipIdStr);
                     memberMembershipDate.setText(memberMembershipDateStr);
@@ -62,6 +76,7 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                     memberAddress.setText(memberAddressStr);
                     memberProfileName.setText(memberNameStr);
                     memberBio.setText(memberBioStr);
+                    memberMembershipExpiryDate.setText(memberMembershipExpiryDateStr);
 
                     Glide.with(memberProfileImage.getContext())
                             .load(memberPictureUrl)
@@ -77,5 +92,17 @@ public class MemberDirectoryDetail extends AppCompatActivity {
 
             }
         });
+    }
+    public String yearincrementer(String date){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        Calendar c =Calendar.getInstance();
+        try {
+            c.setTime(sdf.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        c.add(Calendar.DATE,365);
+        date=sdf.format(c.getTime());
+        return date;
     }
 }

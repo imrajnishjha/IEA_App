@@ -32,6 +32,9 @@ import com.google.firebase.storage.UploadTask;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
@@ -52,9 +55,9 @@ public class UserProfile extends AppCompatActivity {
     DatabaseReference ref = database.getReference("Registered Users/" + userEmailConverted);
 
     ImageView userProfileImage;
-    TextView userProfileName, userMembershipId, userMembershipDate;
+    TextView userProfileName, userMembershipId, userMembershipDate,userMembershipExpiryDate;
     EditText userContactNumberEdtTxt, userDateOfBirthEdtTxt, userEmailEdtTxt, userCompanyNameEdtTxt, userAddressEdtTxt;
-    AppCompatButton saveProfileBtn;
+    AppCompatButton saveProfileBtn,userProfileBackBtn;
     ActivityResultLauncher<String> mGetContent;
     TextInputEditText userBioEditText;
 
@@ -76,6 +79,12 @@ public class UserProfile extends AppCompatActivity {
         userAddressEdtTxt = findViewById(R.id.user_profile_address_edtTxt);
         saveProfileBtn = findViewById(R.id.user_profile_save_button);
         userBioEditText = findViewById(R.id.user_bio_input_edttxt);
+        userMembershipExpiryDate=findViewById(R.id.expiry_dateId);
+        userProfileBackBtn = findViewById(R.id.userProfile_back_button);
+
+        userProfileBackBtn.setOnClickListener(view -> {
+            finish();
+        });
 
         storageProfilePicReference = FirebaseStorage.getInstance().getReference();
 
@@ -103,6 +112,8 @@ public class UserProfile extends AppCompatActivity {
 
                 String userMembershipDateStr = Objects.requireNonNull(dataSnapshot.child("date_of_membership").getValue()).toString();
                 userMembershipDate.setText(userMembershipDateStr);
+                String userExpireyDate = yearincrementer(userMembershipDateStr);
+                userMembershipExpiryDate.setText(userExpireyDate);
 
                 String userContactNumberStr = Objects.requireNonNull(dataSnapshot.child("phone_number").getValue()).toString();
                 userContactNumberEdtTxt.setText(userContactNumberStr);
@@ -118,6 +129,7 @@ public class UserProfile extends AppCompatActivity {
 
                 String userEmailStr = Objects.requireNonNull(dataSnapshot.child("email").getValue()).toString();
                 userEmailEdtTxt.setText(userEmailStr);
+
 
                 String userCompanyNameStr = Objects.requireNonNull(dataSnapshot.child("company_name").getValue()).toString();
                 userCompanyNameEdtTxt.setText(userCompanyNameStr);
@@ -146,7 +158,7 @@ public class UserProfile extends AppCompatActivity {
         saveProfileBtn.setOnClickListener(view -> {
             String userContactNumberStr = userContactNumberEdtTxt.getText().toString();
             String userDOBStr = userDateOfBirthEdtTxt.getText().toString();
-          //  String userCompanyNameStr = userCompanyNameEdtTxt.getText().toString();
+            //  String userCompanyNameStr = userCompanyNameEdtTxt.getText().toString();
             String userAddressStr = userAddressEdtTxt.getText().toString();
             String userBioStr = userBioEditText.getText().toString();
 
@@ -177,7 +189,7 @@ public class UserProfile extends AppCompatActivity {
         HashMap UserData = new HashMap();
         UserData.put("phone_number", userContactNumberStr);
         UserData.put("date_of_birth", userDOBStr);
-       // UserData.put("company_name", userCompanyNameStr);
+        // UserData.put("company_name", userCompanyNameStr);
         UserData.put("address", userAddressStr);
         UserData.put("description", userBioStr);
 
@@ -255,5 +267,18 @@ public class UserProfile extends AppCompatActivity {
                 Toast.makeText(UserProfile.this, "Failed to Update Profile Picture", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public String yearincrementer(String date){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        Calendar c =Calendar.getInstance();
+        try {
+            c.setTime(sdf.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        c.add(Calendar.DATE,365);
+        date=sdf.format(c.getTime());
+        return date;
     }
 }

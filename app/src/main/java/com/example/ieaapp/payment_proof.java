@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,13 +25,17 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -58,7 +64,6 @@ public class payment_proof extends AppCompatActivity {
         upload_btn = findViewById(R.id.proofupload_btn);
         paymentReceiverName = findViewById(R.id.receiver_name_editxt);
         paymentReceiverHeading = findViewById(R.id.name_of_receiver_text);
-
 
         Intent intent = getIntent();
         fullname=intent.getStringExtra("name");
@@ -105,12 +110,10 @@ public class payment_proof extends AppCompatActivity {
             }
         });
 
-
         upload_btn.setOnClickListener(new View.OnClickListener() {
+            Boolean sendNotification = true;
             @Override
             public void onClick(View v) {
-
-
 
                 if (!paymentReceiverName.getText().toString().isEmpty()){
                     nameOfReceiver = paymentReceiverName.getText().toString();
@@ -120,13 +123,18 @@ public class payment_proof extends AppCompatActivity {
                         paymentReceiverName.setError("Enter receiver name");
                         paymentReceiverName.requestFocus();
                     } else {
-                        imguploader(imageBitmap);
+                        if(sendNotification){
+                            imguploader(imageBitmap);
+                            sendNotification = false;
+                        }
+
                     }
                 } else {
-                    imguploader(imageBitmap);
+                    if(sendNotification){
+                        imguploader(imageBitmap);
+                        sendNotification = false;
+                    }
                 }
-
-
 
             }
         });
@@ -216,12 +224,43 @@ public class payment_proof extends AppCompatActivity {
             urirefence.putFile(proofimg_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(payment_proof.this,"Upload Sucessfull", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(payment_proof.this,"Upload Successful", Toast.LENGTH_SHORT).show();
                     urirefence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover,uri.toString(),amountleft,memberfees,nameOfReceiver);
                             memberDirectoryRef.child(email.replaceAll("\\.", "%7")).setValue(userRegistrationHelperClass);
+
+                            final long[] registrationCount = new long[1];
+
+                            FirebaseDatabase.getInstance().getReference("Temp Registry").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    registrationCount[0] = snapshot.getChildrenCount();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+                            FirebaseDatabase.getInstance().getReference("Core Member Token").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for(DataSnapshot tokenSnapshot : snapshot.getChildren()){
+                                        String grievanceUserToken = Objects.requireNonNull(tokenSnapshot.getValue()).toString();
+                                        FcmNotificationsSender grievanceNotificationSender = new FcmNotificationsSender(grievanceUserToken, "IEA New Registration", "New registration application has been submitted.",getApplicationContext(),payment_proof.this, String.valueOf(registrationCount[0]));
+                                        grievanceNotificationSender.SendNotifications();
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
 
 
                         }
@@ -230,10 +269,7 @@ public class payment_proof extends AppCompatActivity {
                 }
             });
 
-
-
         } else{
-
             Toast.makeText(payment_proof.this,"Please Upload Image", Toast.LENGTH_SHORT).show();
         }
 

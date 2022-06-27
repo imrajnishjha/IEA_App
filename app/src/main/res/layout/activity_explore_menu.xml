@@ -284,20 +284,12 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginBottom="10dp"
                     android:text="Head Department Members"
                     android:textColor="@color/different_black"
@@ -343,15 +335,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
                     android:layout_marginBottom="10dp"
                     android:text="Run hassle free Business"
                     android:textColor="@color/different_black"
@@ -393,20 +376,12 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginBottom="10dp"
                     android:text="Know more about us"
                     android:textColor="@color/different_black"
@@ -448,20 +423,13 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginBottom="10dp"
                     android:text="Explore other member"
                     android:textColor="@color/different_black"
@@ -503,20 +471,13 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginBottom="10dp"
                     android:text="Business of Services"
                     android:textColor="@color/different_black"
@@ -558,20 +519,12 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginBottom="10dp"
                     android:text="File your complaint"
                     android:textColor="@color/different_black"
@@ -613,20 +566,13 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginBottom="10dp"
                     android:text="Need Hands?Post now"
                     android:textColor="@color/different_black"
@@ -667,20 +613,12 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginBottom="10dp"
                     android:text="Meet and Connect with Others"
                     android:textColor="@color/different_black"

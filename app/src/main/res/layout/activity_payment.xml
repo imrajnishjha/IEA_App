@@ -18,7 +18,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="33dp"
             android:background="@drawable/back_icon"
             android:backgroundTint="@color/black"
             app:layout_constraintStart_toStartOf="parent"
