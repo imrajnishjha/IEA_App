@@ -167,9 +167,9 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/expiry_dateId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/expiry_dateId"
                         android:fontFamily="@font/poppins_semi_bold"
                         android:text="14th  Nov, 2023"
                         android:textColor="@color/white"
@@ -197,15 +197,15 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/black"
             android:fontFamily="@font/poppins_regular"
             android:hint="Add Your Contact Number"
+            android:textColor="@color/black"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/membership_date_cardView"
-            tools:ignore="HardcodedText"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/black"/>
+            tools:ignore="HardcodedText" />
 
         <ImageView
             android:layout_width="40dp"
@@ -223,15 +223,15 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/black"
             android:fontFamily="@font/poppins_regular"
             android:hint="DD/MM/YYYY"
+            android:textColor="@color/black"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_profile_contactNumber_edtTxt"
-            tools:ignore="HardcodedText"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/black"/>
+            tools:ignore="HardcodedText" />
 
         <ImageView
             android:layout_width="40dp"
@@ -249,16 +249,16 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/black"
+            android:focusable="false"
             android:fontFamily="@font/poppins_regular"
             android:hint="Email"
+            android:textColor="@color/grey"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_profile_dateOfBirth_edtTxt"
-            tools:ignore="HardcodedText"
-            android:textColor="@color/grey"
-            android:backgroundTint="@color/black"
-            android:focusable="false"/>
+            tools:ignore="HardcodedText" />
 
         <ImageView
             android:layout_width="40dp"
@@ -276,17 +276,17 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/black"
+            android:focusable="false"
             android:fontFamily="@font/poppins_regular"
             android:hint="Company Name"
+            android:inputType="none"
+            android:textColor="@color/grey"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
-            android:inputType="none"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_profile_email_edtTxt"
-            tools:ignore="HardcodedText"
-            android:textColor="@color/grey"
-            android:backgroundTint="@color/black"
-            android:focusable="false"/>
+            tools:ignore="HardcodedText" />
 
         <ImageView
             android:layout_width="40dp"
@@ -304,15 +304,15 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/black"
             android:fontFamily="@font/poppins_regular"
             android:hint="Address"
+            android:textColor="@color/black"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_profile_company_name_edtTxt"
-            tools:ignore="HardcodedText"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/black"/>
+            tools:ignore="HardcodedText" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/user_bio_input_layout"
@@ -324,17 +324,17 @@
             android:background="#F5F5F5"
             android:hint="Tell us about yourself"
             app:hintTextColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/user_profile_save_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_profile_address_edtTxt"
-            app:layout_constraintBottom_toBottomOf="@id/user_profile_null_text">
+            tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/user_bio_input_edttxt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="false"
-                android:textCursorDrawable="@color/black"
                 android:background="@drawable/edittext_style_white_smaller"
                 android:fontFamily="@font/inter_regular"
                 android:gravity="start|top"
@@ -343,36 +343,191 @@
                 android:minLines="2"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
+                android:textCursorDrawable="@color/black"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/user_profile_null_text"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_bio_input_layout"
-            app:layout_constraintBottom_toTopOf="@id/user_profile_save_button"/>
+<!--        <TextView-->
+<!--            android:id="@+id/user_profile_null_text"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/user_profile_save_button"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/user_bio_input_layout" />-->
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/user_profile_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save Profile"
-            android:textAllCaps="false"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/button_style_black"
-            android:textColor="@color/white"
             android:fontFamily="@font/poppins_semi_bold"
             android:paddingStart="48dp"
             android:paddingEnd="48dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Save Profile"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/upload_brochure_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_profile_null_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_bio_input_layout"
+            tools:ignore="hardCodedText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/upload_brochure_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
             android:layout_marginTop="8dp"
-            tools:ignore="hardCodedText"/>
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_style_black"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp"
+            android:text="Upload Brochure"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/add_products_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_profile_save_button"
+            tools:ignore="hardCodedText" />
+
+        <TextView
+            android:id="@+id/add_products_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Add Products"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/upload_product_image_cv"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/upload_brochure_btn"
+            tools:ignore="HardcodedText" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/upload_product_image_cv"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_add_circle_outline"
+            android:backgroundTint="#D9D9D9"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/add_product_btn"
+            app:layout_constraintTop_toBottomOf="@id/add_products_text">
+
+            <ImageView
+                android:id="@+id/upload_product_image_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_add_circle_outline" />
+
+
+        </androidx.cardview.widget.CardView>
+
+        <EditText
+            android:id="@+id/product_title_edtTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edittext_style_white_much_smaller"
+            android:fontFamily="@font/inriasans_regular"
+            android:hint="Add Title"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/upload_product_image_cv"
+            app:layout_constraintTop_toTopOf="@id/upload_product_image_cv"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/product_description_edtTxt"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edittext_style_white_much_smaller"
+            android:fontFamily="@font/inriasans_regular"
+            android:hint="Add Description"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingTop="4dp"
+            android:gravity="start"
+            android:paddingBottom="4dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/upload_product_image_cv"
+            app:layout_constraintTop_toBottomOf="@id/product_title_edtTxt"
+            app:layout_constraintBottom_toTopOf="@id/product_price_edtTxt"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/product_price_edtTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edittext_style_white_much_smaller"
+            android:fontFamily="@font/inriasans_regular"
+            android:hint="Add Price"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/upload_product_image_cv"
+            app:layout_constraintBottom_toBottomOf="@id/upload_product_image_cv"
+            tools:ignore="HardcodedText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_product_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_style_black"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp"
+            android:text="Add More"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/upload_product_image_cv"
+            tools:ignore="hardCodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

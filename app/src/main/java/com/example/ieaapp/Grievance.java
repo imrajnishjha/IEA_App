@@ -1,8 +1,13 @@
 package com.example.ieaapp;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -28,6 +33,7 @@ public class Grievance extends AppCompatActivity {
     AutoCompleteTextView dept;
     CardView myGrievancesBtn;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    Dialog grievanceSubmissionDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,8 @@ public class Grievance extends AppCompatActivity {
         dropdownInit();
 
         grievance_back_button.setOnClickListener(view -> finish());
+
+        grievanceSubmissionDialog = new Dialog(this);
 
         grievance_submit=findViewById(R.id.grievance_submit);
         grievance_submit.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +70,6 @@ public class Grievance extends AppCompatActivity {
 //                grievancereference2.push().setValue(Grievancehelperclass);
                     String grievanceKey = grievancereference.push().getKey();
 
-
                     grievancereference2=grievancedb.getReference("Unresolved Grievances").child(complainerEmail.replaceAll("\\.", "%7")).child(grievanceKey);
                     GrievanceModel solvedmodel = new GrievanceModel(complain,departments,complainerEmail,"Unsolved");
                     grievancereference2.setValue(solvedmodel);
@@ -73,7 +80,8 @@ public class Grievance extends AppCompatActivity {
                             .setMessage("Your Grievance ID is: "+grievanceKey).show();
 
                     issue.setText("");
-                    Toast.makeText(Grievance.this, "We have received your complaint", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Grievance.this, "We have received your request", Toast.LENGTH_LONG).show();
+                    confirmationPopup();
                 }
 
             }
@@ -93,5 +101,24 @@ public class Grievance extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterDepartments = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, grievance_departments);
         AutoCompleteTextView autoCompleteTextViewDepartments = findViewById(R.id.grievance_department_field);
         autoCompleteTextViewDepartments.setAdapter(arrayAdapterDepartments);
+    }
+
+    public void confirmationPopup(){
+
+        LayoutInflater inflater = getLayoutInflater();
+        View confirmationView = inflater.inflate(R.layout.confirmation_popup, null);
+        grievanceSubmissionDialog.setContentView(confirmationView);
+        grievanceSubmissionDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        grievanceSubmissionDialog.show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(getApplicationContext(), Grievance.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+            }
+        },3000);
     }
 }

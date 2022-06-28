@@ -1,16 +1,20 @@
 package com.example.ieaapp;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
-import android.text.BoringLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,21 +46,24 @@ import java.util.UUID;
 public class payment_proof extends AppCompatActivity {
 
     ImageView proof_img;
-    AppCompatButton insert_btn,payment_proofbackbtn,upload_btn;
-    String fullname,email,companyName,Department,phoneNo,Turnover,memberfees,amountleft, paymentMethod, nameOfReceiver = "";
+    AppCompatButton insert_btn, payment_proofbackbtn, upload_btn;
+    String fullname, email, companyName, Department, phoneNo, Turnover, memberfees, amountleft, paymentMethod, nameOfReceiver = "";
     FirebaseDatabase memberDirectoryRoot;
     DatabaseReference memberDirectoryRef;
     private StorageReference memberstorageRef;
     Bitmap imageBitmap;
     EditText paymentReceiverName;
     TextView paymentReceiverHeading;
+    Dialog registrarionConfirmationDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_proof);
-
         memberstorageRef = FirebaseStorage.getInstance().getReference();
+
+        registrarionConfirmationDialog = new Dialog(this);
 
         proof_img = findViewById(R.id.proof_img);
         insert_btn = findViewById(R.id.insert_proof_img_btn);
@@ -66,18 +73,18 @@ public class payment_proof extends AppCompatActivity {
         paymentReceiverHeading = findViewById(R.id.name_of_receiver_text);
 
         Intent intent = getIntent();
-        fullname=intent.getStringExtra("name");
-        email=intent.getStringExtra("email");
-        phoneNo=intent.getStringExtra("phoneno");
-        companyName=intent.getStringExtra("cname");
-        Department=intent.getStringExtra("department");
-        Turnover=intent.getStringExtra("annual_turn");
-        memberfees=intent.getStringExtra("memberfee");
-        amountleft=intent.getStringExtra("costleft");
-        paymentMethod= intent.getStringExtra("paymentMethod");
+        fullname = intent.getStringExtra("name");
+        email = intent.getStringExtra("email");
+        phoneNo = intent.getStringExtra("phoneno");
+        companyName = intent.getStringExtra("cname");
+        Department = intent.getStringExtra("department");
+        Turnover = intent.getStringExtra("annual_turn");
+        memberfees = intent.getStringExtra("memberfee");
+        amountleft = intent.getStringExtra("costleft");
+        paymentMethod = intent.getStringExtra("paymentMethod");
 
 
-        if (paymentMethod.equals("Physical Method Via Cash")){
+        if (paymentMethod.equals("Physical Method Via Cash")) {
             paymentReceiverName.setVisibility(View.VISIBLE);
             paymentReceiverHeading.setVisibility(View.VISIBLE);
         }
@@ -90,19 +97,19 @@ public class payment_proof extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                boolean pick=true;
-                if(pick==true){
-                    if(!checkCameraPermission()){
+                boolean pick = true;
+                if (pick == true) {
+                    if (!checkCameraPermission()) {
                         requestCameraPermission();
 
-                    } else{
+                    } else {
                         PickImagefromcamera();
                     }
-                }else{
-                    if(!checkStoragePermission()){
+                } else {
+                    if (!checkStoragePermission()) {
                         requestStoragePermission();
 
-                    } else{
+                    } else {
                         PickImagefromstorage();
                     }
 
@@ -112,25 +119,26 @@ public class payment_proof extends AppCompatActivity {
 
         upload_btn.setOnClickListener(new View.OnClickListener() {
             Boolean sendNotification = true;
+
             @Override
             public void onClick(View v) {
 
-                if (!paymentReceiverName.getText().toString().isEmpty()){
+                if (!paymentReceiverName.getText().toString().isEmpty()) {
                     nameOfReceiver = paymentReceiverName.getText().toString();
                 }
-                if (paymentMethod.equals("Physical Method Via Cash")){
-                    if(paymentReceiverName.getText().toString().isEmpty()) {
+                if (paymentMethod.equals("Physical Method Via Cash")) {
+                    if (paymentReceiverName.getText().toString().isEmpty()) {
                         paymentReceiverName.setError("Enter receiver name");
                         paymentReceiverName.requestFocus();
                     } else {
-                        if(sendNotification){
+                        if (sendNotification) {
                             imguploader(imageBitmap);
                             sendNotification = false;
                         }
 
                     }
                 } else {
-                    if(sendNotification){
+                    if (sendNotification) {
                         imguploader(imageBitmap);
                         sendNotification = false;
                     }
@@ -140,95 +148,89 @@ public class payment_proof extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
     private void PickImagefromstorage() {
-        Intent fromstorage = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(fromstorage,1);
+        Intent fromstorage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(fromstorage, 1);
     }
 
     private void PickImagefromcamera() {
-        Intent fromcamera= new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(fromcamera,0);
+        Intent fromcamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(fromcamera, 0);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestStoragePermission() {
-        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},100);
+        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestCameraPermission() {
-        requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},100);
+        requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
     }
 
     private boolean checkStoragePermission() {
-        boolean res2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED;
+        boolean res2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         return res2;
     }
 
     private boolean checkCameraPermission() {
-        boolean res1 = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED;
-        boolean res2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED;
+        boolean res1 = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+        boolean res2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         return res1 && res2;
     }
 
-    public Uri getimageUri(Context context,Bitmap bitimage){
-        ByteArrayOutputStream bytes =new ByteArrayOutputStream();
-        bitimage.compress(Bitmap.CompressFormat.JPEG,90,bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(),bitimage,"Title",null);
+    public Uri getimageUri(Context context, Bitmap bitimage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitimage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitimage, "Title", null);
         return Uri.parse(path);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode){
+        switch (requestCode) {
 
             case 0:
-                if(resultCode==RESULT_OK){
-                    Bundle extras=data.getExtras();
-                    imageBitmap=(Bitmap) extras.get("data");
+                if (resultCode == RESULT_OK) {
+                    Bundle extras = data.getExtras();
+                    imageBitmap = (Bitmap) extras.get("data");
                     proof_img.setImageBitmap(imageBitmap);
-
-
 
 
                 }
                 break;
 
             case 1:
-                if(resultCode==RESULT_OK){
-                    Uri selectedImage =data.getData();
+                if (resultCode == RESULT_OK) {
+                    Uri selectedImage = data.getData();
                     proof_img.setImageURI(selectedImage);
                 }
                 break;
         }
     }
 
-    public void imguploader(Bitmap imageBitmap){
+    public void imguploader(Bitmap imageBitmap) {
 
         memberDirectoryRoot = FirebaseDatabase.getInstance();
         memberDirectoryRef = memberDirectoryRoot.getReference("Temp Registry");
 
-        if(imageBitmap!=null){
+        if (imageBitmap != null) {
 
-            Uri proofimg_uri =getimageUri(payment_proof.this,imageBitmap);
-            Log.d("imguri", "onClick: "+proofimg_uri.toString());
+            Uri proofimg_uri = getimageUri(payment_proof.this, imageBitmap);
+            Log.d("imguri", "onClick: " + proofimg_uri.toString());
 
 
-            StorageReference urirefence =memberstorageRef.child("paymentproof/"+UUID.randomUUID().toString());
+            StorageReference urirefence = memberstorageRef.child("paymentproof/" + UUID.randomUUID().toString());
             urirefence.putFile(proofimg_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(payment_proof.this,"Upload Successful", Toast.LENGTH_SHORT).show();
                     urirefence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover,uri.toString(),amountleft,memberfees,nameOfReceiver);
+                            UserRegistrationHelperClass userRegistrationHelperClass = new UserRegistrationHelperClass(fullname, email, phoneNo, companyName, Department, Turnover, uri.toString(), amountleft, memberfees, nameOfReceiver);
                             memberDirectoryRef.child(email.replaceAll("\\.", "%7")).setValue(userRegistrationHelperClass);
 
                             final long[] registrationCount = new long[1];
@@ -248,9 +250,16 @@ public class payment_proof extends AppCompatActivity {
                             FirebaseDatabase.getInstance().getReference("Core Member Token").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    for(DataSnapshot tokenSnapshot : snapshot.getChildren()){
+                                    for (DataSnapshot tokenSnapshot : snapshot.getChildren()) {
                                         String grievanceUserToken = Objects.requireNonNull(tokenSnapshot.getValue()).toString();
-                                        FcmNotificationsSender grievanceNotificationSender = new FcmNotificationsSender(grievanceUserToken, "IEA New Registration", "New registration application has been submitted.",getApplicationContext(),payment_proof.this, String.valueOf(registrationCount[0]));
+
+                                        FcmNotificationsSender grievanceNotificationSender = new FcmNotificationsSender(grievanceUserToken,
+                                                "IEA New Registration",
+                                                "New registration application has been submitted. (" + registrationCount[0] + ")",
+                                                getApplicationContext(),
+                                                payment_proof.this,
+                                                (int) registrationCount[0]);
+
                                         grievanceNotificationSender.SendNotifications();
 
                                     }
@@ -261,7 +270,8 @@ public class payment_proof extends AppCompatActivity {
 
                                 }
                             });
-
+                            Toast.makeText(payment_proof.this, "Upload Successful", Toast.LENGTH_SHORT).show();
+                            confirmationPopup();
 
                         }
                     });
@@ -269,13 +279,28 @@ public class payment_proof extends AppCompatActivity {
                 }
             });
 
-        } else{
-            Toast.makeText(payment_proof.this,"Please Upload Image", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(payment_proof.this, "Please Upload Image", Toast.LENGTH_SHORT).show();
         }
 
     }
 
+    public void confirmationPopup() {
+        LayoutInflater inflater = getLayoutInflater();
+        View confirmationView = inflater.inflate(R.layout.confirmation_popup, null);
+        registrarionConfirmationDialog.setContentView(confirmationView);
+        registrarionConfirmationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        registrarionConfirmationDialog.show();
 
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(getApplicationContext(), LandingPage.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+            }
+        }, 3000);
+    }
 
 }

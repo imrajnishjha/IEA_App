@@ -1,14 +1,23 @@
 package com.example.ieaapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,9 +30,14 @@ import java.util.Calendar;
 
 public class MemberDirectoryDetail extends AppCompatActivity {
     ImageView memberProfileImage;
-    TextView memberProfileName, memberMembershipId, memberMembershipDate, memberContactNumber, memberDateOfBirth, memberEmailTxtView,
-            memberCompanyName, memberAddress, memberBio,memberMembershipExpiryDate;
+    TextView memberProfileName, memberMembershipId, memberMembershipDate,
+            memberCompanyName, memberAddress,memberMembershipExpiryDate;
     AppCompatButton memberProfileBackBtn;
+    RecyclerView memberProductRecyclerView;
+    String memberEmailStr;
+    MemberProductAdapter memberProductAdapter;
+
+    FirebaseRecyclerOptions<MemberProductModel> options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +48,17 @@ public class MemberDirectoryDetail extends AppCompatActivity {
 
         memberProfileImage = findViewById(R.id.member_profile_image);
         memberMembershipId = findViewById(R.id.member_membership_id);
-        memberContactNumber = findViewById(R.id.member_contactNumber);
-        memberDateOfBirth = findViewById(R.id.member_dateOfBirth);
         memberProfileName = findViewById(R.id.member_profile_name);
         memberMembershipDate = findViewById(R.id.member_membership_date);
-        memberEmailTxtView = findViewById(R.id.member_email);
         memberCompanyName = findViewById(R.id.member_company_name);
         memberAddress = findViewById(R.id.member_address);
-        memberBio = findViewById(R.id.member_bio);
         memberMembershipExpiryDate=findViewById(R.id.memberExpiryDateId);
         memberProfileBackBtn=findViewById(R.id.memberDetail_back_button);
 
         memberProfileBackBtn.setOnClickListener(view -> {
             finish();
         });
+
 
         String coreItemKey = getIntent().getStringExtra("MemberItemKey");
 
@@ -59,7 +70,7 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                     String memberMembershipIdStr = snapshot.child("member_id").getValue().toString();
                     String memberPhoneNumberStr = snapshot.child("phone_number").getValue().toString();
                     String memberDOBStr = snapshot.child("date_of_birth").getValue().toString();
-                    String memberEmailStr = snapshot.child("email").getValue().toString();
+                    memberEmailStr = snapshot.child("email").getValue().toString();
                     String memberCompanyNameStr = snapshot.child("company_name").getValue().toString();
                     String memberAddressStr = snapshot.child("address").getValue().toString();
                     String memberNameStr = snapshot.child("name").getValue().toString();
@@ -69,13 +80,9 @@ public class MemberDirectoryDetail extends AppCompatActivity {
 
                     memberMembershipId.setText(memberMembershipIdStr);
                     memberMembershipDate.setText(memberMembershipDateStr);
-                    memberContactNumber.setText(memberPhoneNumberStr);
-                    memberDateOfBirth.setText(memberDOBStr);
-                    memberEmailTxtView.setText(memberEmailStr);
                     memberCompanyName.setText(memberCompanyNameStr);
                     memberAddress.setText(memberAddressStr);
                     memberProfileName.setText(memberNameStr);
-                    memberBio.setText(memberBioStr);
                     memberMembershipExpiryDate.setText(memberMembershipExpiryDateStr);
 
                     Glide.with(memberProfileImage.getContext())
@@ -84,6 +91,10 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                             .circleCrop()
                             .error(R.drawable.iea_logo)
                             .into(memberProfileImage);
+
+
+
+
                 }
             }
 
@@ -92,6 +103,23 @@ public class MemberDirectoryDetail extends AppCompatActivity {
 
             }
         });
+
+        memberProductRecyclerView =(RecyclerView) findViewById(R.id.memberProductRecycleView);
+        memberProductRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        options = new FirebaseRecyclerOptions.Builder<MemberProductModel>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Products by Member")
+                        .child(coreItemKey.replaceAll("\\.","%7")),MemberProductModel.class)
+                .build();
+        memberProductAdapter = new MemberProductAdapter(options);
+        memberProductRecyclerView.setAdapter(memberProductAdapter);
+
+
+
+
+
+
+
     }
     public String yearincrementer(String date){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
@@ -104,5 +132,40 @@ public class MemberDirectoryDetail extends AppCompatActivity {
         c.add(Calendar.DATE,365);
         date=sdf.format(c.getTime());
         return date;
+    }
+
+    public class WrapContentLinearLayoutManager extends LinearLayoutManager {
+        public WrapContentLinearLayoutManager(Context context) {
+            super(context);
+        }
+
+        public WrapContentLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
+            super(context, orientation, reverseLayout);
+        }
+
+        public WrapContentLinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+            super(context, attrs, defStyleAttr, defStyleRes);
+        }
+
+        @Override
+        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            try {
+                super.onLayoutChildren(recycler, state);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("TAG", "meet a IOOBE in RecyclerView");
+            }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        memberProductAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        memberProductAdapter.stopListening();
     }
 }
