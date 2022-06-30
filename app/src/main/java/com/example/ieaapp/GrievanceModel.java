@@ -1,17 +1,18 @@
 package com.example.ieaapp;
 
 public class GrievanceModel {
-    String complain, department, email, status;
+    String complain, department, email, status, subject;
 
     public GrievanceModel(){
 
     }
 
-    public GrievanceModel(String complain, String department, String email, String status) {
+    public GrievanceModel(String complain, String department, String email, String status, String subject) {
         this.complain = complain;
         this.department = department;
         this.email = email;
         this.status = status;
+        this.subject = subject;
     }
 
     public String getComplain() {
@@ -44,5 +45,13 @@ public class GrievanceModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 }

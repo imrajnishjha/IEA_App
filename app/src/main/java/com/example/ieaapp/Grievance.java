@@ -6,11 +6,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,18 +18,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Grievance extends AppCompatActivity {
 
-    AppCompatButton grievance_back_button;
-    AppCompatButton grievance_submit;
+    AppCompatButton grievance_back_button, grievance_submit;
     FirebaseDatabase grievancedb;
     DatabaseReference grievancereference, grievancereference2;
-    TextInputEditText issue;
+    EditText grievanceSubjectEdtTxt, issue;
     AutoCompleteTextView dept;
     CardView myGrievancesBtn;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -42,6 +40,7 @@ public class Grievance extends AppCompatActivity {
 
         grievance_back_button = findViewById(R.id.grievance_back_button);
         myGrievancesBtn = findViewById(R.id.my_grievances_btn);
+        grievanceSubjectEdtTxt = findViewById(R.id.grievance_subject_edtTxt);
 
         dropdownInit();
 
@@ -49,35 +48,41 @@ public class Grievance extends AppCompatActivity {
 
         grievanceSubmissionDialog = new Dialog(this);
 
-        grievance_submit=findViewById(R.id.grievance_submit);
+        grievance_submit = findViewById(R.id.grievance_submit_btn);
         grievance_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 grievancedb = FirebaseDatabase.getInstance();
-                issue=findViewById(R.id.issue_input_edttxt);
-                dept=findViewById(R.id.grievance_department_field);
-                if(issue.getText().toString().isEmpty() ||  dept.getText().toString().isEmpty()){
-                    Toast.makeText(Grievance.this, "Complain and Department can't be empty", Toast.LENGTH_SHORT).show();
+                issue = findViewById(R.id.issue_input_edtTxt);
+                dept = findViewById(R.id.grievance_department_field);
+                if (issue.getText().toString().isEmpty()) {
+                    Toast.makeText(Grievance.this, "Issue cannot be empty", Toast.LENGTH_SHORT).show();
+                    issue.requestFocus();
+                } else if (dept.getText().toString().isEmpty()) {
+                    Toast.makeText(Grievance.this, "Department cannot be empty", Toast.LENGTH_SHORT).show();
+                    dept.requestFocus();
+                } else if (grievanceSubjectEdtTxt.getText().toString().isEmpty()) {
+                    Toast.makeText(Grievance.this, "Subject cannot be empty", Toast.LENGTH_SHORT).show();
+                    grievanceSubjectEdtTxt.requestFocus();
                 } else {
                     String complainerEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-                    String complain=issue.getText().toString();
-                    String departments=dept.getText().toString();
-                    grievancereference=grievancedb.getReference("Unsolved Grievances");
-                    grievancehelperclass Grievancehelperclass = new grievancehelperclass(complainerEmail,departments,complain,"Unsolved");
-                    grievancehelperclass Grievancehelperclass2 = new grievancehelperclass(complainerEmail,departments,complain,"Unsolved");
-//                grievancereference.push().setValue(Grievancehelperclass);
-//                grievancereference2.push().setValue(Grievancehelperclass);
+                    String complain = issue.getText().toString();
+                    String departments = dept.getText().toString();
+                    String subject = grievanceSubjectEdtTxt.getText().toString();
+
+                    grievancereference = grievancedb.getReference("Unsolved Grievances");
+
                     String grievanceKey = grievancereference.push().getKey();
 
-                    grievancereference2=grievancedb.getReference("Unresolved Grievances").child(complainerEmail.replaceAll("\\.", "%7")).child(grievanceKey);
-                    GrievanceModel solvedmodel = new GrievanceModel(complain,departments,complainerEmail,"Unsolved");
+                    grievancereference2 = grievancedb.getReference("Unresolved Grievances").child(complainerEmail.replaceAll("\\.", "%7")).child(grievanceKey);
+                    GrievanceModel solvedmodel = new GrievanceModel(complain, departments, complainerEmail, "Unsolved", subject);
                     grievancereference2.setValue(solvedmodel);
                     grievancereference.child(grievanceKey).setValue(solvedmodel);
 
                     new AlertDialog.Builder(Grievance.this)
                             .setTitle("Grievance ID")
-                            .setMessage("Your Grievance ID is: "+grievanceKey).show();
+                            .setMessage("Your Grievance ID is: " + grievanceKey).show();
 
                     issue.setText("");
                     Toast.makeText(Grievance.this, "We have received your request", Toast.LENGTH_LONG).show();
@@ -91,7 +96,7 @@ public class Grievance extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         dropdownInit();
     }
@@ -103,7 +108,7 @@ public class Grievance extends AppCompatActivity {
         autoCompleteTextViewDepartments.setAdapter(arrayAdapterDepartments);
     }
 
-    public void confirmationPopup(){
+    public void confirmationPopup() {
 
         LayoutInflater inflater = getLayoutInflater();
         View confirmationView = inflater.inflate(R.layout.confirmation_popup, null);
@@ -119,6 +124,6 @@ public class Grievance extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-        },3000);
+        }, 3000);
     }
 }

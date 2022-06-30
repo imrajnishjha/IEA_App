@@ -93,7 +93,7 @@
                 android:id="@+id/grievance_department_field"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/inriasans_regular"
+                android:fontFamily="@font/inria_sans_regular"
                 android:hint="Department"
                 android:padding="12dp"
                 android:paddingTop="14dp"
@@ -113,7 +113,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/edittext_style_white_smaller"
-            android:fontFamily="@font/inriasans_regular"
+            android:fontFamily="@font/inria_sans_regular"
             android:hint="Grievance Subject"
             android:importantForAutofill="no"
             android:inputType="text"
@@ -121,57 +121,47 @@
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/issue_input_layout"
+            app:layout_constraintBottom_toTopOf="@id/issue_input_edtTxt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/outbox_department_field"
             tools:ignore="HardcodedText" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/issue_input_layout"
+        <EditText
+            android:id="@+id/issue_input_edtTxt"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="#F5F5F5"
-            android:hint="Describe your issue"
-            app:hintTextColor="@color/black"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edittext_style_white_smaller"
+            android:fontFamily="@font/inria_sans_regular"
+            android:gravity="start"
+            android:hint="Describe Your Issue"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             app:layout_constraintBottom_toTopOf="@id/empty_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/grievance_subject_edtTxt">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/issue_input_edttxt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="false"
-                android:background="@drawable/edittext_style_white_smaller"
-                android:fontFamily="@font/inter_regular"
-                android:gravity="start|top"
-                android:imeOptions="actionDone"
-                android:inputType="textMultiLine|textCapSentences"
-                android:minLines="2"
-                android:textAlignment="viewStart"
-                android:textColor="@color/black"
-                android:textCursorDrawable="@color/black"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@id/grievance_subject_edtTxt"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/empty_text_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/grievance_submit"
-            app:layout_constraintTop_toBottomOf="@id/issue_input_layout" />
+            app:layout_constraintBottom_toTopOf="@id/grievance_submit_btn"
+            app:layout_constraintTop_toBottomOf="@id/issue_input_edtTxt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/grievance_submit"
+            android:id="@+id/grievance_submit_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="180dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/button_style_black"
             android:text="submit"
@@ -179,7 +169,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/empty_text_view" />
+            app:layout_constraintTop_toBottomOf="@id/empty_text_view"
+            tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

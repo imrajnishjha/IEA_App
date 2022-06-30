@@ -646,7 +646,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:fontFamily="@font/inriasans_regular"
+                android:fontFamily="@font/inria_sans_regular"
                 android:gravity="center"
                 android:text="Contact Support for Help"
                 android:textColor="@color/black"

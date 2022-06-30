@@ -92,6 +92,60 @@
         <item>Utilities</item>
         <item>Wholesale</item>
     </string-array>
+
+    <string-array name="department_search">
+        <item>Clear Selection</item>
+        <item>Aerospace Industry</item>
+        <item>Agriculture industry</item>
+        <item>Airlines/Aviation</item>
+        <item>Apparel &amp; Fashion</item>
+        <item>Architecture &amp; Planning</item>
+        <item>Arts &amp; Crafts</item>
+        <item>Aviation &amp; Aerospace</item>
+        <item>Biotechnology</item>
+        <item>Building Materials</item>
+        <item>Business Supplies</item>
+        <item>Chemicals</item>
+        <item>Computer Industry</item>
+        <item>Construction Industry</item>
+        <item>Consumer Goods</item>
+        <item>Cosmetics</item>
+        <item>Design</item>
+        <item>Education Industry</item>
+        <item>Energy Industry</item>
+        <item>Entertainment Industry</item>
+        <item>Environmental Services</item>
+        <item>Facilities Services</item>
+        <item>Food Industry</item>
+        <item>Food Production</item>
+        <item>Government Administration</item>
+        <item>Health care Industry</item>
+        <item>Hospitality Industry</item>
+        <item>Human Resources</item>
+        <item>Import and Export</item>
+        <item>IT Industry</item>
+        <item>Legal Services</item>
+        <item>Logistics &amp; Supply</item>
+        <item>Machinery</item>
+        <item>Manufacturing Industry</item>
+        <item>Marketing &amp; Advertising</item>
+        <item>Medical Devices</item>
+        <item>Mining &amp; Metals</item>
+        <item>News Media Industry</item>
+        <item>Non-Profit Organization Management</item>
+        <item>Packaging</item>
+        <item>Pharmaceutical Industry</item>
+        <item>Plastic Products</item>
+        <item>Professional Training &amp; Coaching</item>
+        <item>Real Estate</item>
+        <item>Telecommunication industry</item>
+        <item>Textiles</item>
+        <item>Tourism</item>
+        <item>Transport Industry</item>
+        <item>Utilities</item>
+        <item>Wholesale</item>
+    </string-array>
+
     <string-array name="pricing">
         <item>Rs. 3,658/Month *including gst*</item>
         <item>Rs. 6,018/Month *including gst*</item>

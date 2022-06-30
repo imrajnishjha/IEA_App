@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,7 +47,7 @@ public class UserProfile extends AppCompatActivity {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String userEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
-    String userEmailConverted;
+    String userEmailConverted, userCompanyNameStr;
     Uri resultUri, pdfUri, productImageUri = null;
 
     {
@@ -59,10 +58,10 @@ public class UserProfile extends AppCompatActivity {
     DatabaseReference ref = database.getReference("Registered Users/" + userEmailConverted);
 
     ImageView userProfileImage, uploadProductImageIv;
-    TextView userProfileName, userMembershipId, userMembershipDate,userMembershipExpiryDate;
+    TextView userProfileName, userMembershipId, userMembershipDate, userMembershipExpiryDate;
     EditText userContactNumberEdtTxt, userDateOfBirthEdtTxt, userEmailEdtTxt, userCompanyNameEdtTxt, userAddressEdtTxt,
             productTitleEdtTxt, productDescriptionEdtTxt, productPriceEdtTxt;
-    AppCompatButton saveProfileBtn,userProfileBackBtn, uploadBrochureBtn, addProductBtn;
+    AppCompatButton saveProfileBtn, userProfileBackBtn, uploadBrochureBtn, addProductBtn;
     ActivityResultLauncher<String> mGetContent, mGetPdf, mGetProductImage;
     TextInputEditText userBioEditText;
     CardView uploadProductImageCv;
@@ -86,7 +85,7 @@ public class UserProfile extends AppCompatActivity {
         userAddressEdtTxt = findViewById(R.id.user_profile_address_edtTxt);
         saveProfileBtn = findViewById(R.id.user_profile_save_button);
         userBioEditText = findViewById(R.id.user_bio_input_edttxt);
-        userMembershipExpiryDate=findViewById(R.id.expiry_dateId);
+        userMembershipExpiryDate = findViewById(R.id.expiry_dateId);
         userProfileBackBtn = findViewById(R.id.userProfile_back_button);
         uploadBrochureBtn = findViewById(R.id.upload_brochure_btn);
         addProductBtn = findViewById(R.id.add_product_btn);
@@ -145,7 +144,7 @@ public class UserProfile extends AppCompatActivity {
                 userEmailEdtTxt.setText(userEmailStr);
 
 
-                String userCompanyNameStr = Objects.requireNonNull(dataSnapshot.child("company_name").getValue()).toString();
+                userCompanyNameStr = Objects.requireNonNull(dataSnapshot.child("company_name").getValue()).toString();
                 userCompanyNameEdtTxt.setText(userCompanyNameStr);
 
                 String userAddressStr = Objects.requireNonNull(dataSnapshot.child("address").getValue()).toString();
@@ -178,7 +177,7 @@ public class UserProfile extends AppCompatActivity {
 
             updateData(userContactNumberStr, userDOBStr, userAddressStr, userBioStr);
 
-            if(resultUri != null){
+            if (resultUri != null) {
                 uploadImageToFirebase(resultUri);
             }
         });
@@ -187,8 +186,8 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onActivityResult(Uri result) {
                 String destinationUri = new StringBuilder(UUID.randomUUID().toString()).append(".jpg").toString();
-                UCrop.of(result, Uri.fromFile(new File(getCacheDir(),destinationUri)))
-                        .withAspectRatio(1,1)
+                UCrop.of(result, Uri.fromFile(new File(getCacheDir(), destinationUri)))
+                        .withAspectRatio(1, 1)
                         .start(UserProfile.this);
             }
         });
@@ -197,8 +196,8 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onActivityResult(Uri result) {
                 String destinationUri = new StringBuilder(UUID.randomUUID().toString()).append(".jpg").toString();
-                UCrop.of(result, Uri.fromFile(new File(getCacheDir(),destinationUri)))
-                        .withAspectRatio(1,1)
+                UCrop.of(result, Uri.fromFile(new File(getCacheDir(), destinationUri)))
+                        .withAspectRatio(1, 1)
                         .start(UserProfile.this, 2);
             }
         });
@@ -213,9 +212,12 @@ public class UserProfile extends AppCompatActivity {
                 pdfUploadDialog = new ProgressDialog(UserProfile.this);
                 pdfUploadDialog.setMessage("Uploading");
 
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users/" + userEmailConverted);
+
+
                 pdfUploadDialog.show();
                 pdfUri = result;
-                StorageReference pdfUploadRef = FirebaseStorage.getInstance().getReference().child("Product Brochure/" + mAuth.getCurrentUser().getEmail().toString()+".pdf");
+                StorageReference pdfUploadRef = FirebaseStorage.getInstance().getReference().child("Product Brochure/" + userCompanyNameStr + " Brochure" + ".pdf");
 
                 pdfUploadRef.putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -226,7 +228,7 @@ public class UserProfile extends AppCompatActivity {
                                 HashMap UserData = new HashMap();
                                 UserData.put("brochure_url", uri.toString());
 
-                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users/" + userEmailConverted);
+
                                 databaseReference.updateChildren(UserData).addOnSuccessListener(new OnSuccessListener() {
                                     @Override
                                     public void onSuccess(Object o) {
@@ -253,17 +255,16 @@ public class UserProfile extends AppCompatActivity {
         });
 
         addProductBtn.setOnClickListener(view -> {
-            if(productTitleEdtTxt.getText().toString().isEmpty()){
+            if (productTitleEdtTxt.getText().toString().isEmpty()) {
                 productTitleEdtTxt.setError("Enter product title");
                 productTitleEdtTxt.requestFocus();
-            } else if(productDescriptionEdtTxt.getText().toString().isEmpty())
-            {
+            } else if (productDescriptionEdtTxt.getText().toString().isEmpty()) {
                 productDescriptionEdtTxt.setError("Enter product description");
                 productDescriptionEdtTxt.requestFocus();
             } else if (productPriceEdtTxt.getText().toString().isEmpty()) {
                 productPriceEdtTxt.setError("Enter product price");
                 productPriceEdtTxt.requestFocus();
-            } else if(productImageUri == null) {
+            } else if (productImageUri == null) {
                 Toast.makeText(this, "Select a product image", Toast.LENGTH_SHORT).show();
                 uploadProductImageIv.requestFocus();
             } else {
@@ -278,7 +279,7 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void uploadProductImage(Uri productImageUri) {
-        StorageReference productFileRef = storageProfilePicReference.child("Product Images/" + mAuth.getCurrentUser().getEmail().toString()+productTitleEdtTxt.getText().toString());
+        StorageReference productFileRef = storageProfilePicReference.child("Product Images/" + mAuth.getCurrentUser().getEmail().toString() + productTitleEdtTxt.getText().toString());
         productFileRef.putFile(productImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -342,14 +343,14 @@ public class UserProfile extends AppCompatActivity {
             userProfileImage.setImageURI(resultUri);
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
-        } else if (resultCode == RESULT_OK && requestCode == 2){
+        } else if (resultCode == RESULT_OK && requestCode == 2) {
             productImageUri = UCrop.getOutput(data);
             uploadProductImageIv.setImageURI(productImageUri);
         }
     }
 
     private void uploadImageToFirebase(Uri imageUri) {
-        StorageReference fileRef = storageProfilePicReference.child("User Profile Pictures/" + mAuth.getCurrentUser().getEmail().toString()+"ProfilePicture");
+        StorageReference fileRef = storageProfilePicReference.child("User Profile Pictures/" + mAuth.getCurrentUser().getEmail().toString() + "ProfilePicture");
         fileRef.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -394,16 +395,16 @@ public class UserProfile extends AppCompatActivity {
         });
     }
 
-    public String yearincrementer(String date){
+    public String yearincrementer(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-        Calendar c =Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         try {
             c.setTime(sdf.parse(date));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        c.add(Calendar.DATE,365);
-        date=sdf.format(c.getTime());
+        c.add(Calendar.DATE, 365);
+        date = sdf.format(c.getTime());
         return date;
     }
 }

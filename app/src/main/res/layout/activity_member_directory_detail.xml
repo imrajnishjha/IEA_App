@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
             android:layout_marginTop="24dp"
-            android:fontFamily="@font/inriasans_regular"
+            android:fontFamily="@font/inria_sans_regular"
             android:text="Member Profile"
             android:textColor="@color/black"
             android:textSize="36sp"
