@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -32,7 +33,7 @@ public class CoreMemberAdapter extends FirebaseRecyclerAdapter<CoreMemberModel, 
     @Override
     protected void onBindViewHolder(@NonNull CoreMemberViewHolder holder, int position, @NonNull CoreMemberModel model) {
         holder.name.setText(model.getName());
-        holder.desigantion.setText(model.getDesignation());
+        holder.designation.setText(model.getDesignation());
 
         Glide.with(holder.img.getContext())
                 .load(model.getPurl())
@@ -65,17 +66,21 @@ public class CoreMemberAdapter extends FirebaseRecyclerAdapter<CoreMemberModel, 
 
         View coreMemberView;
         ImageView img;
-        TextView name,desigantion;
-        Button detailButton;
+        TextView name, designation;
+        AppCompatButton detailButton;
 
         public CoreMemberViewHolder(@NonNull View itemView) {
             super(itemView);
 
             img = (ImageView) itemView.findViewById(R.id.core_team_member_profile_picture);
             name = (TextView) itemView.findViewById(R.id.itemCoreMemberNameText);
-            desigantion =(TextView)itemView.findViewById(R.id.itemCoreMemberDesignationText);
+            designation =(TextView)itemView.findViewById(R.id.itemCoreMemberDesignationText);
             coreMemberView = itemView;
-            detailButton = (Button) itemView.findViewById(R.id.core_team_member_detail_button);
+            detailButton = (AppCompatButton) itemView.findViewById(R.id.core_team_member_detail_button);
         }
+    }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 }

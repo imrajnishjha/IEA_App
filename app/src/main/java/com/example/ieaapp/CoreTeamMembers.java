@@ -22,8 +22,8 @@ public class CoreTeamMembers extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_core_team_members);
 
-        coreMemberRecyclerView = (RecyclerView) findViewById(R.id.core_member_recycler_view);
-        coreMemberRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        coreMemberRecyclerView = findViewById(R.id.core_member_recycler_view);
+        coreMemberRecyclerView.setLayoutManager(new MembersDirectory.WrapContentLinearLayoutManager(this));
         coreTeamMemberBackButton = findViewById(R.id.core_team_member_back_button);
 
         options = new FirebaseRecyclerOptions.Builder<CoreMemberModel>()
@@ -37,15 +37,21 @@ public class CoreTeamMembers extends AppCompatActivity{
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        coreMemberAdapter.startListening();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         coreMemberAdapter.startListening();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        coreMemberAdapter.stopListening();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        coreMemberAdapter.stopListening();
+//    }
 
 }

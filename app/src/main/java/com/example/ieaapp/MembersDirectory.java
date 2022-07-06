@@ -31,7 +31,7 @@ public class MembersDirectory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_members_directory);
 
-        memberDirectoryRecyclerView = (RecyclerView) findViewById(R.id.members_directory_recycler_view);
+        memberDirectoryRecyclerView = findViewById(R.id.members_directory_recycler_view);
         memberDirectoryRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this));
         memberDirectoryBackButton = findViewById(R.id.members_directory_back_button);
         memberSearchTextView = findViewById(R.id.member_search_autocomplete);
@@ -96,17 +96,16 @@ public class MembersDirectory extends AppCompatActivity {
         memberDirectoryAdapter.startListening();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        memberDirectoryAdapter.stopListening();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        memberDirectoryAdapter.stopListening();
+//    }
 
     public static class WrapContentLinearLayoutManager extends LinearLayoutManager {
         public WrapContentLinearLayoutManager(Context context) {
             super(context);
         }
-
         @Override
         public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
             try {
@@ -115,6 +114,11 @@ public class MembersDirectory extends AppCompatActivity {
                 Log.e("TAG", "Recycler view error");
             }
         }
+        @Override
+        public boolean supportsPredictiveItemAnimations() {
+            return false;
+        }
     }
+
 
 }

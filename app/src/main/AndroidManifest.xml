@@ -20,6 +20,21 @@
         android:theme="@style/Theme.IEAApp"
         tools:targetApi="28">
         <activity
+            android:name=".forgot_password"
+            android:exported="false" />
+        <activity
+            android:name=".EventDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Events"
+            android:exported="false" />
+        <activity
+            android:name=".BAAS"
+            android:exported="false" />
+        <activity
+            android:name=".BaasMemberProfile"
+            android:exported="false" />
+        <activity
             android:name=".MyGrievances"
             android:exported="false" />
         <activity

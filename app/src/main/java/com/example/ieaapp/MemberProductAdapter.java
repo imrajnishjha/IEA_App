@@ -54,10 +54,13 @@ public class MemberProductAdapter extends FirebaseRecyclerAdapter<MemberProductM
         public memberProductViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            productImg = (ImageView) itemView.findViewById(R.id.memberProductimg);
+            productImg = (ImageView) itemView.findViewById(R.id.memberProductImg);
             productName = (TextView) itemView.findViewById(R.id.memberProductName);
             memberProductCardView = itemView;
         }
-
+    }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 }

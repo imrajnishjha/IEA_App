@@ -65,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/itemCoreMemberNameText"/>
 
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/core_team_member_detail_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -73,6 +73,8 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/ic_forward"
             app:iconSize="24dp"
+            android:elevation="2dp"
+            android:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

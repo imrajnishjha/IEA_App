@@ -171,7 +171,6 @@ public class UserProfile extends AppCompatActivity {
         saveProfileBtn.setOnClickListener(view -> {
             String userContactNumberStr = userContactNumberEdtTxt.getText().toString();
             String userDOBStr = userDateOfBirthEdtTxt.getText().toString();
-            //  String userCompanyNameStr = userCompanyNameEdtTxt.getText().toString();
             String userAddressStr = userAddressEdtTxt.getText().toString();
             String userBioStr = userBioEditText.getText().toString();
 
@@ -213,38 +212,42 @@ public class UserProfile extends AppCompatActivity {
                 pdfUploadDialog.setMessage("Uploading");
 
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users/" + userEmailConverted);
-
-
+                
                 pdfUploadDialog.show();
                 pdfUri = result;
                 StorageReference pdfUploadRef = FirebaseStorage.getInstance().getReference().child("Product Brochure/" + userCompanyNameStr + " Brochure" + ".pdf");
+                
+                if(pdfUri != null) {
+                    pdfUploadRef.putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            pdfUploadRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    HashMap UserData = new HashMap();
+                                    UserData.put("brochure_url", uri.toString());
 
-                pdfUploadRef.putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pdfUploadRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                HashMap UserData = new HashMap();
-                                UserData.put("brochure_url", uri.toString());
+                                    databaseReference.updateChildren(UserData).addOnSuccessListener(new OnSuccessListener() {
+                                        @Override
+                                        public void onSuccess(Object o) {
+                                            Toast.makeText(UserProfile.this, "Brochure Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                                            pdfUploadDialog.dismiss();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(UserProfile.this, "Failed to Upload Brochure", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    pdfUploadDialog.dismiss();
+                    Toast.makeText(UserProfile.this, "File not selected", Toast.LENGTH_SHORT).show();
+                }
 
-
-                                databaseReference.updateChildren(UserData).addOnSuccessListener(new OnSuccessListener() {
-                                    @Override
-                                    public void onSuccess(Object o) {
-                                        Toast.makeText(UserProfile.this, "Brochure Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                                        pdfUploadDialog.dismiss();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(UserProfile.this, "Failed to Upload Brochure", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
             }
         });
 
@@ -286,17 +289,15 @@ public class UserProfile extends AppCompatActivity {
                 productFileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        DatabaseReference productReference = FirebaseDatabase.getInstance().getReference().child("Products");
                         DatabaseReference productReferenceByUser = FirebaseDatabase.getInstance().getReference().child("Products by Member")
                                 .child(mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7"));
-                        String productKey = productReference.push().getKey();
+                        String productKey = productReferenceByUser.push().getKey();
 
                         String productTitleStr = productTitleEdtTxt.getText().toString();
                         String productDescriptionStr = productDescriptionEdtTxt.getText().toString();
                         String productPriceStr = productPriceEdtTxt.getText().toString();
 
-                        ProductModel newProduct = new ProductModel(uri.toString(), productTitleStr, productDescriptionStr, productPriceStr);
-                        productReference.child(productKey).setValue(newProduct);
+                        ProductModel newProduct = new ProductModel(uri.toString(), productTitleStr, productDescriptionStr, productPriceStr, mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7"));
                         productReferenceByUser.child(productKey).setValue(newProduct);
 
                         productTitleEdtTxt.setText("");
@@ -315,7 +316,6 @@ public class UserProfile extends AppCompatActivity {
         HashMap UserData = new HashMap();
         UserData.put("phone_number", userContactNumberStr);
         UserData.put("date_of_birth", userDOBStr);
-        // UserData.put("company_name", userCompanyNameStr);
         UserData.put("address", userAddressStr);
         UserData.put("description", userBioStr);
 
@@ -331,7 +331,6 @@ public class UserProfile extends AppCompatActivity {
                 Toast.makeText(UserProfile.this, "Failed to Update Data", Toast.LENGTH_SHORT).show();
             }
         });
-//        uploadImageToFirebase(resultUri);
 
     }
 

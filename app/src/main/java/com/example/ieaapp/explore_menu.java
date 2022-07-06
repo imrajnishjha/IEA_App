@@ -27,18 +27,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Date;
 import java.util.Objects;
+
+import kotlinx.coroutines.Delay;
 
 public class explore_menu extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     TextView exploreUsername, descriptionUsername, activeValue, solvedValue;
     ImageView logoutImg, userImage;
-    CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer;
+    CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer, baasCard, eventsCard;
     Dialog exploreIeaContactDialog;
     DatabaseReference databaseReference,solvedReference, unResolvedReference, rejectedReference;
     StorageReference storageProfilePicReference;
@@ -66,41 +70,16 @@ public class explore_menu extends AppCompatActivity {
         solvedValue = findViewById(R.id.solved_value);
         activeBar = findViewById(R.id.activebar);
         activeVal = findViewById(R.id.activeval);
+        baasCard = findViewById(R.id.bbas);
+        eventsCard = findViewById(R.id.events);
 
         mAuth = FirebaseAuth.getInstance();
-        //databaseReference = FirebaseDatabase.getInstance().getReference().child("Registered Users");
 
         storageProfilePicReference = FirebaseStorage.getInstance().getReference();
 
         rejectedReference = FirebaseDatabase.getInstance().getReference().child("Rejected Grievance").child(mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7"));
-//        rejectedReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                allRejectedValue=snapshot.getChildrenCount();
-//                Log.d("Problems", "Rejected Grievances "+snapshot.getChildrenCount());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
 
         solvedReference = FirebaseDatabase.getInstance().getReference().child("Solved Grievance").child(mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7"));
-//        solvedReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                allsolvedValue=snapshot.getChildrenCount();
-//                solvedValue.setText(String.valueOf(allsolvedValue));
-//                Log.d("Problems", "Solved Grievances "+snapshot.getChildrenCount());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
         unResolvedReference = FirebaseDatabase.getInstance().getReference().child("Unresolved Grievances").child(mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7"));
         unResolvedReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -233,12 +212,12 @@ public class explore_menu extends AppCompatActivity {
         });
 
         coreMembersCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, CoreTeamMembers.class)));
-
         memberDirectoryCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MembersDirectory.class)));
-
         grievanceCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Grievance.class)));
-
         refer.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Refer.class)));
+//        baasCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, BAAS.class)));
+        eventsCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Events.class)));
+
 
         contactUs.setOnClickListener(view -> {
             LayoutInflater inflater = getLayoutInflater();

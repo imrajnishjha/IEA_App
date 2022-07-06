@@ -2,13 +2,13 @@ package com.example.ieaapp;
 
 public class MembersDirectoryModel {
 
-    String address, company_name, date_of_birth, date_of_membership, email, member_id, name,phone_number, purl;
+    String address, company_name, date_of_birth, date_of_membership, email, member_id, name, phone_number, purl;
 
-    MembersDirectoryModel(){
+    MembersDirectoryModel() {
 
     }
 
-    public MembersDirectoryModel(String address, String company_name, String date_of_birth, String date_of_membership, String email, String member_id, String name, String phone_number, String purl) {
+    public MembersDirectoryModel(String address, String company_name, String date_of_birth, String date_of_membership, String email, String member_id, String name, String phone_number, String purl, String industry_type) {
         this.address = address;
         this.company_name = company_name;
         this.date_of_birth = date_of_birth;
@@ -91,4 +91,5 @@ public class MembersDirectoryModel {
     public void setPurl(String purl) {
         this.purl = purl;
     }
+
 }

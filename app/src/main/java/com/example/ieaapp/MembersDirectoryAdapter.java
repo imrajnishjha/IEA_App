@@ -70,4 +70,8 @@ public class MembersDirectoryAdapter extends FirebaseRecyclerAdapter<MembersDire
             memberDirectoryView = itemView;
         }
     }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 }

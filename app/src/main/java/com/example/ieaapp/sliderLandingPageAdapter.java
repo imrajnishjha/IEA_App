@@ -81,4 +81,8 @@ public class sliderLandingPageAdapter extends FirebaseRecyclerAdapter<CoreMember
             designation = (TextView) itemView.findViewById(R.id.itemCoreMemberDesignationText);
         }
     }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 }

@@ -7,7 +7,7 @@ public class MemberProductModel {
     public MemberProductModel() {
     }
 
-    public MemberProductModel(String productDescription, String productImageUrl, String productPrice, String productTitle) {
+    public MemberProductModel(String productDescription, String productImageUrl, String productPrice, String productTitle, String ownerEmail) {
         this.productDescription = productDescription;
         this.productImageUrl = productImageUrl;
         this.productPrice = productPrice;
@@ -45,4 +45,5 @@ public class MemberProductModel {
     public void setProductTitle(String productTitle) {
         this.productTitle = productTitle;
     }
+
 }

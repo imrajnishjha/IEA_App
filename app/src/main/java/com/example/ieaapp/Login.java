@@ -1,10 +1,14 @@
 package com.example.ieaapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +31,9 @@ public class Login extends AppCompatActivity {
     AppCompatButton loginBackButton, signInButton;
     EditText loginEmail, loginPassword;
     FirebaseAuth mAuth;
+    TextView forgotPassIntent;
+    ProgressDialog loginProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +41,15 @@ public class Login extends AppCompatActivity {
 
         loginBackButton = findViewById(R.id.login_back_button);
         signInButton = findViewById(R.id.signin_btn);
+
+        forgotPassIntent=findViewById(R.id.forgotPassIntent);
+        forgotPassIntent.setPaintFlags(forgotPassIntent.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        forgotPassIntent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Login.this, forgot_password.class));
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -47,13 +64,21 @@ public class Login extends AppCompatActivity {
         String login_email = loginEmail.getText().toString();
         String login_password = loginPassword.getText().toString();
 
+
+
         if(TextUtils.isEmpty(login_email)){
             loginEmail.setError("Email cannot be empty!");
             loginEmail.requestFocus();
         }else if(TextUtils.isEmpty(login_password)){
             loginPassword.setError("Password cannot be empty!");
             loginPassword.requestFocus();
+
+
         } else {
+
+            loginProgressDialog = new ProgressDialog(Login.this);
+            loginProgressDialog.setMessage("Logging you in...");
+            loginProgressDialog.show();
             mAuth.signInWithEmailAndPassword(login_email, login_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
                 public String replacePeriod(String login_email) {
@@ -62,6 +87,7 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        loginProgressDialog.dismiss();
                         Toast.makeText(Login.this, "You are logged in!", Toast.LENGTH_SHORT).show();
                         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                             @Override
@@ -72,10 +98,12 @@ public class Login extends AppCompatActivity {
                                 sendTokenToDatabase(token);
                             }
                         });
+
                         startActivity(new Intent(Login.this, explore_menu.class).putExtra("userEmail", replacePeriod(login_email)));
                         finish();
                     } else {
                         Toast.makeText(Login.this, "Login Error: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                        loginProgressDialog.dismiss();
                     }
                 }
             });

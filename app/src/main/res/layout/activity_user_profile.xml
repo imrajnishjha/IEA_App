@@ -182,8 +182,8 @@
         </androidx.cardview.widget.CardView>
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/call_image"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_contactNumber_edtTxt"
@@ -208,8 +208,8 @@
             tools:ignore="HardcodedText" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/birthday_image"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_dateOfBirth_edtTxt"
@@ -234,8 +234,8 @@
             tools:ignore="HardcodedText" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/email_image"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_email_edtTxt"
@@ -261,8 +261,8 @@
             tools:ignore="HardcodedText" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/briefcase_image"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_company_name_edtTxt"
@@ -289,8 +289,8 @@
             tools:ignore="HardcodedText" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginEnd="8dp"
             android:src="@drawable/address_image"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_address_edtTxt"
@@ -347,14 +347,14 @@
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-<!--        <TextView-->
-<!--            android:id="@+id/user_profile_null_text"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/user_profile_save_button"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/user_bio_input_layout" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/user_profile_null_text"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            app:layout_constraintBottom_toTopOf="@id/user_profile_save_button"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/user_bio_input_layout" />-->
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/user_profile_save_button"
@@ -405,8 +405,8 @@
             android:fontFamily="@font/poppins_regular"
             android:text="Add Products"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@id/upload_product_image_cv"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/upload_product_image_cv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/upload_brochure_btn"
             tools:ignore="HardcodedText" />
@@ -420,8 +420,8 @@
             android:background="@drawable/ic_add_circle_outline"
             android:backgroundTint="#D9D9D9"
             app:cardCornerRadius="16dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/add_product_btn"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_products_text">
 
             <ImageView
@@ -429,7 +429,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_add_circle_outline" />
+                android:padding="24dp"
+                android:src="@drawable/add_image_icon" />
 
 
         </androidx.cardview.widget.CardView>
@@ -445,13 +446,13 @@
             android:hint="Add Title"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
             android:paddingStart="12dp"
+            android:paddingTop="4dp"
             android:paddingEnd="12dp"
+            android:paddingBottom="4dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/upload_product_image_cv"
             app:layout_constraintTop_toTopOf="@id/upload_product_image_cv"
@@ -463,25 +464,25 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
             android:layout_marginEnd="24dp"
+            android:layout_marginBottom="4dp"
             android:background="@drawable/edittext_style_white_much_smaller"
             android:fontFamily="@font/inria_sans_regular"
+            android:gravity="start"
             android:hint="Add Description"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:paddingTop="4dp"
-            android:gravity="start"
-            android:paddingBottom="4dp"
             android:paddingStart="12dp"
+            android:paddingTop="4dp"
             android:paddingEnd="12dp"
+            android:paddingBottom="4dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/product_price_edtTxt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/upload_product_image_cv"
             app:layout_constraintTop_toBottomOf="@id/product_title_edtTxt"
-            app:layout_constraintBottom_toTopOf="@id/product_price_edtTxt"
             tools:ignore="HardcodedText" />
 
         <EditText
@@ -496,16 +497,16 @@
             android:hint="Add Price"
             android:importantForAutofill="no"
             android:inputType="number"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
             android:paddingStart="12dp"
+            android:paddingTop="4dp"
             android:paddingEnd="12dp"
+            android:paddingBottom="4dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/upload_product_image_cv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/upload_product_image_cv"
-            app:layout_constraintBottom_toBottomOf="@id/upload_product_image_cv"
             tools:ignore="HardcodedText" />
 
         <androidx.appcompat.widget.AppCompatButton

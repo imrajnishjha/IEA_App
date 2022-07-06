@@ -94,8 +94,8 @@ public class CoreMemberDetail extends AppCompatActivity {
                         TextView coreMemberPhoneNumber = view.findViewById(R.id.core_member_phone_number);
                         TextView coreMemberEmail = view.findViewById(R.id.core_member_email);
 
-                        String coreEmail = snapshot.child("mail").getValue().toString();
-                        String corePhoneNumber = snapshot.child("phone_no").getValue().toString();
+                        String coreEmail = Objects.requireNonNull(snapshot.child("mail").getValue()).toString();
+                        String corePhoneNumber = Objects.requireNonNull(snapshot.child("phone_no").getValue()).toString();
 
                         coreMemberPhoneNumber.setText(corePhoneNumber);
                         coreMemberEmail.setText(coreEmail);

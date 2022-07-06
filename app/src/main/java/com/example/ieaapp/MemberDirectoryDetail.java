@@ -31,8 +31,8 @@ import java.util.Objects;
 
 public class MemberDirectoryDetail extends AppCompatActivity {
     ImageView memberProfileImage;
-    TextView memberProfileName, memberMembershipId, memberMembershipDate,
-            memberCompanyName, memberAddress, memberMembershipExpiryDate;
+    TextView memberProfileName, memberMembershipId,
+            memberCompanyName, memberAddress;
     AppCompatButton memberProfileBackBtn, downloadBrochureBtn;
     RecyclerView memberProductRecyclerView;
     String memberEmailStr, memberBrochureLink;
@@ -50,10 +50,10 @@ public class MemberDirectoryDetail extends AppCompatActivity {
         memberProfileImage = findViewById(R.id.member_profile_image);
         memberMembershipId = findViewById(R.id.member_membership_id);
         memberProfileName = findViewById(R.id.member_profile_name);
-        memberMembershipDate = findViewById(R.id.member_membership_date);
+
         memberCompanyName = findViewById(R.id.member_company_name);
         memberAddress = findViewById(R.id.member_address);
-        memberMembershipExpiryDate = findViewById(R.id.memberExpiryDateId);
+
         memberProfileBackBtn = findViewById(R.id.memberDetail_back_button);
         downloadBrochureBtn = findViewById(R.id.downloadBrochure_button);
 
@@ -73,14 +73,12 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                     String memberNameStr = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
                     String memberPictureUrl = Objects.requireNonNull(snapshot.child("purl").getValue()).toString();
                     memberBrochureLink = Objects.requireNonNull(snapshot.child("brochure_url").getValue()).toString();
-                    String memberMembershipExpiryDateStr = yearIncrementer(memberMembershipDateStr);
+
 
                     memberMembershipId.setText(memberMembershipIdStr);
-                    memberMembershipDate.setText(memberMembershipDateStr);
                     memberCompanyName.setText(memberCompanyNameStr);
                     memberAddress.setText(memberAddressStr);
                     memberProfileName.setText(memberNameStr);
-                    memberMembershipExpiryDate.setText(memberMembershipExpiryDateStr);
 
                     Glide.with(memberProfileImage.getContext())
                             .load(memberPictureUrl)
@@ -122,18 +120,18 @@ public class MemberDirectoryDetail extends AppCompatActivity {
 
     }
 
-    public String yearIncrementer(String date) {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-        Calendar c = Calendar.getInstance();
-        try {
-            c.setTime(Objects.requireNonNull(sdf.parse(date)));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        c.add(Calendar.DATE, 365);
-        date = sdf.format(c.getTime());
-        return date;
-    }
+//    public String yearIncrementer(String date) {
+//        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+//        Calendar c = Calendar.getInstance();
+//        try {
+//            c.setTime(Objects.requireNonNull(sdf.parse(date)));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        c.add(Calendar.DATE, 365);
+//        date = sdf.format(c.getTime());
+//        return date;
+//    }
 
     @Override
     protected void onStart() {
@@ -141,11 +139,11 @@ public class MemberDirectoryDetail extends AppCompatActivity {
         memberProductAdapter.startListening();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        memberProductAdapter.stopListening();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        memberProductAdapter.stopListening();
+//    }
 
     public static class WrapContentLinearLayoutManager extends LinearLayoutManager {
 

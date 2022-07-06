@@ -1,13 +1,14 @@
 package com.example.ieaapp;
 
 public class ProductModel {
-    String productImageUrl, productTitle, productDescription, productPrice;
+    String productImageUrl, productTitle, productDescription, productPrice, ownerEmail;
 
-    public ProductModel(String productImageUrl, String productTitle, String productDescription, String productPrice) {
+    public ProductModel(String productImageUrl, String productTitle, String productDescription, String productPrice, String ownerEmail) {
         this.productImageUrl = productImageUrl;
         this.productTitle = productTitle;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
+        this.ownerEmail = ownerEmail;
     }
 
     public ProductModel(String productTitle, String productDescription, String productPrice) {
@@ -46,5 +47,13 @@ public class ProductModel {
 
     public void setProductPrice(String productPrice) {
         this.productPrice = productPrice;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
     }
 }

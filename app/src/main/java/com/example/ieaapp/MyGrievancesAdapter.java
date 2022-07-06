@@ -71,4 +71,8 @@ public class MyGrievancesAdapter extends FirebaseRecyclerAdapter<MyGrievanceMode
             myGrievanceView = itemView;
         }
     }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 }

@@ -89,10 +89,10 @@ public class LandingPage extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        sliderAdapter.stopListening();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        sliderAdapter.stopListening();
+//    }
 
 }
