@@ -41,7 +41,7 @@ public class EventDetails extends AppCompatActivity {
     EventMemberItemAdapter eventMemberItemAdapter;
     DatabaseReference eventsRef;
     ImageView eventDetailImg;
-    AppCompatButton addMyselfBtn, eventDetailsBackButton;
+    AppCompatButton addMyselfBtn, eventDetailsBackButton,joinNowBtn;
     Dialog addMyselfDialog;
     FirebaseAuth mAuth;
     String EventItemKey;
@@ -62,6 +62,7 @@ public class EventDetails extends AppCompatActivity {
         eventMembersRv = findViewById(R.id.event_members_rv);
         eventDetailImg = findViewById(R.id.event_detail_img);
         addMyselfBtn = findViewById(R.id.event_add_myself_btn);
+        joinNowBtn = findViewById(R.id.join_now_btn);
         eventDetailsBackButton = findViewById(R.id.events_detail_back_btn);
 
         addMyselfDialog = new Dialog(this);
@@ -97,6 +98,51 @@ public class EventDetails extends AppCompatActivity {
 
         eventMemberItemAdapter = new EventMemberItemAdapter(options);
         eventMembersRv.setAdapter(eventMemberItemAdapter);
+
+
+        joinNowBtn.setOnClickListener(view -> {
+            LayoutInflater inflater = getLayoutInflater();
+            @SuppressLint("InflateParams") View addMyselfView = inflater.inflate(R.layout.join_event_popup, null);
+
+            joinEventYes = addMyselfView.findViewById(R.id.join_event_yes);
+            joinEventNo = addMyselfView.findViewById(R.id.join_event_no);
+
+            addMyselfDialog.setContentView(addMyselfView);
+            addMyselfDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            addMyselfDialog.show();
+
+            joinEventYes.setOnClickListener(v -> {
+
+                userEmail[0] = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+                DatabaseReference eventMembersReference = FirebaseDatabase.getInstance().getReference().child("Events/" + EventItemKey + "/members/" + userEmail[0].replaceAll("\\.", "%7"));
+
+                final String[] userImgUrl = new String[1];
+                FirebaseDatabase.getInstance().getReference("Registered Users/" + Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail()).replaceAll("\\.", "%7")).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        userImgUrl[0] = Objects.requireNonNull(snapshot.child("purl").getValue()).toString();
+
+                        HashMap<String, Object> memberData = new HashMap<>();
+                        memberData.put("email", userEmail[0]);
+                        memberData.put("imageUrl", userImgUrl[0]);
+
+                        eventMembersReference.updateChildren(memberData).addOnSuccessListener(o ->
+                                        Toast.makeText(EventDetails.this, "You have been added", Toast.LENGTH_SHORT).show()
+                                )
+                                .addOnFailureListener(e ->
+                                        Toast.makeText(EventDetails.this, "You could not be added", Toast.LENGTH_SHORT).show());
+                        addMyselfDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            });
+
+            joinEventNo.setOnClickListener(v -> addMyselfDialog.dismiss());
+        });
 
         addMyselfBtn.setOnClickListener(view -> {
             LayoutInflater inflater = getLayoutInflater();
@@ -158,11 +204,11 @@ public class EventDetails extends AppCompatActivity {
         eventMemberItemAdapter.startListening();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        eventMemberItemAdapter.stopListening();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        eventMemberItemAdapter.stopListening();
+//    }
 
 
     class EventMemberItemAdapter extends FirebaseRecyclerAdapter<EventMemberItemModel, com.example.ieaapp.EventDetails.EventMemberItemAdapter.EventMemberItemViewHolder> {

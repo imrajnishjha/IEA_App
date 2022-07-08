@@ -46,6 +46,7 @@ public class forgot_password extends AppCompatActivity {
                 forgotPassDialog.show();
                 String mail = resetEmail.getText().toString();
                 if(mail.isEmpty()){
+                    forgotPassDialog.dismiss();
                     forgotPassInfo.setTextColor(Color.parseColor("#ff2c2c"));
                     resetEmail.requestFocus();
                     forgotPassInfo.setText("Please Enter the Email");
