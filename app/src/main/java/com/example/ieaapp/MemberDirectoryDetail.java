@@ -1,11 +1,18 @@
 package com.example.ieaapp;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.text.util.Linkify;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,14 +36,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MemberDirectoryDetail extends AppCompatActivity {
     ImageView memberProfileImage;
     TextView memberProfileName, memberMembershipId,
-            memberCompanyName, memberAddress;
+            memberCompanyName, memberAddress,memberPhoneno,memberMail
+            ,memberInfoText,memberInfoDetails;
     AppCompatButton memberProfileBackBtn, downloadBrochureBtn;
     RecyclerView memberProductRecyclerView;
-    String memberEmailStr, memberBrochureLink;
+    String memberEmailStr, memberBrochureLink,memberAddressStr,memberPhoneStr;
     MemberProductAdapter memberProductAdapter;
+    CircleImageView memberEmailImg,memberPhoneImg,memberAddressImg;
+    Dialog MemberinfoDialog;
+
 
     FirebaseRecyclerOptions<MemberProductModel> options;
 
@@ -47,17 +60,97 @@ public class MemberDirectoryDetail extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Registered Users");
 
+        MemberinfoDialog = new Dialog(this);
+
+
+        memberAddress=findViewById(R.id.nullphonenotext);
+        memberPhoneno = findViewById(R.id.nullphonenotext);
+
         memberProfileImage = findViewById(R.id.member_profile_image);
         memberMembershipId = findViewById(R.id.member_membership_id);
         memberProfileName = findViewById(R.id.member_profile_name);
 
+        memberMail=findViewById(R.id.nullemailtext);
+
+        memberEmailImg=findViewById(R.id.Member_mail_image);
+        memberPhoneImg=findViewById(R.id.Member_phone_image);
+        memberAddressImg=findViewById(R.id.Member_address_image);
+
+        memberEmailImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                LayoutInflater inflater = getLayoutInflater();
+                View PopupView = inflater.inflate(R.layout.member_info_popup, null);
+
+                memberInfoText=PopupView.findViewById(R.id.memberInfo_text);
+                memberInfoDetails=PopupView.findViewById(R.id.memberinfo_details);
+
+
+                memberInfoText.setText("Email");
+                memberInfoDetails.setText(memberEmailStr);
+                Linkify.addLinks(memberInfoDetails,Linkify.EMAIL_ADDRESSES);
+                memberInfoDetails.setLinksClickable(true);
+
+                MemberinfoDialog.setContentView(PopupView);
+                MemberinfoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                MemberinfoDialog.show();
+            }
+        });
+        memberAddressImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                LayoutInflater inflater = getLayoutInflater();
+                View PopupView = inflater.inflate(R.layout.member_info_popup, null);
+
+
+
+                memberInfoText=PopupView.findViewById(R.id.memberInfo_text);
+                memberInfoDetails=PopupView.findViewById(R.id.memberinfo_details);
+
+                memberInfoText.setText("Address");
+
+                memberInfoDetails.setText(memberAddressStr);
+
+                MemberinfoDialog.setContentView(PopupView);
+                MemberinfoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                MemberinfoDialog.show();
+
+            }
+        });
+        memberPhoneImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater inflater = getLayoutInflater();
+                View PopupView = inflater.inflate(R.layout.member_info_popup, null);
+
+                memberInfoText=PopupView.findViewById(R.id.memberInfo_text);
+                memberInfoDetails=PopupView.findViewById(R.id.memberinfo_details);
+
+
+                memberInfoText.setText("Contact Number");
+                memberInfoDetails.setText(memberPhoneStr);
+                Linkify.addLinks(memberInfoDetails,Linkify.PHONE_NUMBERS);
+                memberInfoDetails.setLinksClickable(true);
+
+                MemberinfoDialog.setContentView(PopupView);
+                MemberinfoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                MemberinfoDialog.show();
+
+            }
+        });
+
         memberCompanyName = findViewById(R.id.member_company_name);
-        memberAddress = findViewById(R.id.member_address);
 
         memberProfileBackBtn = findViewById(R.id.memberDetail_back_button);
         downloadBrochureBtn = findViewById(R.id.downloadBrochure_button);
 
         memberProfileBackBtn.setOnClickListener(view -> finish());
+
+
+
+
 
         String coreItemKey = getIntent().getStringExtra("MemberItemKey");
 
@@ -69,16 +162,21 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                     String memberMembershipIdStr = Objects.requireNonNull(snapshot.child("member_id").getValue()).toString();
                     memberEmailStr = Objects.requireNonNull(snapshot.child("email").getValue()).toString();
                     String memberCompanyNameStr = Objects.requireNonNull(snapshot.child("company_name").getValue()).toString();
-                    String memberAddressStr = Objects.requireNonNull(snapshot.child("address").getValue()).toString();
+                    memberAddressStr = Objects.requireNonNull(snapshot.child("address").getValue()).toString();
                     String memberNameStr = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
                     String memberPictureUrl = Objects.requireNonNull(snapshot.child("purl").getValue()).toString();
+                    memberPhoneStr = Objects.requireNonNull(snapshot.child("phone_number").getValue()).toString();
                     memberBrochureLink = Objects.requireNonNull(snapshot.child("brochure_url").getValue()).toString();
 
 
                     memberMembershipId.setText(memberMembershipIdStr);
                     memberCompanyName.setText(memberCompanyNameStr);
                     memberAddress.setText(memberAddressStr);
+                    memberPhoneno.setText(memberPhoneStr);
+                    memberMail.setText(memberEmailStr);
+
                     memberProfileName.setText(memberNameStr);
+
 
                     Glide.with(memberProfileImage.getContext())
                             .load(memberPictureUrl)

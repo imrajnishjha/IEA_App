@@ -63,7 +63,7 @@ public class payment_proof extends AppCompatActivity {
         setContentView(R.layout.activity_payment_proof);
         memberstorageRef = FirebaseStorage.getInstance().getReference();
 
-        registrarionConfirmationDialog = new Dialog(this);
+
 
         proof_img = findViewById(R.id.proof_img);
         insert_btn = findViewById(R.id.insert_proof_img_btn);
@@ -183,7 +183,7 @@ public class payment_proof extends AppCompatActivity {
 
     public Uri getimageUri(Context context, Bitmap bitimage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitimage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        bitimage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitimage, "Title", null);
         return Uri.parse(path);
     }
@@ -286,6 +286,7 @@ public class payment_proof extends AppCompatActivity {
     }
 
     public void confirmationPopup() {
+        registrarionConfirmationDialog = new Dialog(this);
         LayoutInflater inflater = getLayoutInflater();
         View confirmationView = inflater.inflate(R.layout.confirmation_popup, null);
         registrarionConfirmationDialog.setContentView(confirmationView);

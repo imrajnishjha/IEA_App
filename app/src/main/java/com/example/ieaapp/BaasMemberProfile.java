@@ -80,7 +80,8 @@ public class BaasMemberProfile extends AppCompatActivity {
 
         baasMemberRecyclerView = findViewById(R.id.baas_member_rv);
 
-        baasMemberRecyclerView.setLayoutManager(new NpaGridLayoutManager(this, 2, GridLayoutManager.VERTICAL,false));
+        baasMemberRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL,false));
+
 
         options = new FirebaseRecyclerOptions.Builder<MemberProductModel>()
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("Products by Member/"+ownerEmail), MemberProductModel.class)
@@ -131,11 +132,11 @@ public class BaasMemberProfile extends AppCompatActivity {
         super.onStart();
         baasListRecyclerAdapter.startListening();
     }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        baasListRecyclerAdapter.stopListening();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        baasListRecyclerAdapter.stopListening();
+//    }
 
     class NpaGridLayoutManager extends GridLayoutManager {
 

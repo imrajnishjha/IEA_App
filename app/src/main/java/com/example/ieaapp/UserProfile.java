@@ -196,7 +196,7 @@ public class UserProfile extends AppCompatActivity {
             public void onActivityResult(Uri result) {
                 String destinationUri = new StringBuilder(UUID.randomUUID().toString()).append(".jpg").toString();
                 UCrop.of(result, Uri.fromFile(new File(getCacheDir(), destinationUri)))
-                        .withAspectRatio(1, 1)
+                        .withAspectRatio(5, 6)
                         .start(UserProfile.this, 2);
             }
         });

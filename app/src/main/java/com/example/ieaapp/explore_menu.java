@@ -215,7 +215,7 @@ public class explore_menu extends AppCompatActivity {
         memberDirectoryCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MembersDirectory.class)));
         grievanceCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Grievance.class)));
         refer.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Refer.class)));
-//        baasCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, BAAS.class)));
+        baasCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, BAAS.class)));
         eventsCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Events.class)));
 
 

@@ -1,6 +1,7 @@
 package com.example.ieaapp;
 
 import androidx.annotation.NonNull;
+import android.app.ProgressDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -20,6 +21,8 @@ public class forgot_password extends AppCompatActivity {
     EditText resetEmail;
     AppCompatButton reset_Btn,forgotPass_Backbtn;
     FirebaseAuth mAuth;
+    ProgressDialog forgotPassDialog;
+
 
 
     @Override
@@ -38,16 +41,20 @@ public class forgot_password extends AppCompatActivity {
         reset_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                forgotPassDialog = new ProgressDialog(forgot_password.this);
+                forgotPassDialog.setMessage("Resetting the password");
+                forgotPassDialog.show();
                 String mail = resetEmail.getText().toString();
                 if(mail.isEmpty()){
                     forgotPassInfo.setTextColor(Color.parseColor("#ff2c2c"));
                     resetEmail.requestFocus();
-                    forgotPassInfo.setText("Please Enter Email");
+                    forgotPassInfo.setText("Please Enter the Email");
                 }
                 else{
                     mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
+                            forgotPassDialog.dismiss();
                             forgotPassInfo.setTextColor(Color.parseColor("#03AC13"));
                             forgotPassInfo.setText("Check your mail to reset your password");
 
@@ -55,9 +62,10 @@ public class forgot_password extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            forgotPassDialog.dismiss();
                             forgotPassInfo.setTextColor(Color.parseColor("#ff2c2c"));
                             resetEmail.requestFocus();
-                            forgotPassInfo.setText("This mail is not valid, Enter the Correct Mail");
+                            forgotPassInfo.setText("Invalid email address!\n Please enter the correct email address");
                         }
                     });
                 }
