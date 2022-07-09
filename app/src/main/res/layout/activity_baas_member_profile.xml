@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F5F5F5">
+        android:background="@color/different_black">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/baas_member_back_button"
@@ -63,7 +63,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/poppins_semi_bold"
             android:text="Wormos Pvt. Ltd."
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/baas_member_profile_image_cv"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:text="Enlarge Your Business"
-            android:textColor="@color/grey"
+            android:textColor="@color/white"
             android:fontFamily="@font/inria_sans_regular"
             app:layout_constraintTop_toBottomOf="@id/baas_member_profile_company_name"
             app:layout_constraintStart_toEndOf="@id/baas_member_profile_image_cv"
@@ -98,12 +98,13 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_style_black_round"
                 android:fontFamily="@font/poppins_semi_bold"
+                android:backgroundTint="#95ECFF"
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp"
                 android:text="View Brochure"
                 android:textSize="12sp"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/different_black"
                 app:layout_constraintStart_toStartOf="@id/baas_member_profile_image_cv"
                 app:layout_constraintTop_toBottomOf="@id/baas_member_profile_image_cv"
                 tools:ignore="HardcodedText" />
