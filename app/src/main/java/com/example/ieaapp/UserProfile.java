@@ -205,6 +205,13 @@ public class UserProfile extends AppCompatActivity {
             mGetProductImage.launch("image/*");
         });
 
+        userProfileImage.setOnClickListener(view -> {
+            mGetContent.launch("image/*");
+        });
+
+
+
+
         mGetPdf = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {

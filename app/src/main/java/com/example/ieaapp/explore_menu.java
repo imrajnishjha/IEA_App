@@ -35,13 +35,16 @@ import com.google.firebase.storage.StorageReference;
 import java.util.Date;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import kotlinx.coroutines.Delay;
 
 public class explore_menu extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    TextView exploreUsername, descriptionUsername, activeValue, solvedValue;
+    final DatabaseReference MemberOfMonthref = FirebaseDatabase.getInstance().getReference("Member of Month");
+    TextView exploreUsername, Memberofmonthname, activeValue, solvedValue;
     ImageView logoutImg, userImage;
+    CircleImageView MemberofmonthImg;
     CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer, baasCard, eventsCard;
     Dialog exploreIeaContactDialog;
     DatabaseReference databaseReference,solvedReference, unResolvedReference, rejectedReference;
@@ -56,7 +59,7 @@ public class explore_menu extends AppCompatActivity {
         setContentView(R.layout.activity_explore_menu);
 
         exploreUsername = findViewById(R.id.explore_username);
-        descriptionUsername = findViewById(R.id.description_username);
+        Memberofmonthname = findViewById(R.id.description_username);
         logoutImg = findViewById(R.id.logout_img);
         coreMembersCard = findViewById(R.id.core_mem);
         memberDirectoryCard = findViewById(R.id.member_directory);
@@ -72,6 +75,7 @@ public class explore_menu extends AppCompatActivity {
         activeVal = findViewById(R.id.activeval);
         baasCard = findViewById(R.id.bbas);
         eventsCard = findViewById(R.id.events);
+        MemberofmonthImg = findViewById(R.id.description_img);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -172,12 +176,31 @@ public class explore_menu extends AppCompatActivity {
 
 //        activeValue.setText(activeGrievances[0]);
 //        solvedValue.setText(solvedGrievances[0]);
+        MemberOfMonthref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String UserNameStr = Objects.requireNonNull(snapshot.child("name").getValue().toString());
+                String purl = Objects.requireNonNull(snapshot.child("purl").getValue().toString());
+                Memberofmonthname.setText(UserNameStr);
+                Glide.with(getApplicationContext())
+                        .load(purl)
+                        .placeholder(R.drawable.iea_logo)
+                        .circleCrop()
+                        .error(R.drawable.iea_logo)
+                        .into(MemberofmonthImg);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         StorageReference fileRef = storageProfilePicReference.child("User Profile Pictures/" + mAuth.getCurrentUser().getEmail().toString()+"ProfilePicture");
         fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(userImage.getContext())
+                Glide.with(getApplicationContext())
                         .load(uri)
                         .placeholder(R.drawable.iea_logo)
                         .circleCrop()

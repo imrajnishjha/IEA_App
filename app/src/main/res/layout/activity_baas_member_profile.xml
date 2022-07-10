@@ -51,6 +51,8 @@
             <ImageView
                 android:id="@+id/baas_member_profile_image_iv"
                 android:layout_width="match_parent"
+                android:backgroundTint="@color/white"
+                android:background="@color/white"
                 android:layout_height="match_parent"
                 android:src="@drawable/iea_logo" />
         </androidx.cardview.widget.CardView>
