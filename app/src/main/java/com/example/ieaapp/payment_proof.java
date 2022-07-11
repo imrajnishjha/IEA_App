@@ -2,6 +2,7 @@ package com.example.ieaapp;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -55,6 +56,7 @@ public class payment_proof extends AppCompatActivity {
     EditText paymentReceiverName;
     TextView paymentReceiverHeading;
     Dialog registrarionConfirmationDialog;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,8 @@ public class payment_proof extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_proof);
         memberstorageRef = FirebaseStorage.getInstance().getReference();
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Please wait...");
 
 
 
@@ -132,14 +136,16 @@ public class payment_proof extends AppCompatActivity {
                         paymentReceiverName.requestFocus();
                     } else {
                         if (sendNotification) {
-                            imguploader(imageBitmap);
+                            dialog.show();
+                            imguploader(imageBitmap,dialog);
                             sendNotification = false;
                         }
 
                     }
                 } else {
                     if (sendNotification) {
-                        imguploader(imageBitmap);
+                        dialog.show();
+                        imguploader(imageBitmap,dialog);
                         sendNotification = false;
                     }
                 }
@@ -212,7 +218,7 @@ public class payment_proof extends AppCompatActivity {
         }
     }
 
-    public void imguploader(Bitmap imageBitmap) {
+    public void imguploader(Bitmap imageBitmap,ProgressDialog dialog) {
 
         memberDirectoryRoot = FirebaseDatabase.getInstance();
         memberDirectoryRef = memberDirectoryRoot.getReference("Temp Registry");
@@ -271,6 +277,7 @@ public class payment_proof extends AppCompatActivity {
                                 }
                             });
                             Toast.makeText(payment_proof.this, "Upload Successful", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                             confirmationPopup();
 
                         }
@@ -291,6 +298,7 @@ public class payment_proof extends AppCompatActivity {
         View confirmationView = inflater.inflate(R.layout.confirmation_popup, null);
         registrarionConfirmationDialog.setContentView(confirmationView);
         registrarionConfirmationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         registrarionConfirmationDialog.show();
 
         new Handler().postDelayed(new Runnable() {
