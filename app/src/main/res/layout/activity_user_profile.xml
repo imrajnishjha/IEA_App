@@ -511,7 +511,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/add_product_btn"
-            android:layout_width="match_parent"
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
             android:layout_marginTop="24dp"
@@ -521,11 +521,30 @@
             android:fontFamily="@font/poppins_semi_bold"
             android:paddingStart="48dp"
             android:paddingEnd="48dp"
-            android:text="Add More"
+            android:text="Add"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/upload_product_image_cv"
+            tools:ignore="hardCodedText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/edit_product_btn"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_style_black"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp"
+            android:text="Edit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/upload_product_image_cv"
             tools:ignore="hardCodedText" />

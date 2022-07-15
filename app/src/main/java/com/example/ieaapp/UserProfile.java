@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,7 +62,7 @@ public class UserProfile extends AppCompatActivity {
     TextView userProfileName, userMembershipId, userMembershipDate, userMembershipExpiryDate;
     EditText userContactNumberEdtTxt, userDateOfBirthEdtTxt, userEmailEdtTxt, userCompanyNameEdtTxt, userAddressEdtTxt,
             productTitleEdtTxt, productDescriptionEdtTxt, productPriceEdtTxt;
-    AppCompatButton saveProfileBtn, userProfileBackBtn, uploadBrochureBtn, addProductBtn;
+    AppCompatButton saveProfileBtn, userProfileBackBtn, uploadBrochureBtn, addProductBtn,editProductBtn;
     ActivityResultLauncher<String> mGetContent, mGetPdf, mGetProductImage;
     TextInputEditText userBioEditText;
     CardView uploadProductImageCv;
@@ -89,6 +90,7 @@ public class UserProfile extends AppCompatActivity {
         userProfileBackBtn = findViewById(R.id.userProfile_back_button);
         uploadBrochureBtn = findViewById(R.id.upload_brochure_btn);
         addProductBtn = findViewById(R.id.add_product_btn);
+        editProductBtn = findViewById(R.id.edit_product_btn);
         productTitleEdtTxt = findViewById(R.id.product_title_edtTxt);
         productDescriptionEdtTxt = findViewById(R.id.product_description_edtTxt);
         productPriceEdtTxt = findViewById(R.id.product_price_edtTxt);
@@ -97,6 +99,15 @@ public class UserProfile extends AppCompatActivity {
 
         userProfileBackBtn.setOnClickListener(view -> {
             finish();
+        });
+
+        editProductBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), BaasMemberProfile.class);
+                intent.putExtra("BaasItemKey",userEmailConverted);
+                startActivity(intent);
+            }
         });
 
         storageProfilePicReference = FirebaseStorage.getInstance().getReference();

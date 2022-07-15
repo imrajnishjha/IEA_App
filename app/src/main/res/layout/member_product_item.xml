@@ -42,7 +42,7 @@
             android:textColor="@color/different_black"
             android:textSize="13sp"
             android:gravity="center"
-            android:background="#9EDD78"
+            android:background="#95ECFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

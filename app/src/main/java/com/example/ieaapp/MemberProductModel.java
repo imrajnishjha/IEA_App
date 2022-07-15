@@ -2,7 +2,7 @@ package com.example.ieaapp;
 
 public class MemberProductModel {
 
-    String productDescription,productImageUrl,productPrice,productTitle;
+    String productDescription,productImageUrl,productPrice,productTitle,ownerEmail;
 
     public MemberProductModel() {
     }
@@ -12,6 +12,7 @@ public class MemberProductModel {
         this.productImageUrl = productImageUrl;
         this.productPrice = productPrice;
         this.productTitle = productTitle;
+        this.ownerEmail = ownerEmail;
     }
 
     public String getProductDescription() {
@@ -46,4 +47,11 @@ public class MemberProductModel {
         this.productTitle = productTitle;
     }
 
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
 }

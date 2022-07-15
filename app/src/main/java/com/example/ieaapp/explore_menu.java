@@ -42,7 +42,7 @@ public class explore_menu extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     final DatabaseReference MemberOfMonthref = FirebaseDatabase.getInstance().getReference("Member of Month");
-    TextView exploreUsername, Memberofmonthname, activeValue, solvedValue;
+    TextView exploreUsername, Memberofmonthname, activeValue, solvedValue,MoMdescription;
     ImageView logoutImg, userImage;
     CircleImageView MemberofmonthImg;
     CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer, baasCard, eventsCard;
@@ -60,6 +60,7 @@ public class explore_menu extends AppCompatActivity {
 
         exploreUsername = findViewById(R.id.explore_username);
         Memberofmonthname = findViewById(R.id.description_username);
+        MoMdescription = findViewById(R.id.description_text);
         logoutImg = findViewById(R.id.logout_img);
         coreMembersCard = findViewById(R.id.core_mem);
         memberDirectoryCard = findViewById(R.id.member_directory);
@@ -181,7 +182,9 @@ public class explore_menu extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String UserNameStr = Objects.requireNonNull(snapshot.child("name").getValue().toString());
                 String purl = Objects.requireNonNull(snapshot.child("purl").getValue().toString());
+                String description = Objects.requireNonNull(snapshot.child("description").getValue().toString());
                 Memberofmonthname.setText(UserNameStr);
+                MoMdescription.setText(description);
                 Glide.with(getApplicationContext())
                         .load(purl)
                         .placeholder(R.drawable.iea_logo)

@@ -65,6 +65,7 @@
         <entry key="..\:/Android_Apps/IEA_App/app/src/main/res/layout/support_contact_popup.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/IEA_App/app/src/main/res/layout/upcoming_event_item.xml" value="0.32734375" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/drawable/button_style_green_round.xml" value="0.1295" />
+        <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1295" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_baas.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_baas_member_profile.xml" value="0.1" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_core_member_detail.xml" value="0.20416666666666666" />
@@ -76,11 +77,14 @@
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_forgot_password.xml" value="0.25" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_member_directory_detail.xml" value="0.22" />
+        <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_member_productedit.xml" value="0.25" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_members_directory.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_payment.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_registration.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_user_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/baas_list_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/baas_list_recycler_item.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/confirmation_popup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/confirmation_popup.xml" value="0.33" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/drop_down_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/event_member_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Rajnish Ranjan/AndroidStudioProjects/IEA_App/app/src/main/res/layout/member_info_popup.xml" value="0.33" />

@@ -39,6 +39,14 @@ public class FcmNotificationsSender  {
         this.mActivity = mActivity;
         this.number = number;
     }
+    public FcmNotificationsSender(String userFcmToken, String title, String body, Context mContext, Activity mActivity) {
+        this.userFcmToken = userFcmToken;
+        this.title = title;
+        this.body = body;
+        this.mContext = mContext;
+        this.mActivity = mActivity;
+
+    }
 
     public void SendNotifications() {
 
