@@ -36,7 +36,7 @@ public class BaasMemberProfile extends AppCompatActivity {
     RecyclerView baasMemberRecyclerView;
     FirebaseRecyclerOptions<MemberProductModel> options;
     MemberProductAdapter baasListRecyclerAdapter;
-    String memberBrochureLink, ownerEmail, ownerContactNumber, ownerContactEmail;
+    String memberBrochureLink, ownerEmail, ownerEmailConverted, ownerContactNumber, ownerContactEmail;
     Dialog baasMemberContactDialog;
 
 
@@ -45,6 +45,7 @@ public class BaasMemberProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baas_member_profile);
         ownerEmail = getIntent().getStringExtra("BaasItemKey");
+        ownerEmailConverted = ownerEmail.replaceAll("\\.", "%7");
         baasMemberProfileImage = findViewById(R.id.baas_member_profile_image_iv);
         baasMemberProfileCompanyName = findViewById(R.id.baas_member_profile_company_name);
         baasMemberProfileViewBrochure = findViewById(R.id.baas_member_profile_view_brochure_btn);
@@ -53,7 +54,7 @@ public class BaasMemberProfile extends AppCompatActivity {
 
         baasMemberContactDialog = new Dialog(this);
 
-        DatabaseReference ownerDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Registered Users/"+ownerEmail);
+        DatabaseReference ownerDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Registered Users/"+ownerEmailConverted);
 
         ownerDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -84,7 +85,7 @@ public class BaasMemberProfile extends AppCompatActivity {
 
 
         options = new FirebaseRecyclerOptions.Builder<MemberProductModel>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Products by Member/"+ownerEmail), MemberProductModel.class)
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Products by Member/"+ownerEmailConverted), MemberProductModel.class)
                 .build();
 
         baasListRecyclerAdapter = new MemberProductAdapter(options);
