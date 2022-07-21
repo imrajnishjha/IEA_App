@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class MemberProductAdapter extends FirebaseRecyclerAdapter<MemberProductModel,MemberProductAdapter.memberProductViewHolder>{
+public class BaasProductAdapter extends FirebaseRecyclerAdapter<MemberProductModel, BaasProductAdapter.memberProductViewHolder>{
 
 
     /**
@@ -28,33 +28,30 @@ public class MemberProductAdapter extends FirebaseRecyclerAdapter<MemberProductM
      *
      * @param options
      */
-    public MemberProductAdapter(@NonNull FirebaseRecyclerOptions<MemberProductModel> options) {
+    public BaasProductAdapter(@NonNull FirebaseRecyclerOptions<MemberProductModel> options) {
         super(options);
     }
 
     @Override
     protected void onBindViewHolder(@NonNull memberProductViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull MemberProductModel model) {
 
-        holder.productName.setText(model.getProductTitle());
-        holder.memberProductPrice.setText("\u20B9"+model.getProductPrice());
-        Glide.with(holder.productImg.getContext())
+        holder.baasProductName.setText(model.getProductTitle());
+        Glide.with(holder.baasProductImg.getContext())
                 .load(model.getProductImageUrl())
                 .placeholder(R.drawable.iea_logo)
                 .error(R.drawable.iea_logo)
-                .into(holder.productImg);
+                .into(holder.baasProductImg);
+        holder.baasProductPrice.setText("\u20B9"+model.getProductPrice());
 
-        holder.memberProductCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(model.getOwnerEmail().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail())){
-                    Intent i = new Intent(view.getContext(),memberProductedit.class);
-                    i.putExtra("EditItemKey", getRef(position).getKey());
-                    view.getContext().startActivity(i);
-                }else {
-                    Intent intent = new Intent(view.getContext(), MemberProductDetail.class);
-                    intent.putExtra("memberProductKey", getRef(position).getKey());
-                    view.getContext().startActivity(intent);
-                }
+        holder.memberProductCardView.setOnClickListener(view -> {
+            if(model.getOwnerEmail().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail())){
+                Intent intent = new Intent(view.getContext(),memberProductedit.class);
+                intent.putExtra("EditItemKey", getRef(position).getKey());
+                view.getContext().startActivity(intent);
+            } else {
+                Intent intent = new Intent(view.getContext(), MemberProductDetail.class);
+                intent.putExtra("memberProductKey", getRef(position).getKey());
+                view.getContext().startActivity(intent);
             }
         });
 
@@ -63,22 +60,22 @@ public class MemberProductAdapter extends FirebaseRecyclerAdapter<MemberProductM
     @NonNull
     @Override
     public memberProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.member_product_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.baas_product_item, parent, false);
         return new memberProductViewHolder(view);
     }
 
     class memberProductViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView productImg;
-        TextView productName, memberProductPrice;
+        ImageView baasProductImg;
+        TextView baasProductName, baasProductPrice;
         View memberProductCardView;
 
         public memberProductViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            productImg = itemView.findViewById(R.id.memberProductImg);
-            productName = itemView.findViewById(R.id.memberProductName);
-            memberProductPrice = itemView.findViewById(R.id.member_product_price);
+            baasProductImg = itemView.findViewById(R.id.baas_product_img);
+            baasProductName = itemView.findViewById(R.id.baas_product_name);
+            baasProductPrice = itemView.findViewById(R.id.baas_product_price);
             memberProductCardView = itemView;
         }
     }

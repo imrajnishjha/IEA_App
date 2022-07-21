@@ -67,8 +67,6 @@ public class payment_proof extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Please wait...");
 
-
-
         proof_img = findViewById(R.id.proof_img);
         insert_btn = findViewById(R.id.insert_proof_img_btn);
         payment_proofbackbtn = findViewById(R.id.paymentproof_back_button);

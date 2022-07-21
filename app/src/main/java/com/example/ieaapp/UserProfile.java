@@ -50,6 +50,7 @@ public class UserProfile extends AppCompatActivity {
     String userEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
     String userEmailConverted, userCompanyNameStr;
     Uri resultUri, pdfUri, productImageUri = null;
+    ProgressDialog productUploadProgressDialog;
 
     {
         assert userEmail != null;
@@ -96,6 +97,7 @@ public class UserProfile extends AppCompatActivity {
         productPriceEdtTxt = findViewById(R.id.product_price_edtTxt);
         uploadProductImageCv = findViewById(R.id.upload_product_image_cv);
         uploadProductImageIv = findViewById(R.id.upload_product_image_iv);
+        productUploadProgressDialog = new ProgressDialog(this);
 
         userProfileBackBtn.setOnClickListener(view -> {
             finish();
@@ -209,11 +211,13 @@ public class UserProfile extends AppCompatActivity {
                 UCrop.of(result, Uri.fromFile(new File(getCacheDir(), destinationUri)))
                         .withAspectRatio(5, 6)
                         .start(UserProfile.this, 2);
+                uploadProductImageIv.setPadding(0, 0, 0, 0);
             }
         });
 
         uploadProductImageCv.setOnClickListener(view -> {
             mGetProductImage.launch("image/*");
+
         });
 
         userProfileImage.setOnClickListener(view -> {
@@ -292,7 +296,6 @@ public class UserProfile extends AppCompatActivity {
                 String productPriceStr = productPriceEdtTxt.getText().toString();
 
                 uploadProductImage(productImageUri);
-                Toast.makeText(this, "Your product has been added", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -300,6 +303,8 @@ public class UserProfile extends AppCompatActivity {
     }
 
     private void uploadProductImage(Uri productImageUri) {
+        productUploadProgressDialog.setMessage("Uploading Product");
+        productUploadProgressDialog.show();
         StorageReference productFileRef = storageProfilePicReference.child("Product Images/" + mAuth.getCurrentUser().getEmail().toString() + productTitleEdtTxt.getText().toString());
         productFileRef.putFile(productImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -316,12 +321,27 @@ public class UserProfile extends AppCompatActivity {
                         String productPriceStr = productPriceEdtTxt.getText().toString();
 
                         ProductModel newProduct = new ProductModel(uri.toString(), productTitleStr, productDescriptionStr, productPriceStr, mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7"));
-                        productReferenceByUser.child(productKey).setValue(newProduct);
+                        productReferenceByUser.child(productKey).setValue(newProduct).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                startActivity(new Intent(getApplicationContext(), UserProfile.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                productUploadProgressDialog.dismiss();
+                                Toast.makeText(UserProfile.this, "Your product has been added", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                productUploadProgressDialog.dismiss();
+                                Toast.makeText(UserProfile.this, "Product could not be added.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-                        productTitleEdtTxt.setText("");
-                        productDescriptionEdtTxt.setText("");
-                        productPriceEdtTxt.setText("");
-                        uploadProductImageIv.setImageResource(R.drawable.ic_add_circle_outline);
+//                        productTitleEdtTxt.setText("");
+//                        productDescriptionEdtTxt.setText("");
+//                        productPriceEdtTxt.setText("");
+//                        uploadProductImageIv.setImageResource(R.drawable.add_image_icon);
+//                        uploadProductImageIv.setPadding(24, 24, 24, 24);
                     }
                 });
             }

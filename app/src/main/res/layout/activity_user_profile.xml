@@ -432,7 +432,6 @@
                 android:padding="24dp"
                 android:src="@drawable/add_image_icon" />
 
-
         </androidx.cardview.widget.CardView>
 
         <EditText

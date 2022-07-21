@@ -3,7 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/Android Projects/IEA App/app/src/main/res/layout/activity_baas.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android/Android Projects/IEA App/app/src/main/res/layout/activity_baas_member_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android/Android Projects/IEA App/app/src/main/res/layout/activity_events.xml" value="0.25416666666666665" />
         <entry key="..\:/Android/Android Projects/IEA App/app/src/main/res/layout/activity_explore_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android/Android Projects/IEA App/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android/Android Projects/IEA App/app/src/main/res/layout/activity_member_directory_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android/Android Projects/IEA App/app/src/main/res/layout/activity_member_product_detail.xml" value="0.22592592592592592" />
+        <entry key="..\:/Android/Android Projects/IEA App/app/src/main/res/layout/activity_user_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android/Android Projects/IEA App/app/src/main/res/layout/baas_product_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android/Android Projects/IEA App/app/src/main/res/layout/member_product_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Android_Apps/IEA_App/app/src/main/res/drawable/black_boundry.xml" value="0.1" />
         <entry key="..\:/Android_Apps/IEA_App/app/src/main/res/drawable/button_style.xml" value="0.1075" />
         <entry key="..\:/Android_Apps/IEA_App/app/src/main/res/drawable/button_style_black.xml" value="0.1075" />

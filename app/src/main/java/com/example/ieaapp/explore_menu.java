@@ -27,30 +27,27 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.Date;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import kotlinx.coroutines.Delay;
 
 public class explore_menu extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     final DatabaseReference MemberOfMonthref = FirebaseDatabase.getInstance().getReference("Member of Month");
-    TextView exploreUsername, Memberofmonthname, activeValue, solvedValue,MoMdescription;
+    TextView exploreUsername, Memberofmonthname, activeValue, solvedValue, MoMdescription;
     ImageView logoutImg, userImage;
     CircleImageView MemberofmonthImg;
     CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer, baasCard, eventsCard;
     Dialog exploreIeaContactDialog;
-    DatabaseReference databaseReference,solvedReference, unResolvedReference, rejectedReference;
+    DatabaseReference databaseReference, solvedReference, unResolvedReference, rejectedReference;
     StorageReference storageProfilePicReference;
     AppCompatButton exploreMenuLogoutBtn;
-    long allsolvedValue,allProblemValue, allRejectedValue;
+    long allsolvedValue, allProblemValue, allRejectedValue;
     RelativeLayout activeBar, activeVal;
 
     @Override
@@ -90,22 +87,22 @@ public class explore_menu extends AppCompatActivity {
         unResolvedReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                allProblemValue=snapshot.getChildrenCount();
+                allProblemValue = snapshot.getChildrenCount();
                 solvedReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        allsolvedValue=snapshot.getChildrenCount();
+                        allsolvedValue = snapshot.getChildrenCount();
                         solvedValue.setText(String.valueOf(allsolvedValue));
-                        Log.d("Problems", "Solved Grievances "+snapshot.getChildrenCount());
+                        Log.d("Problems", "Solved Grievances " + snapshot.getChildrenCount());
                         rejectedReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                allRejectedValue=snapshot.getChildrenCount();
-                                activeValue.setText(String.valueOf(allProblemValue-allsolvedValue-allRejectedValue));
-                                Log.d("Problems", "All Count: "+snapshot.getChildrenCount());
-                                Log.d("Problems", "onDataChange: "+allsolvedValue);
-                                Log.d("Problems", "onDataChange: "+allRejectedValue);
-                                Log.d("Problems", "Rejected Grievances "+snapshot.getChildrenCount());
+                                allRejectedValue = snapshot.getChildrenCount();
+                                activeValue.setText(String.valueOf(allProblemValue - allsolvedValue - allRejectedValue));
+                                Log.d("Problems", "All Count: " + snapshot.getChildrenCount());
+                                Log.d("Problems", "onDataChange: " + allsolvedValue);
+                                Log.d("Problems", "onDataChange: " + allRejectedValue);
+                                Log.d("Problems", "Rejected Grievances " + snapshot.getChildrenCount());
                             }
 
                             @Override
@@ -128,8 +125,6 @@ public class explore_menu extends AppCompatActivity {
 
             }
         });
-
-
 
 
         String userEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
@@ -169,8 +164,6 @@ public class explore_menu extends AppCompatActivity {
         });
 
 
-
-
         Log.d("grievance value", String.valueOf(activeGrievances[0]));
         Log.d("grievance value", String.valueOf(solvedGrievances[0]));
 
@@ -199,7 +192,7 @@ public class explore_menu extends AppCompatActivity {
             }
         });
 
-        StorageReference fileRef = storageProfilePicReference.child("User Profile Pictures/" + mAuth.getCurrentUser().getEmail().toString()+"ProfilePicture");
+        StorageReference fileRef = storageProfilePicReference.child("User Profile Pictures/" + mAuth.getCurrentUser().getEmail().toString() + "ProfilePicture");
         fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -260,13 +253,12 @@ public class explore_menu extends AppCompatActivity {
         activeVal.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MyGrievances.class)));
 
     }
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
-    }
-
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        finish();
+//        overridePendingTransition(0, 0);
+//        startActivity(getIntent());
+//        overridePendingTransition(0, 0);
+//    }
 }

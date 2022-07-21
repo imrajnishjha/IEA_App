@@ -35,7 +35,7 @@ public class BaasMemberProfile extends AppCompatActivity {
     AppCompatButton baasMemberProfileViewBrochure, baasMemberProfileContactUs, baasMemberBackBtn;
     RecyclerView baasMemberRecyclerView;
     FirebaseRecyclerOptions<MemberProductModel> options;
-    MemberProductAdapter baasListRecyclerAdapter;
+    BaasProductAdapter baasListRecyclerAdapter;
     String memberBrochureLink, ownerEmail, ownerEmailConverted, ownerContactNumber, ownerContactEmail;
     Dialog baasMemberContactDialog;
 
@@ -88,7 +88,7 @@ public class BaasMemberProfile extends AppCompatActivity {
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("Products by Member/"+ownerEmailConverted), MemberProductModel.class)
                 .build();
 
-        baasListRecyclerAdapter = new MemberProductAdapter(options);
+        baasListRecyclerAdapter = new BaasProductAdapter(options);
         baasMemberRecyclerView.setAdapter(baasListRecyclerAdapter);
 
         baasListRecyclerAdapter.startListening();

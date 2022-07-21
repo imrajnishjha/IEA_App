@@ -20,6 +20,9 @@
         android:theme="@style/Theme.IEAApp"
         tools:targetApi="28">
         <activity
+            android:name=".MemberProductDetail"
+            android:exported="false" />
+        <activity
             android:name=".memberProductedit"
             android:exported="false" />
         <activity

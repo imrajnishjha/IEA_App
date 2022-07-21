@@ -43,13 +43,8 @@ public class Login extends AppCompatActivity {
         signInButton = findViewById(R.id.signin_btn);
 
         forgotPassIntent=findViewById(R.id.forgotPassIntent);
-        forgotPassIntent.setPaintFlags(forgotPassIntent.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        forgotPassIntent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Login.this, forgot_password.class));
-            }
-        });
+//        forgotPassIntent.setPaintFlags(forgotPassIntent.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        forgotPassIntent.setOnClickListener(view -> startActivity(new Intent(Login.this, forgot_password.class)));
 
         mAuth = FirebaseAuth.getInstance();
 

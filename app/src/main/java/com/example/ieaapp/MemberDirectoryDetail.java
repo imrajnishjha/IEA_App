@@ -1,6 +1,5 @@
 package com.example.ieaapp;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,9 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,13 +36,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MemberDirectoryDetail extends AppCompatActivity {
     ImageView memberProfileImage;
     TextView memberProfileName, memberMembershipId,
-            memberCompanyName, memberAddress,memberPhoneno,memberMail
-            ,memberInfoText,memberInfoDetails;
-    AppCompatButton memberProfileBackBtn, downloadBrochureBtn;
+            memberCompanyName, memberAddress, memberPhoneno, memberMail, memberInfoText, memberInfoDetails;
+    AppCompatButton memberProfileBackBtn, downloadBrochureBtn, moreProductButton;
     RecyclerView memberProductRecyclerView;
-    String memberEmailStr, memberBrochureLink,memberAddressStr,memberPhoneStr;
+    String memberEmailStr, memberBrochureLink, memberAddressStr, memberPhoneStr;
     MemberProductAdapter memberProductAdapter;
-    CircleImageView memberEmailImg,memberPhoneImg,memberAddressImg;
+    CircleImageView memberEmailImg, memberPhoneImg, memberAddressImg;
     Dialog MemberinfoDialog;
 
 
@@ -61,20 +55,18 @@ public class MemberDirectoryDetail extends AppCompatActivity {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Registered Users");
 
         MemberinfoDialog = new Dialog(this);
-
-
-        memberAddress=findViewById(R.id.nullphonenotext);
+        memberAddress = findViewById(R.id.nullphonenotext);
         memberPhoneno = findViewById(R.id.nullphonenotext);
-
         memberProfileImage = findViewById(R.id.member_profile_image);
         memberMembershipId = findViewById(R.id.member_membership_id);
         memberProfileName = findViewById(R.id.member_profile_name);
+        moreProductButton = findViewById(R.id.moreProduct_button);
 
-        memberMail=findViewById(R.id.nullemailtext);
+        memberMail = findViewById(R.id.nullemailtext);
 
-        memberEmailImg=findViewById(R.id.Member_mail_image);
-        memberPhoneImg=findViewById(R.id.Member_phone_image);
-        memberAddressImg=findViewById(R.id.Member_address_image);
+        memberEmailImg = findViewById(R.id.Member_mail_image);
+        memberPhoneImg = findViewById(R.id.Member_phone_image);
+        memberAddressImg = findViewById(R.id.Member_address_image);
 
         memberEmailImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,13 +75,13 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                 LayoutInflater inflater = getLayoutInflater();
                 View PopupView = inflater.inflate(R.layout.member_info_popup, null);
 
-                memberInfoText=PopupView.findViewById(R.id.memberInfo_text);
-                memberInfoDetails=PopupView.findViewById(R.id.memberinfo_details);
+                memberInfoText = PopupView.findViewById(R.id.memberInfo_text);
+                memberInfoDetails = PopupView.findViewById(R.id.memberinfo_details);
 
 
                 memberInfoText.setText("Email");
                 memberInfoDetails.setText(memberEmailStr);
-                Linkify.addLinks(memberInfoDetails,Linkify.EMAIL_ADDRESSES);
+                Linkify.addLinks(memberInfoDetails, Linkify.EMAIL_ADDRESSES);
                 memberInfoDetails.setLinksClickable(true);
 
                 MemberinfoDialog.setContentView(PopupView);
@@ -105,9 +97,8 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                 View PopupView = inflater.inflate(R.layout.member_info_popup, null);
 
 
-
-                memberInfoText=PopupView.findViewById(R.id.memberInfo_text);
-                memberInfoDetails=PopupView.findViewById(R.id.memberinfo_details);
+                memberInfoText = PopupView.findViewById(R.id.memberInfo_text);
+                memberInfoDetails = PopupView.findViewById(R.id.memberinfo_details);
 
                 memberInfoText.setText("Address");
 
@@ -125,13 +116,13 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                 LayoutInflater inflater = getLayoutInflater();
                 View PopupView = inflater.inflate(R.layout.member_info_popup, null);
 
-                memberInfoText=PopupView.findViewById(R.id.memberInfo_text);
-                memberInfoDetails=PopupView.findViewById(R.id.memberinfo_details);
+                memberInfoText = PopupView.findViewById(R.id.memberInfo_text);
+                memberInfoDetails = PopupView.findViewById(R.id.memberinfo_details);
 
 
                 memberInfoText.setText("Contact Number");
                 memberInfoDetails.setText(memberPhoneStr);
-                Linkify.addLinks(memberInfoDetails,Linkify.PHONE_NUMBERS);
+                Linkify.addLinks(memberInfoDetails, Linkify.PHONE_NUMBERS);
                 memberInfoDetails.setLinksClickable(true);
 
                 MemberinfoDialog.setContentView(PopupView);
@@ -147,9 +138,6 @@ public class MemberDirectoryDetail extends AppCompatActivity {
         downloadBrochureBtn = findViewById(R.id.downloadBrochure_button);
 
         memberProfileBackBtn.setOnClickListener(view -> finish());
-
-
-
 
 
         String coreItemKey = getIntent().getStringExtra("MemberItemKey");
@@ -216,32 +204,17 @@ public class MemberDirectoryDetail extends AppCompatActivity {
 
         });
 
-    }
+        moreProductButton.setOnClickListener(view -> {
+            startActivity(new Intent(this, BAAS.class));
+        });
 
-//    public String yearIncrementer(String date) {
-//        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-//        Calendar c = Calendar.getInstance();
-//        try {
-//            c.setTime(Objects.requireNonNull(sdf.parse(date)));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        c.add(Calendar.DATE, 365);
-//        date = sdf.format(c.getTime());
-//        return date;
-//    }
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
         memberProductAdapter.startListening();
     }
-
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        memberProductAdapter.stopListening();
-//    }
 
     public static class WrapContentLinearLayoutManager extends LinearLayoutManager {
 

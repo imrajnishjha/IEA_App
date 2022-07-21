@@ -76,7 +76,6 @@ public class memberProductedit extends AppCompatActivity {
                 productDesc.setText(productDescStr);
                 Glide.with(getApplicationContext())
                         .load(productPurlStr)
-                        .circleCrop()
                         .placeholder(R.drawable.iea_logo)
                         .error(R.drawable.iea_logo)
                         .into(Productimg);
