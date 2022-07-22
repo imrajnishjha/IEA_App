@@ -13,6 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/member_notification_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bell_icon"
+            android:backgroundTint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/user_img"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/logout_img"
             android:layout_width="20dp"
@@ -213,16 +225,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:paddingBottom="8dp"
                 android:text="Thank you for initiating a step towards degitalizing IEA and Making it Convenient for Everyone to Grow their Businesses."
                 android:textColor="@color/different_black"
                 android:textSize="9sp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/description_username"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description_username" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -413,7 +425,6 @@
                     android:textStyle="bold" />
 
 
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -459,7 +470,6 @@
                     android:textColor="#000"
                     android:textSize="13sp"
                     android:textStyle="bold" />
-
 
 
                 <TextView
@@ -554,7 +564,6 @@
                     android:textColor="#000"
                     android:textSize="13sp"
                     android:textStyle="bold" />
-
 
 
                 <TextView

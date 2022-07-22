@@ -46,7 +46,7 @@ public class explore_menu extends AppCompatActivity {
     Dialog exploreIeaContactDialog;
     DatabaseReference databaseReference, solvedReference, unResolvedReference, rejectedReference;
     StorageReference storageProfilePicReference;
-    AppCompatButton exploreMenuLogoutBtn;
+    AppCompatButton exploreMenuLogoutBtn, memberNotificationIcon;
     long allsolvedValue, allProblemValue, allRejectedValue;
     RelativeLayout activeBar, activeVal;
 
@@ -74,6 +74,7 @@ public class explore_menu extends AppCompatActivity {
         baasCard = findViewById(R.id.bbas);
         eventsCard = findViewById(R.id.events);
         MemberofmonthImg = findViewById(R.id.description_img);
+        memberNotificationIcon = findViewById(R.id.member_notification_icon);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -252,6 +253,9 @@ public class explore_menu extends AppCompatActivity {
         activeBar.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MyGrievances.class)));
         activeVal.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MyGrievances.class)));
 
+        memberNotificationIcon.setOnClickListener(view -> {
+            startActivity(new Intent(explore_menu.this, MembersNotification.class));
+        });
     }
 //    @Override
 //    protected void onRestart() {
