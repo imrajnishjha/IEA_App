@@ -78,7 +78,7 @@ public class EventDetails extends AppCompatActivity {
                 eventDateTv.setText(Objects.requireNonNull(snapshot.child("date").getValue()).toString());
                 eventDescriptionTv.setText(Objects.requireNonNull(snapshot.child("description").getValue()).toString());
 
-                Glide.with(eventDetailImg.getContext())
+                Glide.with(getApplicationContext())
                         .load(Objects.requireNonNull(snapshot.child("imgUrl").getValue()).toString())
                         .error(R.drawable.iea_logo)
                         .placeholder(R.drawable.iea_logo)
@@ -223,7 +223,7 @@ public class EventDetails extends AppCompatActivity {
             notComingToEventDialog = new Dialog(EventDetails.this);
 
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
-            Glide.with(holder.recyclerMemberItemImg.getContext())
+            Glide.with(getApplicationContext())
                     .load(model.getImageUrl())
                     .circleCrop()
                     .error(R.drawable.iea_logo)
