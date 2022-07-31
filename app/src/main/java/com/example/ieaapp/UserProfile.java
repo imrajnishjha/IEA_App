@@ -40,6 +40,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -314,6 +315,7 @@ public class UserProfile extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         DatabaseReference productReferenceByUser = FirebaseDatabase.getInstance().getReference().child("Products by Member")
                                 .child(mAuth.getCurrentUser().getEmail().replaceAll("\\.", "%7"));
+                        DatabaseReference productReference = FirebaseDatabase.getInstance().getReference().child("Products");
                         String productKey = productReferenceByUser.push().getKey();
 
                         String productTitleStr = productTitleEdtTxt.getText().toString();
@@ -324,16 +326,31 @@ public class UserProfile extends AppCompatActivity {
                         productReferenceByUser.child(productKey).setValue(newProduct).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                startActivity(new Intent(getApplicationContext(), UserProfile.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                                productUploadProgressDialog.dismiss();
-                                Toast.makeText(UserProfile.this, "Your product has been added", Toast.LENGTH_SHORT).show();
-                                finish();
+                                ProductDetailsModel newProductDetail = new ProductDetailsModel(mAuth.getCurrentUser().getEmail(),
+                                        userContactNumberEdtTxt.getText().toString(),productDescriptionStr,uri.toString(),productPriceStr,
+                                        productTitleStr,productTitleStr.toLowerCase());
+                                productReference.child(productKey).setValue(newProductDetail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        startActivity(new Intent(getApplicationContext(), UserProfile.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                        productUploadProgressDialog.dismiss();
+                                        Toast.makeText(UserProfile.this, "Your product has been added", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        productUploadProgressDialog.dismiss();
+                                        Toast.makeText(UserProfile.this, "Product could not be added", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 productUploadProgressDialog.dismiss();
-                                Toast.makeText(UserProfile.this, "Product could not be added.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserProfile.this, "Product could not be added", Toast.LENGTH_SHORT).show();
                             }
                         });
 

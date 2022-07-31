@@ -38,7 +38,7 @@
             android:justificationMode="inter_word"
             android:textSize="12sp"
             tools:text="asdfsad asdffsadfsadf asdfasdfasd asdfasdfasf safdsadfas asdfasdf sadfasddf adfsas fsdasfasndfasdfaskdf"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             tools:maxLength="40"
             app:layout_constraintEnd_toStartOf="@id/member_notification_viewMore"
             app:layout_constraintStart_toStartOf="parent"
