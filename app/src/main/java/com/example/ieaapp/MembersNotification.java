@@ -25,7 +25,11 @@ public class MembersNotification extends AppCompatActivity {
         memberNotificationRv = findViewById(R.id.member_notification_rv);
         memberNotificationBackBtn = findViewById(R.id.member_notification_back_icon);
 
-        memberNotificationRv.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+
+        memberNotificationRv.setLayoutManager(linearLayoutManager);
 
         options = new FirebaseRecyclerOptions.Builder<MemberNotificationModel>()
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("Notification").child(FirebaseAuth.getInstance().getCurrentUser().getEmail().replaceAll("\\.", "%7")), MemberNotificationModel.class)

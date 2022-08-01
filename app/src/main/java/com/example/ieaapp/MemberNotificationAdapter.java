@@ -1,5 +1,7 @@
 package com.example.ieaapp;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +27,18 @@ public class MemberNotificationAdapter extends FirebaseRecyclerAdapter<MemberNot
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull MemberNotifcationViewHolder holder, int position, @NonNull MemberNotificationModel model) {
+    protected void onBindViewHolder(@NonNull MemberNotifcationViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull MemberNotificationModel model) {
         holder.memberNotificationTitle.setText(model.getNotificationTitle());
         holder.memberNotificationContent.setText(model.getNotificationContent());
         holder.memberNotificationDate.setText(model.getNotificationDate());
+        holder.memberNotificationItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(),MemberNotificationDetail.class);
+                i.putExtra("NotificationItemKey", getRef(position).getKey());
+                view.getContext().startActivity(i);
+            }
+        });
     }
 
     @NonNull
